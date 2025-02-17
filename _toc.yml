@@ -1,5 +1,5 @@
 format: jb-book
-root: about/unsyllabus
+root: about/syllabus
 parts:
 - caption: Part 1 - Errors in Scientific Computing
   chapters:
