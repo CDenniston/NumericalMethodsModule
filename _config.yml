@@ -1,7 +1,7 @@
 # Book settings
-title: Physics 111 
-author: Firas Moosvi
-logo: images/logo.jpg
+title: Numerical Methods
+author: Colin Denniston
+logo: images/logo.png
 copyright: ""
 exclude_patterns: ["LICENSE.md", "README.md"]
 only_build_toc_files: true
@@ -14,17 +14,17 @@ latex:
     targetname: book.tex
 html:
   home_page_in_navbar : true
-  use_repository_button: true
-  use_issues_button: true
-  use_edit_page_button: true
+  use_repository_button: false
+#  use_issues_button: true
+#  use_edit_page_button: true
   navbar_number_sections : false
-  announcement: "Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
+#  announcement: "Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!"  baseurl : "https://cdenniston.github.io/NumericalMethodsModule/" # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   # google_analytics_id: UA-11111111 # add your Google Analytics Tracking Code
   comments:
-    hypothesis: false
+    hypothesis: true
     utterances:
-      repo: "firasm/jupyterbook_course_template"
-    dokieli: false
+      repo: "CDenniston/NumericalMethodsModule"
+    dokieli: true
   extra_footer : |
       <div>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
@@ -37,7 +37,7 @@ launch_buttons:
   thebe              : true
 
 repository: 
-  url          : https://github.com/firasm/jupyterbook_course_template
+  url          : https://github.com/CDenniston/NumericalMethodsModule
   path_to_book : ""
   branch       : main
 
