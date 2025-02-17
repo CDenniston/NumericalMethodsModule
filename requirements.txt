@@ -4,3 +4,4 @@ linkify-it-py
 jupyter-book
 matplotlib
 numpy
+scipy
