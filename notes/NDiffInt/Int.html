@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Numerical Integration &#8212; Physics 111</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pdf_print.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "firasm/jupyterbook_course_template");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/NDiffInt/Int';</script>
+    <script src="../../_static/save_state.js"></script>
+    <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Higher Order Integration Schemes" href="HigherOrderInt.html" />
+    <link rel="prev" title="Errors in Numerical Differentiation" href="NumDiffInt_Errors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../about/unsyllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.jpg" class="logo__image only-light" alt="Physics 111 - Home"/>
+    <script>document.write(`<img src="../../_static/logo.jpg" class="logo__image only-dark" alt="Physics 111 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about/unsyllabus.html">
+                    Unsyllabus
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/HornersAlgorithm.html">Example: Evaluating polynomials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Interpolation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/edit/main/notes/NDiffInt/Int.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/issues/new?title=Issue%20on%20page%20%2Fnotes/NDiffInt/Int.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notes/NDiffInt/Int.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Numerical Integration</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-integration">Composite Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="numerical-integration">
+<span id="page-topic1"></span><h1>Numerical Integration<a class="headerlink" href="#numerical-integration" title="Permalink to this heading">#</a></h1>
+<p>Numerical integration has a long history.  Older literature refers to this as numerical “quadrature”.  Numerical differentiation is primarily used for cases where we have discrete data corresponding to measurements of our underlying function. While numerical integration is used in similar circumstances, it is also often a necessity even when we have a relatively simple analytic form for the underlying function due to the lack of an analytic form for most anti-derivatives.  For example, <span class="math notranslate nohighlight">\(f(x) = e^{-x^2}\)</span> can be easily differentiated (<span class="math notranslate nohighlight">\(f'(x)=2x e^{-x^2}\)</span>) but lacks an analytic antiderivative.  Statistics textbooks still typically contain tables related to the antiderivative of this function that are obtained by numerical integration.</p>
+<p>We will start our analysis in a similar manner to our discussion of numerical differentiation and discuss integration of data at equally spaced points.  However, after deriving low order formulas in this manner we will move onto other methods of deriving higher order formulas.  As before,  we replace <span class="math notranslate nohighlight">\(f(x)\)</span> with its interpolatory function (Lagrange or splines) and take the derivative of that.  i.e.</p>
+<div class="math notranslate nohighlight">
+\[ f(x) = p(x) + \epsilon(x), \]</div>
+<p>where <span class="math notranslate nohighlight">\(p(x)\)</span> is our interpolation and <span class="math notranslate nohighlight">\(\epsilon(x)\)</span> is the error in the interpolation.  Integrating this gives</p>
+<div class="math notranslate nohighlight">
+\[ \int_a^b f(x) dx= \int_a^b p(x) dx + \int_a^b \epsilon(x) dx.\]</div>
+<p>Applying this to Lagrange interpolation we get</p>
+<div class="math notranslate nohighlight" id="equation-lagrangeint">
+<span class="eqno">(30)<a class="headerlink" href="#equation-lagrangeint" title="Permalink to this equation">#</a></span>\[\begin{split}
+\begin{align}
+\int_a^b f(x) dx &amp;\approx \int_a^b \sum_{k=0}^n f(x_k) L_k(x) dx,\\
+&amp; = \sum_{k=0}^n f(x_k)  \int_a^b L_k(x) dx,\\
+&amp; = \sum_{k=0}^n a_k f(x_k),
+\end{align}
+\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[
+a_k=\int_a^b L_k(x) dx,
+\]</div>
+<p>and error</p>
+<div class="math notranslate nohighlight">
+\[
+E =  \int_a^b  \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j) dx.
+\]</div>
+<p><strong>Example: Trapezoidal Rule.</strong>  Here we use a linear interpolation between the endpoints so <span class="math notranslate nohighlight">\(x_0=a\)</span> and <span class="math notranslate nohighlight">\(x_1=b\)</span>.  Integration of the Lagrange polynomials for this case gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+a_0 &amp;= \int_a^b L_0(x) dx,\\
+&amp;= \int_a^b \frac{x-x_1}{x_0-x_1} dx,\\
+&amp;= \frac{b-a}{2}.
+\end{align}
+\end{split}\]</div>
+<p>A very similar integration for <span class="math notranslate nohighlight">\(L_1(x)\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[
+a_1 =\int_a^b L_0(x) dx = \frac{b-a}{2}.
+\]</div>
+<p>Putting this into Eq. <a class="reference internal" href="#equation-lagrangeint">(30)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x) dx \approx \frac{b-a}{2}\left(f(a)+f(b)\right).
+\]</div>
+<p>This is called the <em>trapezoidal</em> rule as the shape under the line we are integration over is a trapezoid.  To find the error,</p>
+<div class="math notranslate nohighlight">
+\[
+E =  \int_{x_0}^{x_1}  \frac{f''(\xi)}{2}(x-x_0)(x-x_1) dx.
+\]</div>
+<p>The difficulty here is that <span class="math notranslate nohighlight">\(\xi\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span> in an unknown manner.  Noting that <span class="math notranslate nohighlight">\((x-x_0)(x-x_1) \leq 0\)</span> on <span class="math notranslate nohighlight">\([x_0,x_1]\)</span> we can make use of</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>The Weighted Mean Value Theorem</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If <span class="math notranslate nohighlight">\(f(x)\)</span> is continuously and <span class="math notranslate nohighlight">\(g(x)\)</span> is an integrable function that does not change sign on <span class="math notranslate nohighlight">\([a,b]\)</span>, then there exists <span class="math notranslate nohighlight">\(\eta \in (a,b)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x)g(x) dx = f(\eta)\int_a^b g(x)dx.
+\]</div>
+</div>
+</details><p>to conclude that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+E &amp;= \frac{f''(\eta)}{2} \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx,\\
+&amp;= - \frac{(x_1-x_0)^3}{12} f''(\eta),\\
+&amp;= - \frac{(b-a)^3}{12} f''(\eta),
+\end{align}
+\end{split}\]</div>
+<p>for some (unknown) <span class="math notranslate nohighlight">\(\eta\in (a,b)\)</span>.</p>
+<p>Often quadrature formulas are characterized by the <em>degree of accuracy</em>.  This is defined as the largest integer <span class="math notranslate nohighlight">\(m\)</span> for which the formula is exact for all polynomials of degree <span class="math notranslate nohighlight">\(\leq m\)</span>.  We see here that the trapezoidal rule has degree of accuracy of 1 as it is exact for all polynomials of degree <span class="math notranslate nohighlight">\(\leq 1\)</span> (as the error term involves the second derivative).</p>
+<p>To improve upon the trapezoidal rule (i.e. reduce the error) we could use more points and a higher degree polynomial.  However, we actually have another option which we will consider first.  In particular, we can break up the interval and apply the trapezoidal rule on each interval.  We will illustrate this next.</p>
+<section id="composite-integration">
+<h2>Composite Integration<a class="headerlink" href="#composite-integration" title="Permalink to this heading">#</a></h2>
+<p>Let’s assume that we are given data at equally spaced points <span class="math notranslate nohighlight">\(x_j=a+jh\)</span> on the interval <span class="math notranslate nohighlight">\([a,b]\)</span>, for <span class="math notranslate nohighlight">\(j=0,\cdots,n\)</span> so <span class="math notranslate nohighlight">\(h=(b-a)/n\)</span>.  We break up the integral into <span class="math notranslate nohighlight">\(n\)</span> separate intevals over each segment <span class="math notranslate nohighlight">\((x_j,x_{j+1})\)</span> and apply the trapezoidal rule to each segment:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\int_a^b f(x) dx &amp;= \int_{x^0}^{x_1} f(x) dx + \int_{x^1}^{x_2} f(x) dx + \cdots +\int_{x^{n-1}}^{x_n} f(x) dx,\\
+&amp;= \sum_{j=0}^{n-1} \int_{x_j}^{x_{j+1}} f(x) dx,\\
+&amp;= \sum_{j=0}^{n-1} \frac{h}{2}(f(x_j)+f(x_{j+1})) - \frac{h^3}{12} \sum_{j=0}^{n-1} f''(\xi_j).
+\end{align}
+\end{split}\]</div>
+<p>Note that the unknown <span class="math notranslate nohighlight">\(\xi_j\)</span>’s are each in a differnt subinterval <span class="math notranslate nohighlight">\((x_j,x_{j+1})\)</span>. In additon, any given <span class="math notranslate nohighlight">\(f(x_i)\)</span> appears in two terms in the first sum, except for the endpoints.  We can the rearrange the terms to get</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_a^b f(x) dx 
+&amp;= \frac{h}{2}(f(a) + 2 \sum_{j=1}^{n-1} f(x_j)+f(b)) - \frac{(nh)h^2}{12} \frac{\sum_{j=0}^{n-1} f''(\xi_j)}{n}.
+\end{align}
+\]</div>
+<p>The sum in the error term is the mean value of <span class="math notranslate nohighlight">\(n\)</span> values of <span class="math notranslate nohighlight">\(f''(x)\)</span> at different values in <span class="math notranslate nohighlight">\((a,b)\)</span>.  It is not too hard to argue that, if <span class="math notranslate nohighlight">\(f''(x)\)</span> is continuous on <span class="math notranslate nohighlight">\([a,b]\)</span>, that this mean value is realized at some <span class="math notranslate nohighlight">\(x=\eta\)</span>.  As such, we can write this as</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_a^b f(x) dx 
+&amp;= \frac{h}{2}\left(f(a) + 2 \sum_{j=1}^{n-1} f(x_j)+f(b)\right) - (b-a)\frac{h^2}{12} f''(\eta),
+\end{align}
+\]</div>
+<p>where we also used the fact that <span class="math notranslate nohighlight">\(nh=(b-a)\)</span>.</p>
+</section>
+<section id="stability">
+<h2>Stability<a class="headerlink" href="#stability" title="Permalink to this heading">#</a></h2>
+<p>We discovered that numerical differentiation using finite differences was numerically unstable for small <span class="math notranslate nohighlight">\(h\)</span>.  We now examine the stability of numerical integration, and in particular, the composite trapezoidal rule.   As in <a class="reference internal" href="NumDiffInt_Errors.html"><span class="doc std std-doc">that discussion</span></a>, we will let <span class="math notranslate nohighlight">\(\mathcal{fl}(.)\)</span> denote the finite precision arithmetic on the computer, i.e.</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{fl}(f(x))=f(x) + e_r(x)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(e_r\)</span> is the roundoff error. The error in evaluation of the composite trapezoidal run is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+E(h) &amp;= \left| \int_a^b f(x) dx - \mathcal{fl}\left( \frac{h}{2}\left(f(a) + 2 \sum_{j=1}^{n-1} f(x_j)+f(b)\right)  \right) \right|,\\
+&amp;= \left| \frac{h}{2}\left(e_r(a) + 2 \sum_{j=1}^{n-1} e_r(x_j)+e_r(b)\right)  - (b-a)\frac{h^2}{12} f''(\eta) \right|,\\
+\end{align}
+\end{split}\]</div>
+<p>Again, roundoff errors are unlikely to be correlated and, in particular, are as likely to be positive as negative.  We do expect it to be bounded so let’s assume <span class="math notranslate nohighlight">\(|e_r(x)|&lt;\beta\)</span>. Putting this together, along with use of the triangle inequality gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+E(h) &amp;\leq (b-a)\frac{h^2}{12}\left| f''(\eta) \right| + \frac{h}{2}\left( \beta + 2 (n-1) \beta + \beta \right),\\
+&amp;= (b-a)\frac{h^2}{12}\left| f''(\eta) \right| + nh \beta,\\
+&amp;= (b-a)\frac{h^2}{12}\left| f''(\eta) \right| + (b-a)\beta.
+\end{align}
+\end{split}\]</div>
+<p>Examining this result, we see that as <span class="math notranslate nohighlight">\(h\rightarrow 0\)</span> the truncation error (first term) goes to zero while the second term remains constant (in contrast to differentiation where the roundoff error became bigger).  We conclude that numerical integration is stable as <span class="math notranslate nohighlight">\(h\rightarrow 0\)</span>.</p>
+<p>Again, similar arguments can be applied to numerical integration of noisy data (data with stochastic noise).  In this case, numerical integration can be applied directly without any presmoothing operation (in fact, you should <em>not</em> apply a presmoothing operation).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "firasm/jupyterbook_course_template",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes/NDiffInt"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NumDiffInt_Errors.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Errors in Numerical Differentiation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="HigherOrderInt.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Higher Order Integration Schemes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-integration">Composite Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Firas Moosvi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

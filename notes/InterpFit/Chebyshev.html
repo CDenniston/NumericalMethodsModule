@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chebyshev Interpolation &#8212; Physics 111</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pdf_print.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "firasm/jupyterbook_course_template");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/InterpFit/Chebyshev';</script>
+    <script src="../../_static/save_state.js"></script>
+    <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Splines" href="Splines.html" />
+    <link rel="prev" title="Interpolation Errors" href="InterpErrors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../about/unsyllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.jpg" class="logo__image only-light" alt="Physics 111 - Home"/>
+    <script>document.write(`<img src="../../_static/logo.jpg" class="logo__image only-dark" alt="Physics 111 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about/unsyllabus.html">
+                    Unsyllabus
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/HornersAlgorithm.html">Example: Evaluating polynomials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Interpolation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/edit/main/notes/InterpFit/Chebyshev.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/issues/new?title=Issue%20on%20page%20%2Fnotes/InterpFit/Chebyshev.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notes/InterpFit/Chebyshev.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chebyshev Interpolation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chebyshev-interpolation">
+<h1>Chebyshev Interpolation<a class="headerlink" href="#chebyshev-interpolation" title="Permalink to this heading">#</a></h1>
+<p>In the last section, we found that a set of nodes with points more densely spaced at the edges of the interval seemed to work much better for polynomial interpolation than equally spaced points.  It turns out, the points we choose were roots of a Chebyshev polynomial.  Chebyshev polynomials are a set of orthogonal polynomials on the interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with respect to the weight function <span class="math notranslate nohighlight">\(1/\sqrt{1-x^2}\)</span>.  They can be defined via trignometric functions as</p>
+<div class="math notranslate nohighlight" id="equation-chebdef">
+<span class="eqno">(2)<a class="headerlink" href="#equation-chebdef" title="Permalink to this equation">#</a></span>\[ T_k(x)=\cos(k \arccos x).\]</div>
+<p>Note that we will restrict <span class="math notranslate nohighlight">\(x\)</span> to be in <span class="math notranslate nohighlight">\([-1,1]\)</span> here so <span class="math notranslate nohighlight">\(\arccos x\)</span> remains well-defined.  It should be clear from the definition in terms of the cosine function that <span class="math notranslate nohighlight">\(T_k(x)\)</span> satisfies</p>
+<blockquote>
+<div><div class="math notranslate nohighlight" id="equation-prop1">
+<span class="eqno">(3)<a class="headerlink" href="#equation-prop1" title="Permalink to this equation">#</a></span>\[\begin{equation} -1 \geq T_k(x) \geq 1 \quad \text{for}\quad -1\geq x \geq 1\end{equation}.\]</div>
+</div></blockquote>
+<p>and</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(T_k(x)\)</span> has roots at <span class="math notranslate nohighlight">\(k \arccos x = (odd integer) \frac{\pi}{2}\)</span> or</p>
+<div class="math notranslate nohighlight" id="equation-prop2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-prop2" title="Permalink to this equation">#</a></span>\[\begin{equation} x_j=\cos\left( \frac{(2j+1)\pi}{2k} \right),\qquad j=0,...,k-1 \end{equation},\]</div>
+</div></blockquote>
+<p>and</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(T_k(x)\)</span> oscillates between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span> a total of <span class="math notranslate nohighlight">\(k+1\)</span> times, hitting these extremes at</p>
+<div class="math notranslate nohighlight" id="equation-prop3">
+<span class="eqno">(5)<a class="headerlink" href="#equation-prop3" title="Permalink to this equation">#</a></span>\[x=\cos 0, \cos(\pi/k), ...,\cos((k-1)\pi/k)\]</div>
+</div></blockquote>
+<p>Note that these zeros correspond to the projection onto <span class="math notranslate nohighlight">\(x\)</span> of points spaced at equally spaced angles on the unit circle.  What is perhaps less clear is that Eq.(<a class="reference internal" href="#equation-chebdef">(2)</a>) corresponds to a polynomial at all.
+However, for <span class="math notranslate nohighlight">\(k=0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> it is easy to see that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+T_0(x)&amp;=\cos(0 \arccos x) = 1,\\
+T_1(x)&amp;=\cos(1 \arccos x) = x.
+\end{align}
+\end{split}\]</div>
+<p>To see that we get a polynomial for higher <span class="math notranslate nohighlight">\(k\)</span> it is helpful to derive the recursion relation for the Chebyshev polynomials.  If we set <span class="math notranslate nohighlight">\(y=\arccos x\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+T_{k+1}(x)&amp;=\cos\left( (k+1)y \right)&amp;= \cos(ky)\cos(y)-\sin(ky)\sin(y),\\
+T_{k-1}(x)&amp;=\cos\left( (k-1)y \right)&amp;= \cos(ky)\cos(y)+\sin(ky)\sin(y),
+\end{align}\end{split}\]</div>
+<p>where we have used the trig-identies for the sum/difference of two angles.  Adding these equations gives</p>
+<div class="math notranslate nohighlight">
+\[T_{k+1}(x)+T_{k-1}(x)=2\cos(ky)\cos(y)=2T_k(x)T_1(x)=2 x\, T_k(x),\]</div>
+<p>making use of our previous expression that <span class="math notranslate nohighlight">\(T_1(x)=x\)</span>.  This can then be easily rearranged to give the recursion relation</p>
+<div class="math notranslate nohighlight" id="equation-chebrecursion">
+<span class="eqno">(6)<a class="headerlink" href="#equation-chebrecursion" title="Permalink to this equation">#</a></span>\[T_{k+1}(x)=2 x\, T_k(x) - T_{k-1}(x).\]</div>
+<p>As implied by the name, we can use this to recursively derive higher order polynomials given the two lower order ones.  Starting with the known <span class="math notranslate nohighlight">\(T_0(x)\)</span> and <span class="math notranslate nohighlight">\(T_1(x)\)</span> given above this gives the next few polynomials as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+T_2(x)&amp;= 2x^2-1,\\
+T_3(x)&amp;= 4x^3-3x,\\
+T_4(x)&amp;= 8x^4-8x^2+1.
+\end{align}\end{split}\]</div>
+<p>From the pattern of these first few polynomials, and the multiplication by <span class="math notranslate nohighlight">\(2\)</span> in the recursion it should also be clear that the leading coefficient (coefficient of the highest power of <span class="math notranslate nohighlight">\(x\)</span>) for <span class="math notranslate nohighlight">\(T_k(x)\)</span> is <span class="math notranslate nohighlight">\(2^{k-1}\)</span>.  This, and the fact that we know the roots (in <a class="reference internal" href="#equation-prop2">(4)</a>) implies that</p>
+<div class="math notranslate nohighlight" id="equation-tnplus1">
+<span class="eqno">(7)<a class="headerlink" href="#equation-tnplus1" title="Permalink to this equation">#</a></span>\[ \frac{T_{n+1}(x)}{2^n}=(x-x_0)(x-x_1)...(x-x_n)=\prod_{j=0}^n (x-x_j),\]</div>
+<p>where the <span class="math notranslate nohighlight">\(x_j\)</span> are the roots of <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> from Equation <a class="reference internal" href="#equation-prop2">(4)</a>.</p>
+<p>This now brings us back to the Error formula for polynomial interpolation that we derived in the previous section:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation} f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j). \end{equation}\]</div>
+<p><em>If</em> we select our interpolation nodes as the roots of <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span>, namely</p>
+<div class="math notranslate nohighlight">
+\[ x_i=\cos\left( \frac{(2i+1)\pi}{2n+2} \right), \qquad\qquad i=0, 1, ..., n. \]</div>
+<p>then we see that we can substitute <a class="reference internal" href="#equation-tnplus1">(7)</a> into the error formula to get</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation} f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\frac{T_{n+1}}{2^n},\end{equation}\]</div>
+<p>so that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align} |f(x)-p_n(x)| &amp;= \left|\frac{f^{n+1}(\xi)}{(n+1)!}\frac{T_{n+1}}{2^n}\right|,\\ &amp;\leq \frac{|f^{n+1}(\xi)|}{(n+1)!2^n}.\end{align} \end{split}\]</div>
+<p>In fact, we can also show that <em>this is the best</em> we can do*.</p>
+<p>Again, we show this by first assuming the contrary and then showing that this leads to a contradiction.  In order for this to be the best choice, we must have <span class="math notranslate nohighlight">\(T_{n+1}(x)/2^n\)</span> to be the monic polynomial (a polynomial with leading coefficient 1) with the smallest absolute maximum.  Suppose this is nto the case.  Then there must be another monic polynomial, say <span class="math notranslate nohighlight">\(Q_{n+1}(x)\)</span> of degree <span class="math notranslate nohighlight">\(n\)</span> with an even smaller absolute max on <span class="math notranslate nohighlight">\([-1,1]\)</span>.  i.e.</p>
+<div class="math notranslate nohighlight">
+\[ |Q_{n+1}(x)| &lt; \frac{1}{2^n}\quad \text{for}\quad x\in [-1,1].\]</div>
+<p>Since <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> alternates between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span> a total of <span class="math notranslate nohighlight">\(n+2\)</span> times (as noted in <a class="reference internal" href="#equation-prop3">(5)</a>), at these <span class="math notranslate nohighlight">\(n+2\)</span> points the polynomial</p>
+<div class="math notranslate nohighlight">
+\[Q_{n+1}(x)-\frac{T_{n+1}(x)}{2^n}\]</div>
+<p>is alternatively positive and negative (because <span class="math notranslate nohighlight">\(Q_{n+1}\)</span> is always less than <span class="math notranslate nohighlight">\(1/2^n\)</span>) at these extreme points for <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span>.  The intermediate value theorem then implies that <span class="math notranslate nohighlight">\(Q_{n+1}-\frac{T_{n+1}}{2^n}\)</span> must cross zero at least <span class="math notranslate nohighlight">\(n+1\)</span> times so it has <span class="math notranslate nohighlight">\(n+1\)</span> roots.  This is a contradition as both <span class="math notranslate nohighlight">\(Q_{n+1}\)</span> and <span class="math notranslate nohighlight">\(\frac{T_{n+1}}{2^n}(x)\)</span> are monic so the leading term cancels in subtraction and therefore <span class="math notranslate nohighlight">\(Q_{n+1}-\frac{T_{n+1}}{2^n}\)</span> has degree less than or equal to <span class="math notranslate nohighlight">\(n\)</span> and so has at most <span class="math notranslate nohighlight">\(n\)</span> zeros.</p>
+<p>So, in summary,</p>
+<ul class="simple">
+<li><p>If you want to use polynomial interpolation to approximate a function on <span class="math notranslate nohighlight">\([-1,1]\)</span>, select Chebyshev points as your interpolation nodes.</p></li>
+<li><p>When you do this, you can also bound the error if you can also bound <span class="math notranslate nohighlight">\(|f^{n+1}(\xi)|\)</span>.</p></li>
+</ul>
+<p>Chebyshev points are in <span class="math notranslate nohighlight">\([-1,1]\)</span> but you should keep in mind that any interval <span class="math notranslate nohighlight">\(x \in [a,b]\)</span> can be easily mapped into <span class="math notranslate nohighlight">\(y\in [-1,1]\)</span> via a linear transformation</p>
+<div class="math notranslate nohighlight">
+\[ x = \frac{b-a}{2}y+\frac{b+a}{2}. \]</div>
+<p>Constructing the polynomial interpolation for <span class="math notranslate nohighlight">\(y\)</span> can then be done using Chebyshev points.</p>
+<p>We illustrate these points with an example below.</p>
+<p><strong>Example</strong> Let’s construct a fourth order polynomial intepolation (<span class="math notranslate nohighlight">\(n=4\)</span>) for <span class="math notranslate nohighlight">\(f(x)=e^{-x^2}\)</span> on the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
+<p>We first need to map this interval onto <span class="math notranslate nohighlight">\([-1,1]\)</span> using the change of variables</p>
+<div class="math notranslate nohighlight">
+\[ x = \frac{1}{2}(y+1).\]</div>
+<p>We then select our Chebyshev points as</p>
+<div class="math notranslate nohighlight">
+\[y_0 = \cos\frac{\pi}{10},\,y_1=\cos \frac{3\pi}{10}\,y_2=\cos \frac{5\pi}{10}\,y_3=\cos \frac{7\pi}{10}\,y_4=\cos \frac{9\pi}{10}.\]</div>
+<p>and construct <span class="math notranslate nohighlight">\(p_4(y)\)</span> for <span class="math notranslate nohighlight">\(f(y)=e^{-(y+1)^2/4}\)</span> using the standard barycentric Lagrange interpolation routine.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "firasm/jupyterbook_course_template",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes/InterpFit"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="InterpErrors.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Interpolation Errors</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Splines.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Splines</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Firas Moosvi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -15,44 +15,45 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/extra.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pdf_print.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom_layouts.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pdf_print.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -91,20 +92,16 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
-    <script src="../_static/save_state.js"></script>
-    <script src="../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'about/unsyllabus';</script>
+    <script src="../_static/save_state.js"></script>
+    <script src="../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Course Syllabus (Official)" href="syllabus.html" />
+    <link rel="next" title="Numerical Analysis" href="../notes/ErrorsModule/Errors_summary.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -114,28 +111,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -158,17 +150,24 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
 
-
-  <div class="bd-header-announcement container-fluid bd-header-announcement">
-    <div class="bd-header-announcement__content">Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!</div>
-  </div>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!</div>
+</aside>
 
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -184,6 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="#">
@@ -202,7 +203,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -212,187 +224,54 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About this course</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="syllabus.html">Course Syllabus (Official)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="course_schedule.html">Course Schedule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accommodations.html">Accommodations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doing_well.html">How to do well in this course</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/HornersAlgorithm.html">Example: Evaluating polynomials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../getting-started/tasks1.html">Before the first class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting-started/tasks2.html">After the First Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting-started/tasks3.html">In the first week</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/setup/stack.html">Setup Your Machine</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/setup/install_macOS.html">macOS Software Stack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/setup/install_windows.html">Windows Software Stack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/setup/install_ubuntu.html">Ubuntu Software Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/Splines.html">Splines</a></li>
+
 </ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Demo section</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Differentiation &amp; Integration</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/demo01/demo01_summary.html">Demo 1 - Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo01/lecture1.html">Introduction to Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo01/lecture2.html">Platforms for Data Science</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo01/lecture3.html">Introduction to Microsoft Excel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/demo02/demo02_summary.html">Demo 2 - Introductory Physics</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/learninglogs.html">Learning Logs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo02/test.html">Test 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo03/demo03_summary.html">Demo 3 - Shakespeare</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/demo04/demo04_summary.html">Demo 4 - Chemistry</a></li>
-<li class="toctree-l2"><a class="reference external" href="https://firas.moosvi.com/books/active-learning-technologies/jupyterdays/capacitor_talk/Capacitor.html">Capacitor Lecture</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Kinematics</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../notes/week01/week01_summary.html">Week 1 - Introductions!</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week02/week02_summary.html">Week 2 - Chapter 2</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/test.html">Test 0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week02/learninglogs.html">Learning Logs</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extras/python-virtual-environment.html">Python virtual environments</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week03/week03_summary.html">Week 3 - Chapter 3</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/test.html">Test 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week03/learninglogs.html">Learning Logs</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week04/week04_summary.html">Week 4 - Chapter 4</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/test.html">Bonus Test 01</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week04/learninglogs.html">Learning Logs</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extras/helpful-software.html">Helpful software</a></li>
 </ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Dynamics</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week05/week05_summary.html">Week 5 - Chapter 5</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week05/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../notes/week06/week06_summary.html">Week 6 - Week Off !!</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week07/week07_summary.html">Week 7 - Chapter 6</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week07/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week08/week08_summary.html">Week 8 - Chapter 7</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week08/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week09/week09_summary.html">Week 9 - Chapter 8</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week09/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Energy &amp; Momentum</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week10/week10_summary.html">Week 10 - Chapter 9</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week10/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week11/week11_summary.html">Week 11 - Chapter 10</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week11/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week12/week12_summary.html">Week 12 - Chapter 11</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week12/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 13 - Exam Review</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../notes/week13/week13_summary.html">Week 13 - Review</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/readings.html">Readings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/videos.html">Videos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/homework.html">Homework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/lecture.html">Lecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/test.html">Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/lab.html">Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../notes/week13/learninglogs.html">Learning Logs</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Final Exam</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../notes/final.html">Final Exam Information</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Materials</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../notes/labs.html">Lab Stuff</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Feedback</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="feedback.html">Anonymous Feedback Form</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../tools/ed_discussion/ed_discussion.html">Ed Discussion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools/github/github.html">Git and GitHub</a></li>
+</details></li>
 </ul>
 
     </div>
@@ -408,7 +287,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -417,14 +296,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -566,10 +445,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -577,14 +456,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -669,7 +548,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <p><img alt="" src="../_images/header.jpg" /></p>
 <p><img alt="" src="../_images/UBC_CS.png" /></p>
@@ -685,7 +564,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Information about the teaching team and how to contact us.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#contact-us"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#contact-us"><span class="std std-ref">Contact Us</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -695,7 +574,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">A table of course topics and a week-by-week plan of what we intend to cover.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#id7"><span class="std std-ref"></span></a></div>
+<span class="sd-stretched-link sd-hide-link-text">schedule</span></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -705,7 +584,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Strategies and tips on how to do well in this course.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#doing-well"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#doing-well"><span class="std std-ref">How do I do well in this course?</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -715,7 +594,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Learn how to get help and get support if you’re struggling, academically or otherwise.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#getting-help"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#getting-help"><span class="std std-ref">Getting Help</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -725,7 +604,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Information about the grading system and evaluation scheme for this course.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#evaluation"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#evaluation"><span class="std std-ref">Evaluation</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -735,7 +614,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">How this course will be taught and how humans learn (you may be surprised!).</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#philosophy"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#philosophy"><span class="std std-ref">Teaching Philosophy</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -745,7 +624,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">List of changes made to the Unsyllabus since the start of term, and a rationale.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#changes"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#changes"><span class="std std-ref">Unsyllabus changes</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -755,7 +634,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Completing this course with honesty and integrity. Examples of things you can and should not not do.</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#academic-integrity"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#academic-integrity"><span class="std std-ref">Academic Integrity</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -765,7 +644,7 @@ document.write(`
 <div class="sd-card-body docutils">
 <p class="sd-card-text">What to do if you have to miss things because of special days (including getting sick).</p>
 </div>
-<a class="sd-stretched-link reference internal" href="#missed-things"><span class="std std-ref"></span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="#missed-things"><span class="std std-ref">Missed things</span></a></div>
 </div>
 </div>
 </div>
@@ -777,7 +656,7 @@ document.write(`
 </figure>
 <section id="important-details">
 <span id="id2"></span><h2>Important Details<a class="headerlink" href="#important-details" title="Permalink to this heading">#</a></h2>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -810,6 +689,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <p>You can find all the important term dates in the [UBC Academic Calendar](<a class="reference external" href="https://vancouver.calendar.ubc.ca/dates-and-due">https://vancouver.calendar.ubc.ca/dates-and-due</a> dates).</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -824,7 +704,7 @@ All course content, references, and resources provided in this course are free a
 </section>
 <section id="contact-us">
 <span id="id3"></span><h2>Contact Us<a class="headerlink" href="#contact-us" title="Permalink to this heading">#</a></h2>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Team Member</p></th>
 <th class="head"><p>Pronounce as</p></th>
@@ -860,11 +740,12 @@ All course content, references, and resources provided in this course are free a
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="evaluation">
 <span id="id4"></span><h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this heading">#</a></h2>
 <p>The grading scheme for this course is:</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Item</p></th>
 <th class="head"><p>Weight</p></th>
@@ -894,6 +775,7 @@ All course content, references, and resources provided in this course are free a
 </tr>
 </tbody>
 </table>
+</div>
 <p>There will be 5 tests in this course in an (approximately) bi-weekly schedule.
 For each of the tests, there will be a bonus test exactly one week later and the better score of the Test-Bonus Test pair will be taken.</p>
 <div class="admonition attention">
@@ -934,7 +816,7 @@ Any submissions submitted past the grace period will not be graded (with some ex
 <h2>Schedule<a class="headerlink" href="#schedule" title="Permalink to this heading">#</a></h2>
 <p id="id7">This is the tentative plan for PHYS 111 this term.
 Things may change depending on many factors so this is subject to change.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Wk</p></th>
 <th class="head"><p>Date</p></th>
@@ -1052,6 +934,7 @@ Things may change depending on many factors so this is subject to change.</p>
 </tr>
 </tbody>
 </table>
+</div>
 <div class="page_break"> </div>
 </section>
 <section id="getting-help">
@@ -1123,8 +1006,8 @@ If something really bad happens (the equivalent of a norovirus breakout on a cru
 <p>Having an adaptive syllabus is important to me as it allows me to be responsive to your feedback in a meaningful way.
 I invite you to be co-contributors to this unsyllabus, and use the tools provided to add your own annotations, questions, and suggestions on making this syllabus work for you.
 At various points in the term, I will invite you to provide feedback on how things are going in the class.
-You may use those opportunities (or any other using the anonymous <a class="reference external" href="https://ubc.ca1.qualtrics.com/?course=cosc123&amp;term=2022_WT1">feedback form</a> or <a class="reference external" href="https://edstem.org/us/join/fgh45hfgh">Ed Discussion</a>) to propose adjustments to how the class is running for consideration.</p>
-<table class="colwidths-auto table">
+You may use those opportunities (or any other using the anonymous <a class="reference external" href="https://ubc.ca1.qualtrics.com/?course=cosc123&amp;amp;term=2022_WT1">feedback form</a> or <a class="reference external" href="https://edstem.org/us/join/fgh45hfgh">Ed Discussion</a>) to propose adjustments to how the class is running for consideration.</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Document</p></th>
 <th class="head"><p>Status</p></th>
@@ -1139,9 +1022,10 @@ You may use those opportunities (or any other using the anonymous <a class="refe
 </tr>
 </tbody>
 </table>
+</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Please note that I have your best interests in mind, and it is highly unlikely that I will ever change the unsyllabus in a way that negatively affects the class, or even individual students. If you believe a change is affecting you negatively, please reach out to me on <a class="reference external" href="https://edstem.org/us/join/fgh45hfgh">Ed Discussion</a>, or submit your feedback using the anonymous <a class="reference external" href="https://ubc.ca1.qualtrics.com/?course=cosc123&amp;term=2022_WT1">feedback form</a>.</p>
+<p>Please note that I have your best interests in mind, and it is highly unlikely that I will ever change the unsyllabus in a way that negatively affects the class, or even individual students. If you believe a change is affecting you negatively, please reach out to me on <a class="reference external" href="https://edstem.org/us/join/fgh45hfgh">Ed Discussion</a>, or submit your feedback using the anonymous <a class="reference external" href="https://ubc.ca1.qualtrics.com/?course=cosc123&amp;amp;term=2022_WT1">feedback form</a>.</p>
 </div>
 <div class="page_break"> </div>
 </section>
@@ -1151,7 +1035,7 @@ You may use those opportunities (or any other using the anonymous <a class="refe
 <p>In this section, I will outline any changes that have been made to the unsyllabus as we go through the course.
 We will do our best to follow the plan outlined in this unsyllabus, but in case things go south, I will need to make adjustments to the contents and the schedule.</p>
 <p>Any major changes to the syllabus (this page) will be documented here, as well as the date the change was made.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Change Date</p></th>
 <th class="head"><p>Summary</p></th>
@@ -1169,10 +1053,11 @@ We will do our best to follow the plan outlined in this unsyllabus, but in case 
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="how-do-i-do-well-in-this-course">
 <span id="doing-well"></span><h2>How do I do well in this course?<a class="headerlink" href="#how-do-i-do-well-in-this-course" title="Permalink to this heading">#</a></h2>
-<p>For full details, please see the page <a class="reference internal" href="doing_well.html#page-doing-well"><span class="std std-ref">How to do well in this course</span></a>.</p>
+<p>For full details, please see the page <span class="xref std std-ref">page_doing_well</span>.</p>
 <p>To whet your appetite on what you’ll read there, here are some guidelines on preparing yourselves for this course:</p>
 <ol class="arabic simple">
 <li><p>Learning is a contact sport.</p></li>
@@ -1286,7 +1171,7 @@ At the moment, the reality is that many learning technologies often only do <em>
 This of course means that other functionalities take a back-seat and exist merely to check a box on their marketing website (just to say they have the feature).</p>
 <p><strong>In all of my courses, before selecting a learning technology, I do a very careful scan of the landscape, weigh the pros and cons, consider the privacy implications, the convenience aspects, and then select the ones that I believe will best support my teaching goals at minimal inconvenience to students. In general, I also use tools that are fun to use!</strong></p>
 <p>I hope you will be patient with all the tools used in this course, I hope I can demonstrate value to you by using them in our course.
-If you have any feedback about my usage of the tools, I’d be happy to <a class="reference internal" href="feedback.html#page-feedback"><span class="std std-ref">get your (anonymous) feedback</span></a> and though it may not always be possible to make changes mid-semester, I will certainly keep your feedback in mind as I plan the next iteration of this course.</p>
+If you have any feedback about my usage of the tools, I’d be happy to <a class="reference internal" href="#page_feedback"><span class="xref myst">get your (anonymous) feedback</span></a> and though it may not always be possible to make changes mid-semester, I will certainly keep your feedback in mind as I plan the next iteration of this course.</p>
 </div>
 <p>All tools used in the course will be used in a <a class="reference external" href="https://universitycounsel.ubc.ca/subject-areas/access-and-privacy-general/access-to-information/about-fippa/">FIPPA-compliant</a> manner, with your privacy top of mind.
 New tools may be added to the course as the need arises, and I will update this section with the appropriate information and make an announcement if a new tool is added midway through a course.</p>
@@ -1304,7 +1189,7 @@ New tools may be added to the course as the need arises, and I will update this 
 <li><p><a class="reference external" href="https://www.gradescope.com/privacy">Gradescope</a></p></li>
 <li><p><a class="reference external" href="https://docs.github.com/en/github/site-policy/github-privacy-statement">GitHub</a></p></li>
 <li><p><a class="reference external" href="https://www.prairielearn.com/legal/privacy">PrairieLearn</a></p></li>
-<li><p><a class="reference external" href="https://www.slido.com/terms?experience_id=1&amp;utm_campaign=_eid-007-control&amp;utm_source=www.slido.com-_ab#privacy-policy">Sli.do</a></p></li>
+<li><p><a class="reference external" href="https://www.slido.com/terms?experience_id=1&amp;amp;utm_campaign=_eid-007-control&amp;amp;utm_source=www.slido.com-_ab#privacy-policy">Sli.do</a></p></li>
 </ul>
 </section>
 <section id="ed-discussion-required">
@@ -1344,7 +1229,7 @@ We chose to use <a class="reference external" href="http://GitHub.com">GitHub.co
 <p>PrairieLearn is an open source, extensible online assessment platform built on modern web technologies and is available to students at no cost.
 This system replaces commerical textbook publisher platforms for homework assignments such as MasteringPhysics, WileyPlus etc.
 In the past, instructors were forced to use these expensive options and pass these costs on to the students, to the tune of $60/student per course with just a temporary “subscription” to a textbook.
-Today, thanks to the emergence of high-quality open-education resources (OERs), student advocacy (see the <a class="reference external" href="https://vancouver.calendar.ubc.ca/campus-wide-policies-and-regulations/academic-assessment/fee-based-digital-learning-tools-used-assessment">UBC Senate policy</a>) and institutional support (the <a class="reference external" href="https://tlef.ubc.ca/funded-proposals/?filter_43=&amp;filter_42=&amp;filter_15=&amp;filter_34=&amp;gv_search=PrairieLearn&amp;mode=all">TLEF</a> and the <a class="reference external" href="https://alt-2040.ok.ubc.ca/funded-projects/">ALT-2040</a> projects), and free and open source software (FOSS) we have alternatives.</p>
+Today, thanks to the emergence of high-quality open-education resources (OERs), student advocacy (see the <a class="reference external" href="https://vancouver.calendar.ubc.ca/campus-wide-policies-and-regulations/academic-assessment/fee-based-digital-learning-tools-used-assessment">UBC Senate policy</a>) and institutional support (the <a class="reference external" href="https://tlef.ubc.ca/funded-proposals/?filter_43=&amp;amp;filter_42=&amp;amp;filter_15=&amp;amp;filter_34=&amp;amp;gv_search=PrairieLearn&amp;amp;mode=all">TLEF</a> and the <a class="reference external" href="https://alt-2040.ok.ubc.ca/funded-projects/">ALT-2040</a> projects), and free and open source software (FOSS) we have alternatives.</p>
 <p>In the first week of class, we will do a demo of the PrairieLearn platform together, but if you’d like to get started, you can <a class="reference external" href="https://ca.prairielearn.com/pl/course_instance/2439/assessment/18407">join the course and do the first assignment by clicking here</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1491,7 +1376,7 @@ Below is some information that might be helpful for you in making the decision.<
 <p class="admonition-title">Warning</p>
 <p>Please note that it is the student’s responsibility to check the withdrawal dates as [listed in the UBC Calendar](<a class="reference external" href="https://vancouver.calendar.ubc.ca/dates-and-due">https://vancouver.calendar.ubc.ca/dates-and-due</a> dates).</p>
 </div>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Withdrawal type</p></th>
 <th class="head"><p>Effect on Transcript</p></th>
@@ -1513,6 +1398,7 @@ Below is some information that might be helpful for you in making the decision.<
 </tr>
 </tbody>
 </table>
+</div>
 <p>^ Note: Withdrawal after this date cannot happen without additional approvals, see <a class="reference external" href="https://vancouver.calendar.ubc.ca/campus-wide-policies-and-regulations/withdrawal/introduction">here</a>.</p>
 <p>There are factors other than money and your transcript to consider as well, including your mental health, graduation requirements/timelines, <a class="reference external" href="https://students.ubc.ca/enrolment/courses/course-load-guide">course load requirements</a>, eligibility for student loans, bursaries, scholarships etc.
 I advise you to <a class="reference external" href="https://science.ubc.ca/students/blog/impact-of-a-w">read a list of some considerations</a> here and consult with an advisor if you have additional questions.</p>
@@ -1558,20 +1444,6 @@ The land it is situated on has always been a place of learning for the Musqueam 
 </div>
 <div class="toctree-wrapper compound">
 </div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1601,15 +1473,15 @@ The land it is situated on has always been a place of learning for the Musqueam 
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="syllabus.html"
+       href="../notes/ErrorsModule/Errors_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Course Syllabus (Official)</p>
+        <p class="prev-next-title">Numerical Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1621,6 +1493,7 @@ The land it is situated on has always been a place of learning for the Musqueam 
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1731,8 +1604,8 @@ By Firas Moosvi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

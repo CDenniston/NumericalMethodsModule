@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The vi editor &#8212; Physics 111</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/extra.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pdf_print.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "firasm/jupyterbook_course_template");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'extras/vi-editor';</script>
+    <script src="../_static/save_state.js"></script>
+    <script src="../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Helpful software" href="helpful-software.html" />
+    <link rel="prev" title="Editing ASCII files" href="editing-ascii.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Use this JupyterBook as a <a href='https://github.com/firasm/jupyterbook_course_template' style='color:pink;'>template by clicking here</a>!</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../about/unsyllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.jpg" class="logo__image only-light" alt="Physics 111 - Home"/>
+    <script>document.write(`<img src="../_static/logo.jpg" class="logo__image only-dark" alt="Physics 111 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about/unsyllabus.html">
+                    Unsyllabus
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/HornersAlgorithm.html">Example: Evaluating polynomials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Interpolation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/InterpFit/Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notes/NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="editing-ascii.html">Other software</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/edit/main/extras/vi-editor.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/firasm/jupyterbook_course_template/issues/new?title=Issue%20on%20page%20%2Fextras/vi-editor.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/extras/vi-editor.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The vi editor</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-vi">Why <code class="docutils literal notranslate"><span class="pre">vi</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#switching-between-the-modes">Switching between the modes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starting-vi">Starting <code class="docutils literal notranslate"><span class="pre">vi</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-command-summary"><code class="docutils literal notranslate"><span class="pre">vi</span></code> command summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-cursor-movements"><code class="docutils literal notranslate"><span class="pre">vi</span></code> cursor movements:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-in-readonly-mode"><code class="docutils literal notranslate"><span class="pre">vi</span></code> in readonly-mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vim-the-basic-vi-improved"><code class="docutils literal notranslate"><span class="pre">vim</span></code> the basic <code class="docutils literal notranslate"><span class="pre">vi</span></code> improved</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-vi-editor">
+<h1>The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor<a class="headerlink" href="#the-vi-editor" title="Permalink to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor is the basic <a class="reference external" href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> text editor that comes with essentially all Linux/Unix systems. It works on the command line without GUI. It is very lightweight.</p>
+<p><code class="docutils literal notranslate"><span class="pre">vi</span></code> differs from most editors (with or without GUI) in that it has two modes: 1) <em>command mode</em> and 2) <em>editing or insert mode</em>. As the names suggest, these modes serve for different purposes. In the <em>command mode</em>, one can enter commands such as <code class="docutils literal notranslate"><span class="pre">copy</span></code>, <code class="docutils literal notranslate"><span class="pre">paste</span></code>, <code class="docutils literal notranslate"><span class="pre">save</span></code>, <code class="docutils literal notranslate"><span class="pre">quit</span></code> and so on. Editing text is not possible in the command mode. For editing text, one has to enter the <em>editing or insert mode</em>. That mode is exclusively for editing text and for saving the file, one has to switch to <em>command mode</em>. Understanding the two modes is the key to using the <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor.</p>
+<section id="why-vi">
+<h2>Why <code class="docutils literal notranslate"><span class="pre">vi</span></code><a class="headerlink" href="#why-vi" title="Permalink to this heading">#</a></h2>
+<p>First, since it ships with all Linux/Unix systems, it is always there without any additional installations. Second, is also extremely lightweight. Those two factors are very important if something goes wrong with the systems and some of the system files need to be edited; in such case no GUI based editors (even if they are ASCII editors) may be impossible to use.  Although switching between the modes may sound cumbersome, it is very easy to get used to that and <code class="docutils literal notranslate"><span class="pre">vi</span></code> is a favorite of many.</p>
+</section>
+<section id="switching-between-the-modes">
+<h2>Switching between the modes<a class="headerlink" href="#switching-between-the-modes" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>When <code class="docutils literal notranslate"><span class="pre">vi</span></code> is started, it is always in the command mode.</p></li>
+<li><p>Commands are <em>case sensitive</em></p></li>
+<li><p>Switch from the <em>command mode</em> to the <em>insert mode</em>: press the key <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p></li>
+<li><p>Switch from the <em>insert mode</em> to the <em>command mode</em>: press the <code class="docutils literal notranslate"><span class="pre">esc</span></code> key.</p></li>
+</ul>
+</section>
+<section id="starting-vi">
+<h2>Starting <code class="docutils literal notranslate"><span class="pre">vi</span></code><a class="headerlink" href="#starting-vi" title="Permalink to this heading">#</a></h2>
+<p>To open a file or to create a new file, simply type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="n">filename</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">filename.txt</span></code> exists it will be simply opened. If it doesn’t exist, it will be created.</p>
+</section>
+<section id="vi-command-summary">
+<h2><code class="docutils literal notranslate"><span class="pre">vi</span></code> command summary<a class="headerlink" href="#vi-command-summary" title="Permalink to this heading">#</a></h2>
+<p>Below is a summary of some of the most common commands. Open a test file and try them.</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>COMMAND  (the commands must be given in the <em>command mode</em>)</p></th>
+<th class="head"><p>FUNCTION</p></th>
+<th class="head"><p>NOTES</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vi</span> <span class="pre">filename.txt</span></code></p></td>
+<td><p>edit/create a file called <code class="docutils literal notranslate"><span class="pre">filename.txt</span></code></p></td>
+<td><p>On the command line terminal. Starts <code class="docutils literal notranslate"><span class="pre">vi</span></code> in <em>command mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span></code></p></td>
+<td><p>Switch to <em>insert mode</em></p></td>
+<td><p>Shows the text <code class="docutils literal notranslate"><span class="pre">--</span> <span class="pre">INSERT</span> <span class="pre">--</span></code> at the bottom of the screen</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">esc</span></code></p></td>
+<td><p>Switch to <em>command mode</em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<td><p>delete character to the right of the cursor</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4x</span></code></p></td>
+<td><p>delete 4 characters (to the right of the cursor)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<td><p>delete character to the left of the cursor</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dw</span></code></p></td>
+<td><p>delete word to the right of the cursor</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">2dw</span></code></p></td>
+<td><p>delete 2  words to the right of the cursor</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dd</span></code></p></td>
+<td><p>delete the current line</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">2dd</span></code></p></td>
+<td><p>delete 2 (current and the next) lines</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">D</span></code></p></td>
+<td><p>delete all characters from the cursor to end of the line</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td><p>insert an empty line below the cursor</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">O</span></code></p></td>
+<td><p>insert an empty line above the cursor</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>replace the character under the cursor</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p>append text to the right of the cursor</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cw</span></code></p></td>
+<td><p>replace  the word</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">3cw</span></code></p></td>
+<td><p>replace 3 words (to the right; leaves the rest the line after the two words intact)</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>delete the text from cursor to end of line</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">J</span></code></p></td>
+<td><p>join the line below to the current  line</p></td>
+<td><p>Switches to <em>insert mode</em>. The cursor can be anywhere on the line</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3J</span></code></p></td>
+<td><p>join the 3 following lines below to the current line</p></td>
+<td><p>Switches to <em>insert mode</em>. The cursor can be anywhere on the line</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">u</span></code></p></td>
+<td><p>undo</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ZZ</span></code></p></td>
+<td><p>save the file and quit</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:w</span></code></p></td>
+<td><p>save the file</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:w</span> <span class="pre">newname.txt</span></code></p></td>
+<td><p>save the file with name <code class="docutils literal notranslate"><span class="pre">newname.txt</span></code></p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:r</span> <span class="pre">name.txt</span></code></p></td>
+<td><p>read text into the current file from  file  named <code class="docutils literal notranslate"><span class="pre">name.txt</span></code></p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:wq</span></code></p></td>
+<td><p>save the file and quit</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:q!</span></code></p></td>
+<td><p>discard all changes since last save  and quit</p></td>
+<td><p>Switches to <em>insert mode</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
+<td><p>move forward word-by-word</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">b</span></code></p></td>
+<td><p>move backward word-by-word</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$</span> </code></p></td>
+<td><p>move to the end of the current line</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>move to the beginning of the current line</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">H</span></code></p></td>
+<td><p>go  to the top line of the current screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">M</span></code></p></td>
+<td><p>go to the middle line of the current screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">L</span></code></p></td>
+<td><p>go to last line of the current screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">G</span></code></p></td>
+<td><p>go to the last line of the file</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1G</span></code></p></td>
+<td><p>go  to first line of the file</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-f</span></code></p></td>
+<td><p>scroll forward one screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-b</span></code></p></td>
+<td><p>scroll backward one screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-d</span></code></p></td>
+<td><p>scroll down one-half screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-u</span></code></p></td>
+<td><p>scroll up one-half screen</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:/</span></code> <em>keyword</em> + <code class="docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p>search for <em>keyword</em> in the current text</p></td>
+<td><p>To repeat the search forward press <code class="docutils literal notranslate"><span class="pre">n</span></code>, backward: <code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:s/</span></code> <em>keyword</em> + <code class="docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p>search for <em>keyword</em> in the current line</p></td>
+<td><p>To repeat the search forward press <code class="docutils literal notranslate"><span class="pre">n</span></code>, backward: <code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:s/word1/word2</span></code> + <code class="docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p>search for <code class="docutils literal notranslate"><span class="pre">word1</span></code> on the current line AND replace it by <code class="docutils literal notranslate"><span class="pre">word2</span></code></p></td>
+<td><p>in <em>command mode</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:%s/word1/word2</span></code> + <code class="docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p>search for all occurrences of <code class="docutils literal notranslate"><span class="pre">word1</span></code> AND replace them by <code class="docutils literal notranslate"><span class="pre">word2</span></code></p></td>
+<td><p>in <em>command mode</em>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="vi-cursor-movements">
+<h2><code class="docutils literal notranslate"><span class="pre">vi</span></code> cursor movements:<a class="headerlink" href="#vi-cursor-movements" title="Permalink to this heading">#</a></h2>
+<p>Instead of using the arrows, the cursors (in <em>command mode</em>) can be moved using the following keys:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>COMMAND</p></th>
+<th class="head"><p>FUNCTION</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+<td><p>move left one space</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">j</span></code></p></td>
+<td><p>move down one line</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">k</span></code></p></td>
+<td><p>move up one line</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">l</span></code></p></td>
+<td><p>move right one space</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="vi-in-readonly-mode">
+<h2><code class="docutils literal notranslate"><span class="pre">vi</span></code> in readonly-mode<a class="headerlink" href="#vi-in-readonly-mode" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">vi</span></code> can also be used in readonly-mode. The search and movement functions work as listed above, but editing and saving is not possible in the readonly mode. Here’s how:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">-</span><span class="n">R</span> <span class="n">filename</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+<section id="vim-the-basic-vi-improved">
+<h2><code class="docutils literal notranslate"><span class="pre">vim</span></code> the basic <code class="docutils literal notranslate"><span class="pre">vi</span></code> improved<a class="headerlink" href="#vim-the-basic-vi-improved" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">vim</span></code> is an improved <code class="docutils literal notranslate"><span class="pre">vi</span></code> and a very popular ASCII text editor - <code class="docutils literal notranslate"><span class="pre">vi</span></code> and <code class="docutils literal notranslate"><span class="pre">vim</span></code> are arguably the most popular text editor in Linux/Unix. <code class="docutils literal notranslate"><span class="pre">vim</span></code> adds several features to the basic <code class="docutils literal notranslate"><span class="pre">vim</span></code> and all of the above commands work also in <code class="docutils literal notranslate"><span class="pre">vim</span></code>. It comes (just like the basic <code class="docutils literal notranslate"><span class="pre">vi</span></code>) with most (if not all) current Linux/Unix systems as well as Mac.</p>
+<p><code class="docutils literal notranslate"><span class="pre">vim</span></code> stands for <em>Vi IMproved</em>. It adds features to the basic <code class="docutils literal notranslate"><span class="pre">vi</span></code> and is highly customizable. It also has many plugins including <code class="docutils literal notranslate"><span class="pre">git</span></code> integration and a scripting language. <code class="docutils literal notranslate"><span class="pre">vim</span></code> is available for essentially all operating systems including iOS and Android.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "firasm/jupyterbook_course_template",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./extras"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="editing-ascii.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Editing ASCII files</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="helpful-software.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Helpful software</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-vi">Why <code class="docutils literal notranslate"><span class="pre">vi</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#switching-between-the-modes">Switching between the modes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starting-vi">Starting <code class="docutils literal notranslate"><span class="pre">vi</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-command-summary"><code class="docutils literal notranslate"><span class="pre">vi</span></code> command summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-cursor-movements"><code class="docutils literal notranslate"><span class="pre">vi</span></code> cursor movements:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-in-readonly-mode"><code class="docutils literal notranslate"><span class="pre">vi</span></code> in readonly-mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vim-the-basic-vi-improved"><code class="docutils literal notranslate"><span class="pre">vim</span></code> the basic <code class="docutils literal notranslate"><span class="pre">vi</span></code> improved</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Firas Moosvi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
