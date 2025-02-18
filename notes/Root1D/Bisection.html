@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/InterpFit/BarycentricInterp';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/Root1D/Bisection';</script>
     <script src="../../_static/save_state.js"></script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Interpolation Errors" href="InterpErrors.html" />
-    <link rel="prev" title="Lagrange Form of the Interpolation Polynomial" href="LagrangeForm.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="Root Finding in One Dimension" href="Root1D_summary.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -237,19 +237,19 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Barycentric Lagrange Interpolation</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Barycentric Lagrange Interpolation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="InterpFit_summary.html">Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Barycentric Lagrange Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="InterpErrors.html">Interpolation Errors</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpErrors.html">Interpolation Errors</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="Chebyshev.html">Chebyshev Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Splines.html">Splines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Splines.html">Splines</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Differentiation &amp; Integration</span></p>
@@ -332,7 +332,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/InterpFit/BarycentricInterp.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/Root1D/Bisection.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -381,7 +381,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/InterpFit/BarycentricInterp.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/Root1D/Bisection.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -607,7 +607,7 @@ p_n(x) &amp;= \frac{p_n(x)}{1} = \frac{p_n(x)}{g(x)},\\
         },
         kernelOptions: {
             name: "python3",
-            path: "./notes/InterpFit"
+            path: "./notes/Root1D"
         },
         predefinedOutput: true
     }
@@ -625,20 +625,20 @@ p_n(x) &amp;= \frac{p_n(x)}{1} = \frac{p_n(x)}{g(x)},\\
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="LagrangeForm.html"
+       href="Root1D_summary.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lagrange Form of the Interpolation Polynomial</p>
+        <p class="prev-next-title">Root Finding in One Dimension</p>
       </div>
     </a>
     <a class="right-next"
-       href="InterpErrors.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Interpolation Errors</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
