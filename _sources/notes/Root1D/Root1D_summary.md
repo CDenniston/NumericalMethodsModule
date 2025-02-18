@@ -7,7 +7,7 @@ The *root finding problem* is fairly simple to state:
 
 Before attempting to solve this problem, there are a few considerations:
 - Do you know if there is a solution?
-- If there is a solution, is a simple root $f'(x^*) \neq 0$ or a multiple root $f'(x^*) = 0$?
+- If there is a solution, is it a simple root (where $f'(x^*) \neq 0$) or a multiple root (where $f'(x^*) = 0$)?
 - How many roots are there?
 - How accurately do you want to know the solution?
 - How much of a hurry are you in to get the solution?
