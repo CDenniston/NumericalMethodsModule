@@ -10,7 +10,11 @@ parts:
     - file: notes/ErrorsModule/HornersAlgorithm
     - file: notes/ErrorsModule/RoundoffAmplification
     - file: notes/ErrorsModule/BackwardForwardConditioning
-- caption: Part 2 - Interpolation
+- caption: Part 2 - Root Finding in 1D
+  chapters:
+    - file: notes/Root1D/Root1D_summary
+    - file: notes/Root1D/Bisection
+- caption: Part 3 - Interpolation
   chapters:
     - file: notes/InterpFit/InterpFit_summary
     - file: notes/InterpFit/LagrangeForm
@@ -18,7 +22,7 @@ parts:
     - file: notes/InterpFit/InterpErrors
     - file: notes/InterpFit/Chebyshev
     - file: notes/InterpFit/Splines
-- caption: Part 3 - Numerical Differentiation & Integration
+- caption: Part 4 - Numerical Differentiation & Integration
   chapters:
   - file: notes/NDiffInt/NumDiffInt
   - file: notes/NDiffInt/NumDiffInt_Errors
