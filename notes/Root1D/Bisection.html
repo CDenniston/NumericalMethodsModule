@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Barycentric Lagrange Interpolation &#8212; Numerical Methods</title>
+    <title>Bisection &#8212; Numerical Methods</title>
   
   
   
@@ -239,7 +239,9 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Root1D_summary.html">Root Finding in One Dimension</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bisection</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -452,7 +454,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -463,11 +467,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Barycentric Lagrange Interpolation</h1>
+    <h1>Bisection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bisection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-root-finding-methods">Convergence of Root finding methods</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -477,121 +492,142 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="barycentric-lagrange-interpolation">
-<h1>Barycentric Lagrange Interpolation<a class="headerlink" href="#barycentric-lagrange-interpolation" title="Permalink to this heading">#</a></h1>
-<p>This rewriting of the Lagrange interpolation goes back at least seventy-five years but was popularized by <a class="reference external" href="https://epubs.siam.org/doi/pdf/10.1137/S0036144502417715">Berrut and Trefethen</a> in the early 21st century.  The idea here is basically to rewrite the Lagrange form to avoid the problems mentioned above.</p>
-<p>First define</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{l}(x)\equiv \prod_{i=0}^n (x-x_i).\]</div>
-<p>Then note that</p>
-<div class="math notranslate nohighlight">
-\[L_j^n(x) = \frac{\mathcal{l}(x)}{(x-x_j)} w_j,\]</div>
-<p>where the baricentric weight <span class="math notranslate nohighlight">\(w_j\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[ w_j \equiv \frac{1}{\prod_{i=0,i\neq j}^n (x_j-x_i)}.\]</div>
-<p>Our interpolating polynomial now becomes</p>
-<div class="math notranslate nohighlight">
-\[p_n(x) = \sum_{i=0}^n L_i^n(x) f(x_i) =  \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i).\]</div>
-<p>This is called the <em>first form of barycentric interpolation</em>.  Once we have computed the weights <span class="math notranslate nohighlight">\(w_j\)</span>, evaluation of <span class="math notranslate nohighlight">\(p_n(x)\)</span> now requires <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> flops thus removing the first objection to the Lagrange form of the interpolating polynomial.</p>
-<p>If we add a new node <span class="math notranslate nohighlight">\(x_{n+1}\)</span>, we can construct new weights <span class="math notranslate nohighlight">\(w_j\)</span> by dividing the old weights by <span class="math notranslate nohighlight">\((x_j-x_{n+1})\)</span> to get the new <span class="math notranslate nohighlight">\(w_j\)</span> (plus computing <span class="math notranslate nohighlight">\(w_{n+1}\)</span> using the original formula).  This effectively eliminates the second objection to the Lagrange form of the intepolating polynomial.</p>
-<p>There is another similification we can use before constructing an algorithm for interpolation.  Note that for the function <span class="math notranslate nohighlight">\(g(x)\equiv 1\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-g(x) &amp;=  \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} g(x_i),\\
- &amp;= \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i}.
-\end{align}
-\end{split}\]</div>
-<p>As we shall see when we discuss interpolation errors, this formula is actually exact.  As a result,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-p_n(x) &amp;= \frac{p_n(x)}{1} = \frac{p_n(x)}{g(x)},\\
- &amp;=\frac{\mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i)}{\mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i}},
-\end{align}
-\end{split}\]</div>
-<p>which simiplifies to the second, or <em>true form of barycentric interpolation</em></p>
-<div class="math notranslate nohighlight">
-\[p_n(x)=\frac{\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i)}{\sum_{i=0}^n \frac{w_i}{x-x_i}}.\]</div>
-<p>In this form, we avoid evaluating <span class="math notranslate nohighlight">\(\mathcal{l}(x)\)</span> entirely and the sum in the numerator and denominator can easily be constructed simultaneously.</p>
-<p>Note that there are two stages to implementation of barycentric Lagrange interpolation: i) computing the weights and ii) computing the interpolation at the desired points.  The first should be done <em>only once</em> whereas the second needs to be done at each point where the interpolation is computed.  A python code to do this is below</p>
+  <section id="bisection">
+<h1>Bisection<a class="headerlink" href="#bisection" title="Permalink to this heading">#</a></h1>
+<p>The intermediate value theorem states that if <span class="math notranslate nohighlight">\(f\)</span> is a continuous function whose domain contains the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, then it takes on any given value between <span class="math notranslate nohighlight">\(f(a)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> at some point within the interval.  An important corollary is <em>Bolzano’s theorem</em>: If a continuous function has values of opposite sign inside an interval, then it has a root in that interval.</p>
+<p>The bisection method assumes that you have first bracketed the root so have found an interval <span class="math notranslate nohighlight">\([a,b]\)</span> where <span class="math notranslate nohighlight">\(f(a)*f(b) &lt; 0\)</span>.  Our goal is to find <span class="math notranslate nohighlight">\(p \in [a,b]\)</span>, such that <span class="math notranslate nohighlight">\(f(p)=0\)</span>. Our initial situation looks something like what is depicted in black in the following plot:</p>
+<a class="reference internal image-reference" href="../../_images/bisection.png"><img alt="../../_images/bisection.png" src="../../_images/bisection.png" style="width: 400px;" /></a>
+<p>In this example <span class="math notranslate nohighlight">\(f(a)&lt;0\)</span> and <span class="math notranslate nohighlight">\(f(b)&gt;0\)</span> but it could be the other way around.  Our strategy is divide the interval in half, identify which half of the interval contains the root and then repeat the process until our interval is smaller than some tolerance.  In each interval, our guess for the root <span class="math notranslate nohighlight">\(p\)</span> will be the midpoint of the interval.  So, for our first step, <span class="math notranslate nohighlight">\(a_1=a\)</span> and <span class="math notranslate nohighlight">\(b_1=b\)</span> and our first guess for the root will be <span class="math notranslate nohighlight">\(p_1=\frac{a_1+a_2}{2}\)</span>.  It is also easy to check the backward error, i.e. how well our current guess satisfies the root condition as <span class="math notranslate nohighlight">\(E_b=|f(p_1)-0|=|f(p_1)|\)</span> is easily calculated exactly.  We can bound the forward error, how close our guess is to the actual root <span class="math notranslate nohighlight">\(p\)</span>, as <span class="math notranslate nohighlight">\(E_f=|p_1 - p| \leq |p_1 - a_1|=|p_1 - b_1|\)</span>, but not calculate it exactly.  We then replace the endpoint that gives the same sign as <span class="math notranslate nohighlight">\(f(p_1)\)</span> with <span class="math notranslate nohighlight">\(p_1\)</span>.  This gives us a new interval to search that is half the width of the original.  We can then repeat until one, or both, of the forward or backwards errors are smaller than a tolerance.  A python code to do this is below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">baryweight</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="c1"># build the weights recursively by effectively adding new points one at a time</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
-        <span class="c1"># in iteration i we compute w[i] from scratch while</span>
-        <span class="c1"># including the contribution of x[i] to the other weights</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="c1"># do the divisions at the end to minimize the total number of divisions</span>
-    <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">w</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bisection</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># We require that the root is bracketed which means that the function must </span>
+    <span class="c1"># have a different sign when evaluated at each endpoint.  If the function</span>
+    <span class="c1"># is not bracketed we return a nan</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Root is not bracketed&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">baryinterp</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xp</span><span class="p">):</span>
-    <span class="c1"># Compute the barycentric interpolation at xp given the observed data in lists</span>
-    <span class="c1"># x and y and the precomputed weights in a list w</span>
-    <span class="n">numer</span><span class="o">=</span><span class="mf">0.</span>
-    <span class="n">denom</span><span class="o">=</span><span class="mf">0.</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
-        <span class="n">xdiff</span><span class="o">=</span><span class="n">xp</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="c1"># We first check to ensure we are not actually evaluated at a given data point.</span>
-        <span class="c1"># (This would lead to division by zero which would cause problems).</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">xdiff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tmp</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">xdiff</span>
-            <span class="n">numer</span> <span class="o">+=</span> <span class="n">tmp</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">denom</span> <span class="o">+=</span> <span class="n">tmp</span>
-    <span class="k">return</span> <span class="n">numer</span><span class="o">/</span><span class="n">denom</span>
+    <span class="c1"># print output table headings</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p_i                    f(p_i)                         [a_(i+1), b_(i+1)]&quot;</span><span class="p">)</span> 
 
-<span class="c1"># Main program showing functions defined above used to interpolate data taken from</span>
-<span class="c1"># a simple sine function</span>
+    <span class="c1"># main loop</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">a</span> <span class="o">=</span> <span class="n">p</span>
 
-<span class="c1"># This creates a list of x values for our observed data</span>
-<span class="n">dx</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.5</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">     [</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
 
-<span class="c1"># Compute the weights for the interpolating polynomial.  </span>
-<span class="n">weights</span><span class="o">=</span><span class="n">baryweight</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">p</span>
 
-<span class="c1"># Create a list of y values for our observed data and plot</span>
-<span class="c1"># our observations</span>
-<span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+    <span class="c1"># if we finish the main loop without returning from the bisection function, we have failed.  :( </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find root to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that we could have used a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, with the forward/backward error test as the condition, for the main loop.  However, there is the possibility that if a user asked for too tight a tolerance the required number of iterations could be very large.  By setting a maximum number of iterations (the <code class="docutils literal notranslate"><span class="pre">maxN</span></code> optional arguement) we avoid this possibility.  Output can be very useful to see the process of convergence, and for debugging if you were coding this yourself.  However, for larger numbers of iterations it could be cumbersome so it is useful to give the possibility of suppressing it (by setting the optional <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">False</span></code> in the call to bisection).</p>
+<p>Note that if <span class="math notranslate nohighlight">\(f(a)*f(p) &lt; 0\)</span> then <span class="math notranslate nohighlight">\([a,p]\)</span> is an interval containing a root that has half the width of the prior search interval.  If <span class="math notranslate nohighlight">\(f(a)*f(p) &gt; 0\)</span> then, as <span class="math notranslate nohighlight">\(f(a)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> have opposite signs, we can be sure that <span class="math notranslate nohighlight">\(f(p)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> also have opposite signs so we can take <span class="math notranslate nohighlight">\([p,b]\)</span> for our new search interval.  Our stopping condition here is just the forward error bound test.  We need to still include the test on the vanishing of the backward error <span class="math notranslate nohighlight">\(f(p)=0\)</span> as our <code class="docutils literal notranslate"><span class="pre">if</span></code> condition for the new interval could fail if <span class="math notranslate nohighlight">\(f(p) = 0\)</span>.</p>
+<p><strong>Example:</strong> Let’s use our bisection function to find a root of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span>.  Our first step is the bracket a root and the best way of doing this is to first plot the function over some interval (you may need to do this a few times, varying the endpoints, to find a suitable interval):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># Now we want to fill in between our observed data points using</span>
-<span class="c1"># a barycentric Lagrange interpolation and plot the result</span>
-<span class="n">dx</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">x_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">6.5</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="n">dx</span><span class="p">)</span>
-<span class="n">y_all</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">x_all</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_all</span><span class="p">)):</span>
-    <span class="n">y_all</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">baryinterp</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">,</span><span class="n">x_all</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;barycentric interpolation&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/af9c829ce4a214bbbc302b7333e9120568aac0e635ead323611d503f8c492d12.png" src="../../_images/af9c829ce4a214bbbc302b7333e9120568aac0e635ead323611d503f8c492d12.png" />
+<img alt="../../_images/d3848986cf77d533e3230edff381dd0e17aa5434a94786143166366a89a488b6.png" src="../../_images/d3848986cf77d533e3230edff381dd0e17aa5434a94786143166366a89a488b6.png" />
 </div>
 </div>
-<p>There are a few things to note here:</p>
-<ul class="simple">
-<li><p>the weights depend only on the <span class="math notranslate nohighlight">\(x_i\)</span> and not on <span class="math notranslate nohighlight">\(f(x_i)\)</span>.  As such, the same weights could be used in the interpolation of any function whose values are known at the same set of <span class="math notranslate nohighlight">\(x_i\)</span>  (i.e. we can resuse the weights for other functions).</p></li>
-<li><p>the order of the nodes does not matter.  This means that if we want to add a new data point, it can just be appended to the end of the list, it does not need to be inserted in order.</p></li>
-<li><p>if you want to add a new data point, you could easily write another function (say “addpoint”) to update the weights.  It would essentially consist of the “extra” iteration of the loop in the above <code class="docutils literal notranslate"><span class="pre">baryweight</span></code> function, accounting for the fact that we have already done the <code class="docutils literal notranslate"><span class="pre">1/x</span></code> operation.  It should be clear that the update is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> operation as only the inner loop is computed.</p></li>
-<li><p>you may have noticed that the <code class="docutils literal notranslate"><span class="pre">baryinterp</span></code> function dealt with the case where <span class="math notranslate nohighlight">\(x=x_i\)</span> as a special case to avoid division by zero.  You might be concerned about overflow in the situation where <span class="math notranslate nohighlight">\(x\)</span> is close to <span class="math notranslate nohighlight">\(x_i\)</span> but not exactly the same.  There are ways of dealing with this when it arises, but it turns out it is not a serious concern for most practical applications of interpolation.</p></li>
-<li><p>as with any algorithm, one should ask if this is numerically stable.  As we emphasized when we discussed errors in scientific computing, it is only reasonable to ask if the algorithm is stable when applied to a well-conditioned problem.  As we will discuss shortly, polynomial interpolation for large numbers of points is only stable if these points are chosen appropriately.  In this case, <a class="reference external" href="https://www.maths.manchester.ac.uk/~higham/narep/narep440.pdf">Higham</a> has shown that barycentric Lagrange interpolation is unconditionally stable (the first form is slightly better than the “true” form in this regards, but the difference for practical purposes is not usually significant).</p></li>
-<li><p>for some node spacings, it is possible to give an explicit formula for the barycentric weights <span class="math notranslate nohighlight">\(w_j\)</span>.  As these weights appear in the true form of the barycentric interpolation in both the numerator and denominator, any common factor in all the weights can be cancelled without affecting the result.</p></li>
-</ul>
-<p>There are also built in versions of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.barycentric_interpolate.html#scipy.interpolate.barycentric_interpolate">barycentric interpolation in SciPy</a>. The SciPy version also has functions to add new nodes and new, or different, values of the function to be interpolated (making use of the previously computed weights in both cases).</p>
+<p>Here we see there are two roots visible in the interval we plotted over, one in <span class="math notranslate nohighlight">\([-2,-1]\)</span> and another in <span class="math notranslate nohighlight">\([1,2]\)</span>.  Now let’s use our bisection function to zero in on the first root:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p_i                    f(p_i)                         [a_(i+1), b_(i+1)]
+                -0.5       1.4468890365841693     [                -2.0,                -0.5]
+               -1.25       1.1005831869165565     [                -2.0,               -1.25]
+              -1.625     -0.27513419390066923     [              -1.625,               -1.25]
+             -1.4375       0.5595380857937036     [              -1.625,             -1.4375]
+            -1.53125       0.1828127032730359     [              -1.625,            -1.53125]
+           -1.578125     -0.03551341594628521     [           -1.578125,            -1.53125]
+          -1.5546875      0.07624955813068525     [           -1.578125,          -1.5546875]
+         -1.56640625     0.021025789547447247     [           -1.578125,         -1.56640625]
+        -1.572265625    -0.007078415905375183     [        -1.572265625,         -1.56640625]
+       -1.5693359375     0.007014915182200935     [        -1.572265625,       -1.5693359375]
+      -1.57080078125  -2.1428150969791853e-05     [      -1.57080078125,       -1.5693359375]
+     -1.570068359375     0.003499322178225614     [      -1.57080078125,     -1.570068359375]
+Converged in 12 iterations
+Best guess for root is  -1.570068359375
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s try finding the second one, but this time with a tighter tolerance on the forward error.  We will suppress the output to avoid printing a long table:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1e-15</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converged in 50 iterations
+Best guess for root is  1.5707963267948974
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convergence-of-root-finding-methods">
+<h1>Convergence of Root finding methods<a class="headerlink" href="#convergence-of-root-finding-methods" title="Permalink to this heading">#</a></h1>
+<p>A very reasonable question to ask for any root-finding method is: How fast is this method?</p>
+<blockquote>
+<div><p><strong>Definition:</strong> If $<span class="math notranslate nohighlight">\(\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} = C\)</span><span class="math notranslate nohighlight">\(
+for some constant \)</span>C\neq 0<span class="math notranslate nohighlight">\(, then we say the method has *order of convergence* \)</span>\alpha$.</p>
+</div></blockquote>
+<p>For bisection, it should be clear that
+$<span class="math notranslate nohighlight">\(|p_{i+1}-p| \leq |a_{i+1}-b_{i+1}|=\frac{1}{2}|a_{i}-b_{i}|\)</span><span class="math notranslate nohighlight">\(
+and
+\)</span><span class="math notranslate nohighlight">\(|p_{i}-p| \leq |a_{i}-b_{i}|\)</span><span class="math notranslate nohighlight">\(
+so that
+\)</span><span class="math notranslate nohighlight">\(\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} =  \frac{1}{2}.\)</span><span class="math notranslate nohighlight">\(
+Thus, bisection has order of convergence \)</span>\alpha = 1$, or linear convergence.</p>
+<p>It should also be clear that
+$<span class="math notranslate nohighlight">\( |p_n - p| \leq \frac{b-a}{2^n}\)</span><span class="math notranslate nohighlight">\(
+where \)</span>[a,b]<span class="math notranslate nohighlight">\( is the intial bracketing interval.  As such, the convergence of the bisection method is actually independent of the details of \)</span>f(x)$.</p>
+</section>
+<section id="stopping-criteria">
+<h1>Stopping Criteria<a class="headerlink" href="#stopping-criteria" title="Permalink to this heading">#</a></h1>
+<p>In the bisection example we primarily used an absolute forward error test to stop.  There are a number of other possibilities including:</p>
+<ol class="arabic simple">
+<li><p>Stop before exceedig a maximun number of iterations</p></li>
+<li><p>Absolute backward error test, <span class="math notranslate nohighlight">\(|f(p_{i+1})| \leq \epsilon_b\)</span></p></li>
+<li><p>Forward error test, either relative $<span class="math notranslate nohighlight">\(\frac{|p_{i+1}-p_i|}{|p_{i+1}|} \leq \epsilon_{rf}\)</span><span class="math notranslate nohighlight">\( if \)</span>p_{i+1}<span class="math notranslate nohighlight">\( is &quot;away&quot; from zero or absolute, \)</span><span class="math notranslate nohighlight">\(|p_{i+1}-p_i| \leq \epsilon_{af}.\)</span>$</p></li>
+<li><p>To avoid the issue of the failure of a relative error test when the root is close to zero (which you may not know <em>a priori</em>) one can use a mixed relative/absolute error test of the form $<span class="math notranslate nohighlight">\(|p_{i+1}-p_i| \leq \epsilon_{rf}|p_{i+1}| + \epsilon_{af}.\)</span><span class="math notranslate nohighlight">\(  Note that if \)</span>p_{i+1}\approx 0<span class="math notranslate nohighlight">\( this is dominated by the second term so the test essentially becomes an absolute error test.  In contrast, if \)</span>|p_{i+1}|$ is large the second term is neglible and the test becomes a relative error.</p></li>
+</ol>
 </section>
 
     <script type="text/x-thebe-config">
@@ -648,6 +684,24 @@ p_n(x) &amp;= \frac{p_n(x)}{1} = \frac{p_n(x)}{g(x)},\\
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bisection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-root-finding-methods">Convergence of Root finding methods</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
