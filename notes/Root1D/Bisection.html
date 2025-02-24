@@ -605,29 +605,44 @@ Best guess for root is  1.5707963267948974
 <h1>Convergence of Root finding methods<a class="headerlink" href="#convergence-of-root-finding-methods" title="Permalink to this heading">#</a></h1>
 <p>A very reasonable question to ask for any root-finding method is: How fast is this method?</p>
 <blockquote>
-<div><p><strong>Definition:</strong> If
-$<span class="math notranslate nohighlight">\(\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} = C\)</span><span class="math notranslate nohighlight">\(
-for some constant \)</span>C\neq 0<span class="math notranslate nohighlight">\(, then we say the method has *order of convergence* \)</span>\alpha$.</p>
+<div><p><strong>Definition:</strong> If</p>
+<div class="math notranslate nohighlight">
+\[\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} = C\]</div>
+<p>for some constant <span class="math notranslate nohighlight">\(C\neq 0\)</span>, then we say the method has <em>order of convergence</em> <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 </div></blockquote>
-<p>For bisection, it should be clear that
-$<span class="math notranslate nohighlight">\(|p_{i+1}-p| \leq |a_{i+1}-b_{i+1}|=\frac{1}{2}|a_{i}-b_{i}|\)</span><span class="math notranslate nohighlight">\(
-and
-\)</span><span class="math notranslate nohighlight">\(|p_{i}-p| \leq |a_{i}-b_{i}|\)</span><span class="math notranslate nohighlight">\(
-so that
-\)</span><span class="math notranslate nohighlight">\(\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} =  \frac{1}{2}.\)</span><span class="math notranslate nohighlight">\(
-Thus, bisection has order of convergence \)</span>\alpha = 1$, or linear convergence.</p>
-<p>It should also be clear that
-$<span class="math notranslate nohighlight">\( |p_n - p| \leq \frac{b-a}{2^n}\)</span><span class="math notranslate nohighlight">\(
-where \)</span>[a,b]<span class="math notranslate nohighlight">\( is the intial bracketing interval.  As such, the convergence of the bisection method is actually independent of the details of \)</span>f(x)$.</p>
+<p>For bisection, it should be clear that</p>
+<div class="math notranslate nohighlight">
+\[|p_{i+1}-p| \leq |a_{i+1}-b_{i+1}|=\frac{1}{2}|a_{i}-b_{i}|\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[|p_{i}-p| \leq |a_{i}-b_{i}|\]</div>
+<p>so that</p>
+<div class="math notranslate nohighlight">
+\[\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} =  \frac{1}{2}.\]</div>
+<p>Thus, bisection has order of convergence <span class="math notranslate nohighlight">\(\alpha = 1\)</span>, or linear convergence.</p>
+<p>It should also be clear that</p>
+<div class="math notranslate nohighlight">
+\[ |p_n - p| \leq \frac{b-a}{2^n}\]</div>
+<p>where <span class="math notranslate nohighlight">\([a,b]\)</span> is the intial bracketing interval.  As such, the convergence of the bisection method is actually independent of the details of <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
 </section>
 <section id="stopping-criteria">
 <h1>Stopping Criteria<a class="headerlink" href="#stopping-criteria" title="Permalink to this heading">#</a></h1>
 <p>In the bisection example we primarily used an absolute forward error test to stop.  There are a number of other possibilities including:</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p>Stop before exceedig a maximun number of iterations</p></li>
 <li><p>Absolute backward error test, <span class="math notranslate nohighlight">\(|f(p_{i+1})| \leq \epsilon_b\)</span></p></li>
-<li><p>Forward error test, either relative $<span class="math notranslate nohighlight">\(\frac{|p_{i+1}-p_i|}{|p_{i+1}|} \leq \epsilon_{rf}\)</span><span class="math notranslate nohighlight">\( if \)</span>p_{i+1}<span class="math notranslate nohighlight">\( is &quot;away&quot; from zero or absolute, \)</span><span class="math notranslate nohighlight">\(|p_{i+1}-p_i| \leq \epsilon_{af}.\)</span>$</p></li>
-<li><p>To avoid the issue of the failure of a relative error test when the root is close to zero (which you may not know <em>a priori</em>) one can use a mixed relative/absolute error test of the form $<span class="math notranslate nohighlight">\(|p_{i+1}-p_i| \leq \epsilon_{rf}|p_{i+1}| + \epsilon_{af}.\)</span><span class="math notranslate nohighlight">\(  Note that if \)</span>p_{i+1}\approx 0<span class="math notranslate nohighlight">\( this is dominated by the second term so the test essentially becomes an absolute error test.  In contrast, if \)</span>|p_{i+1}|$ is large the second term is neglible and the test becomes a relative error.</p></li>
+<li><p>Forward error test, either relative</p>
+<div class="math notranslate nohighlight">
+\[\frac{|p_{i+1}-p_i|}{|p_{i+1}|} \leq \epsilon_{rf}\]</div>
+<p>if <span class="math notranslate nohighlight">\(p_{i+1}\)</span> is “away” from zero or absolute,</p>
+<div class="math notranslate nohighlight">
+\[|p_{i+1}-p_i| \leq \epsilon_{af}.\]</div>
+</li>
+<li><p>To avoid the issue of the failure of a relative error test when the root is close to zero (which you may not know <em>a priori</em>) one can use a mixed relative/absolute error test of the form</p>
+<div class="math notranslate nohighlight">
+\[|p_{i+1}-p_i| \leq \epsilon_{rf}|p_{i+1}| + \epsilon_{af}.\]</div>
+<p>Note that if <span class="math notranslate nohighlight">\(p_{i+1}\approx 0\)</span> this is dominated by the second term so the test essentially becomes an absolute error test.  In contrast, if <span class="math notranslate nohighlight">\(|p_{i+1}|\)</span> is large the second term is neglible and the test becomes a relative error.</p>
+</li>
 </ol>
 </section>
 
