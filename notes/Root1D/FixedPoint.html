@@ -582,7 +582,8 @@ given <span class="math notranslate nohighlight">\(p_1\in [a,b]\)</span>, the se
 <p><strong>Example:</strong> Let’s use our Fixed Point Iteration function to find a fixed point of the function <span class="math notranslate nohighlight">\(g(x)=e^{-x}\cos{x}\)</span>.  As with root finding, our first step is always to plot the function to get some idea of regions where we might be able to find a fixed point (note that the scheme does not require any bracketing of the fixed point, but if the conditions of the theorem above are not met, we likely won’t find what we are looking for).  In this case we plot <span class="math notranslate nohighlight">\(y=x\)</span> as well as <span class="math notranslate nohighlight">\(g(x)\)</span> as the fixed points are locations where these two lines cross.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -596,18 +597,7 @@ given <span class="math notranslate nohighlight">\(p_1\in [a,b]\)</span>, the se
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">def</span><span class="w"> </span><span class="nf">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;np&#39; is not defined
-</pre></div>
-</div>
+<img alt="../../_images/494df6deeeabc459ef97fb029aa4d6836ace60b4a1e44a3c44fca57d2a76fde5.png" src="../../_images/494df6deeeabc459ef97fb029aa4d6836ace60b4a1e44a3c44fca57d2a76fde5.png" />
 </div>
 </div>
 <p>Here we see there are two fixed point visible in the interval we plotted over, where the line <span class="math notranslate nohighlight">\(y=x\)</span> and the plot of our <span class="math notranslate nohighlight">\(g(x)\)</span> cross, one near <span class="math notranslate nohighlight">\(-1.9\)</span> and another near <span class="math notranslate nohighlight">\(0.5\)</span>.  In the region <span class="math notranslate nohighlight">\([0,1]\)</span> it looks like our <span class="math notranslate nohighlight">\(g(x)\)</span> probably satisfies the requirements of our theorem in that it maps an interval onto itself and it looks like the slope is less than one.  This suggests the fixed point iteration scheme should be able to find the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Let’s see if it works:</p>
@@ -625,9 +615,9 @@ given <span class="math notranslate nohighlight">\(p_1\in [a,b]\)</span>, the se
    0.506017150823715       0.5273387574874205
   0.5273387574874205       0.5099980321976492
   0.5099980321976492       0.5240808264172857
-  0.5240808264172857       0.5126303136484097
-  0.5126303136484097       0.5219316831931609
-  0.5219316831931609       0.5143701817534934
+  0.5240808264172857       0.5126303136484098
+  0.5126303136484098       0.5219316831931607
+  0.5219316831931607       0.5143701817534934
   0.5143701817534934       0.5205133906614345
   0.5205133906614345       0.5155198768147499
   0.5155198768147499       0.5195771679746161
@@ -664,8 +654,8 @@ Best guess for fixed point is  0.5173315575733446
   0.8036017644473938      0.31076619849211157
  0.31076619849211157       0.6977796779572575
   0.6977796779572575       0.3813645670468432
-  0.3813645670468432       0.6338656390190758
-  0.6338656390190758       0.4274770079691997
+  0.3813645670468432       0.6338656390190759
+  0.6338656390190759       0.4274770079691997
   0.4274770079691997       0.5934682131658137
   0.5934682131658137      0.45794967972580625
  0.45794967972580625       0.5673988724136764
@@ -687,10 +677,10 @@ Best guess for fixed point is  0.5173315575733446
   0.5155728746224664       0.5195340294216132
   0.5195340294216132       0.5163144597758489
   0.5163144597758489       0.5189305758864963
-  0.5189305758864963       0.5168043404670372
-  0.5168043404670372       0.5185321206974918
-  0.5185321206974918       0.5171279223242925
-  0.5171279223242925       0.5182690058741294
+  0.5189305758864963        0.516804340467037
+   0.516804340467037       0.5185321206974919
+  0.5185321206974919       0.5171279223242924
+  0.5171279223242924       0.5182690058741294
   0.5182690058741294       0.5173416468600801
 Converged in 38 iterations
 Best guess for fixed point is  0.5173416468600801
