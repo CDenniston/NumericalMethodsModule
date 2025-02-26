@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Bisection &#8212; Numerical Methods</title>
+    <title>Fixed-Point Iteration &#8212; Numerical Methods</title>
   
   
   
@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/Root1D/Bisection';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/Root1D/FixedPoint';</script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Fixed-Point Iteration" href="FixedPoint.html" />
-    <link rel="prev" title="Root Finding in One Dimension" href="Root1D_summary.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="Bisection" href="Bisection.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -238,10 +238,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Root1D_summary.html">Root Finding in One Dimension</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bisection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bisection.html">Bisection</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fixed-Point Iteration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -334,7 +334,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/Root1D/Bisection.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/Root1D/FixedPoint.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -383,7 +383,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/Root1D/Bisection.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/Root1D/FixedPoint.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -454,9 +454,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -467,22 +465,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Bisection</h1>
+    <h1>Fixed-Point Iteration</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bisection</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-root-finding-methods">Convergence of Root finding methods</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -492,158 +479,227 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="bisection">
-<h1>Bisection<a class="headerlink" href="#bisection" title="Permalink to this heading">#</a></h1>
-<p>The intermediate value theorem states that if <span class="math notranslate nohighlight">\(f\)</span> is a continuous function whose domain contains the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, then it takes on any given value between <span class="math notranslate nohighlight">\(f(a)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> at some point within the interval.  An important corollary is <em>Bolzano’s theorem</em>: If a continuous function has values of opposite sign inside an interval, then it has a root in that interval.</p>
-<p>The bisection method assumes that you have first bracketed the root so have found an interval <span class="math notranslate nohighlight">\([a,b]\)</span> where <span class="math notranslate nohighlight">\(f(a)*f(b) &lt; 0\)</span>.  Our goal is to find <span class="math notranslate nohighlight">\(p \in [a,b]\)</span>, such that <span class="math notranslate nohighlight">\(f(p)=0\)</span>. Our initial situation looks something like what is depicted in black in the following plot:</p>
-<a class="reference internal image-reference" href="../../_images/bisection.png"><img alt="../../_images/bisection.png" src="../../_images/bisection.png" style="width: 400px;" /></a>
-<p>In this example <span class="math notranslate nohighlight">\(f(a)&lt;0\)</span> and <span class="math notranslate nohighlight">\(f(b)&gt;0\)</span> but it could be the other way around.  Our strategy is divide the interval in half, identify which half of the interval contains the root and then repeat the process until our interval is smaller than some tolerance.  In each interval, our guess for the root <span class="math notranslate nohighlight">\(p\)</span> will be the midpoint of the interval.  So, for our first step, <span class="math notranslate nohighlight">\(a_1=a\)</span> and <span class="math notranslate nohighlight">\(b_1=b\)</span> and our first guess for the root will be <span class="math notranslate nohighlight">\(p_1=\frac{a_1+a_2}{2}\)</span>.  It is also easy to check the backward error, i.e. how well our current guess satisfies the root condition as <span class="math notranslate nohighlight">\(E_b=|f(p_1)-0|=|f(p_1)|\)</span> is easily calculated exactly.  We can bound the forward error, how close our guess is to the actual root <span class="math notranslate nohighlight">\(p\)</span>, as <span class="math notranslate nohighlight">\(E_f=|p_1 - p| \leq |p_1 - a_1|=|p_1 - b_1|\)</span>, but not calculate it exactly.  We then replace the endpoint that gives the same sign as <span class="math notranslate nohighlight">\(f(p_1)\)</span> with <span class="math notranslate nohighlight">\(p_1\)</span>.  This gives us a new interval to search that is half the width of the original.  We can then repeat until one, or both, of the forward or backwards errors are smaller than a tolerance.  A python code to do this is below.</p>
+  <section id="fixed-point-iteration">
+<h1>Fixed-Point Iteration<a class="headerlink" href="#fixed-point-iteration" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Definition:</strong>  <span class="math notranslate nohighlight">\(p\)</span> is a <em>fixed point</em> of a function <span class="math notranslate nohighlight">\(g\)</span> if <span class="math notranslate nohighlight">\(g(p)=p\)</span>.</p>
+</div></blockquote>
+<p>Finding a fixed point and finding a root are related problems.  For example, a root of <span class="math notranslate nohighlight">\(f(x)=0\)</span> is also a fixed point of <span class="math notranslate nohighlight">\(g(x)=x-\phi(x)f(x)\)</span>, where <span class="math notranslate nohighlight">\(\phi(x)\)</span> is almost any function (there are some functions, like <span class="math notranslate nohighlight">\(\phi(x)=1/f(x)\)</span> that would <em>not</em> work though).  As a result, given a suitable choice for <span class="math notranslate nohighlight">\(\phi(x)\)</span>, we can use an algorithm that finds a fixed point of <span class="math notranslate nohighlight">\(g(x)\)</span> to find a root of <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
+<p>Before looking for a fixed point, a reasonable question to ask is whether there is one, i.e. is there a solution to <span class="math notranslate nohighlight">\(g(x)=x\)</span>?  You should not be surprised that, just as the first step in root-finding is to bracket the root, our first step to find a fixed point is to find an interval that contains the fixed point.  In this case, this is an interval that the function maps onto itself as described in the following Theorem.</p>
+<blockquote>
+<div><p><strong>Theorem:</strong></p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(g\)</span> is a continuous function on the interval <span class="math notranslate nohighlight">\([a,b]\)</span> and <span class="math notranslate nohighlight">\(g(x) \in [a,b]\)</span> for all <span class="math notranslate nohighlight">\(x \in [a,b]\)</span>, then <span class="math notranslate nohighlight">\(g\)</span> has a fixed point <span class="math notranslate nohighlight">\(p \in [a,b]\)</span>.</p></li>
+<li><p>If, in addition, <span class="math notranslate nohighlight">\(g'(x)\)</span> exists on <span class="math notranslate nohighlight">\([a,b]\)</span> and <span class="math notranslate nohighlight">\(0&lt;k&lt;1\)</span> exists with <span class="math notranslate nohighlight">\(|g'(x)|\leq k\)</span> for all <span class="math notranslate nohighlight">\(x \in (a,b)\)</span> the <span class="math notranslate nohighlight">\(p\)</span> is unique.</p></li>
+</ul>
+</div></blockquote>
+<p>The proof of the first statement is best constructed by first looking at a picture illustrating the situation:</p>
+<a class="reference internal image-reference" href="../../_images/FixedPoint.png"><img alt="../../_images/FixedPoint.png" src="../../_images/FixedPoint.png" style="width: 400px;" /></a>
+<p>Note that the requirement that <span class="math notranslate nohighlight">\(g(x) \in [a,b]\)</span> for all <span class="math notranslate nohighlight">\(x \in [a,b]\)</span> translates into the requirement that <span class="math notranslate nohighlight">\(g(x)\)</span> enters the box in the picture above along the left edge and exits along the right edge.  It therefore as little choice but to cross the diagonal (the line <span class="math notranslate nohighlight">\(y=x\)</span>) in traversing the box.  Mathematically, you can define an auxiliary function</p>
+<div class="math notranslate nohighlight">
+\[ h(x) = x- g(x) \]</div>
+<p>and the constraints on <span class="math notranslate nohighlight">\(g(x)\)</span> translate into the requirement that <span class="math notranslate nohighlight">\(h(a) \leq 0\)</span> and <span class="math notranslate nohighlight">\(h(b) \geq 0\)</span>.  The Intermediate Value Theorem (or the corollary, Bolzano’s theorem) then states that their exists <span class="math notranslate nohighlight">\(p\)</span> with <span class="math notranslate nohighlight">\(h(p)=0\)</span>, or <span class="math notranslate nohighlight">\(p=g(p)\)</span>.</p>
+<p>The second statement restricts the function <span class="math notranslate nohighlight">\(g(x)\)</span> from crossing the line <span class="math notranslate nohighlight">\(y=x\)</span> more than once as once it has crossed the line <span class="math notranslate nohighlight">\(y=x\)</span> to cross it again would require its derivative to be greater than 1 (to “overtake” the line <span class="math notranslate nohighlight">\(y=x\)</span> whose slope is 1).</p>
+<p>Note that the theorem only gives “sufficient conditions” for when a fixed point is sure to exist.  It is possible for a fixed point to exist without these conditions being met. How do we find the fixed point?  A very simple guess is to just try the following sequence:</p>
+<blockquote>
+<div><p><strong>Definition:</strong>  Given <span class="math notranslate nohighlight">\(p_0\)</span>, the sequence</p>
+<div class="math notranslate nohighlight">
+\[ p_{n+1}=g(p_n),\qquad\qquad n=0,1,2,\ldots\]</div>
+<p>is called a <em>fixed point iteration</em> scheme.</p>
+</div></blockquote>
+<p>A good question to ask is: When does this sequence converge to a fixed point?</p>
+<blockquote>
+<div><p><strong>Theorem:</strong>
+If <span class="math notranslate nohighlight">\(g\)</span> is a continuous function on the interval <span class="math notranslate nohighlight">\([a,b]\)</span> and <span class="math notranslate nohighlight">\(g(x) \in [a,b]\)</span> for all <span class="math notranslate nohighlight">\(x \in [a,b]\)</span>, and <span class="math notranslate nohighlight">\(|g'(x)| \leq k &lt; 1\)</span> for all <span class="math notranslate nohighlight">\(x \in (a,b)\)</span> then
+given <span class="math notranslate nohighlight">\(p_1\in [a,b]\)</span>, the sequence <span class="math notranslate nohighlight">\(p_{n+1}=g(p_n),\, n=0,1,2,\ldots\)</span> converges to a unique fixed point <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\([a,b]\)</span>.</p>
+</div></blockquote>
+<p>The proof is fairly straightforward and instructive.  Using the definition of the sequence and the fixed point,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+|p_{n+1}-p|&amp;=|g(p_n)-g(p)|\\
+&amp;= |g'(\xi)(p_n-p)|\\
+&amp;\leq k|p_n-p|
+\end{align}
+\end{split}\]</div>
+<p>where the second line is true for some <span class="math notranslate nohighlight">\(\xi\in (p_n,p)\)</span> by the <a class="reference external" href="https://en.wikipedia.org/wiki/Mean_value_theorem">Mean Value Theorem</a>, and the last line just makes use of the bound on the derivative.  As this expression is true for any <span class="math notranslate nohighlight">\(n\)</span> we can apply it iteratively to get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+|p_{n+1}-p| \leq k|p_n-p| &amp;\leq k^2|p_{n-1}-p|\\
+&amp;\vdots\\
+&amp;\leq k^n|p_1-p|
+\end{align}
+\end{split}\]</div>
+<p>This in turn implies that <span class="math notranslate nohighlight">\(\lim_{n\rightarrow \infty} |p_{n+1}-p| =0\)</span> since <span class="math notranslate nohighlight">\(k&lt;1\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\blacksquare
+\]</div>
+<p>From the proof we can note a few things (when the conditions of the theorem are satisfied</p>
+<ul class="simple">
+<li><p>Given that <span class="math notranslate nohighlight">\(|p_{n+1}-p| \leq k|p_n-p|\)</span> we can see that the method has order of convergence 1, assuming <span class="math notranslate nohighlight">\(k&gt;0\)</span>.</p></li>
+<li><p>In the neighborhood of the root, the smaller <span class="math notranslate nohighlight">\(|g'(p)|\)</span> is, the faster we will converge to the root once we are in that neighborhood.</p></li>
+<li><p><span class="math notranslate nohighlight">\(E_f=|p_{n+1}-p| \leq k^n \,\,{\rm max}\{p_1-a,b-p_1\}\)</span> provides a calculatable bound on the forward error.</p></li>
+</ul>
+<p>We cannot practically do an infinite number of iterations so we will have to stop at some point when the error is small enough.  As usual, the backward error is easily computed as <span class="math notranslate nohighlight">\(E_b=|p_{n+1}-g(p_n)|\)</span> but that is rarely used as a stopping criteria.  As we do no know <span class="math notranslate nohighlight">\(p\)</span>, we can only bound the forward error.  However, that requires as input the bound <span class="math notranslate nohighlight">\(k\)</span> on the derivative.  As users are often too lazy to provide this, a common stopping criteria is to look at the difference between our current guess and our last one. It is possible to prove that for linear convergence</p>
+<div class="math notranslate nohighlight">
+\[
+|p_{n+1}-p| \approx C |p_{n+1}-p_n|,
+\]</div>
+<p>for some <span class="math notranslate nohighlight">\(C\neq 0\)</span>, and not guaranteed to be small.  In principle we should come up with an estimate for <span class="math notranslate nohighlight">\(C\)</span> but this is rarely done as it requires similar work as bounding <span class="math notranslate nohighlight">\(|g(x)|\)</span> on the interval.</p>
+<p>Coding up a fixed point iteration scheme is almost trivial though:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">bisection</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="c1"># We require that the root is bracketed which means that the function must </span>
-    <span class="c1"># have a different sign when evaluated at each endpoint.  If the function</span>
-    <span class="c1"># is not bracketed we return a nan</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Root is not bracketed&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">FixPointIteration</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># The p0 argument here is our initial guess</span>
+    
     <span class="c1"># print output table headings</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p_i                    f(p_i)                         [a_(i+1), b_(i+1)]&quot;</span><span class="p">)</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i+1)                    g( p(i) )&quot;</span><span class="p">)</span> 
 
     <span class="c1"># main loop</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">p</span>
-        <span class="k">else</span><span class="p">:</span> 
-            <span class="n">a</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">     [</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">p</span>
-
-    <span class="c1"># if we finish the main loop without returning from the bisection function, we have failed.  :( </span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find root to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">p</span>
+            <span class="k">return</span> <span class="n">p1</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">p0</span> <span class="o">=</span> <span class="n">p1</span>
+    
+    <span class="c1"># if we finish the main loop without returning from the FixPointIteration function, we have failed.  :( </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find fixed point to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that we could have used a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, with the forward/backward error test as the condition, for the main loop.  However, there is the possibility that if a user asked for too tight a tolerance the required number of iterations could be very large.  By setting a maximum number of iterations (the <code class="docutils literal notranslate"><span class="pre">maxN</span></code> optional arguement) we avoid this possibility.  Output can be very useful to see the process of convergence, and for debugging if you were coding this yourself.  However, for larger numbers of iterations it could be cumbersome so it is useful to give the possibility of suppressing it (by setting the optional <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">False</span></code> in the call to bisection).</p>
-<p>Note that if <span class="math notranslate nohighlight">\(f(a)*f(p) &lt; 0\)</span> then <span class="math notranslate nohighlight">\([a,p]\)</span> is an interval containing a root that has half the width of the prior search interval.  If <span class="math notranslate nohighlight">\(f(a)*f(p) &gt; 0\)</span> then, as <span class="math notranslate nohighlight">\(f(a)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> have opposite signs, we can be sure that <span class="math notranslate nohighlight">\(f(p)\)</span> and <span class="math notranslate nohighlight">\(f(b)\)</span> also have opposite signs so we can take <span class="math notranslate nohighlight">\([p,b]\)</span> for our new search interval.  Our stopping condition here is just the forward error bound test.  We need to still include the test on the vanishing of the backward error <span class="math notranslate nohighlight">\(f(p)=0\)</span> as our <code class="docutils literal notranslate"><span class="pre">if</span></code> condition for the new interval could fail if <span class="math notranslate nohighlight">\(f(p) = 0\)</span>.</p>
-<p><strong>Example:</strong> Let’s use our bisection function to find a root of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span>.  Our first step is the bracket a root and the best way of doing this is to first plot the function over some interval (you may need to do this a few times, varying the endpoints, to find a suitable interval):</p>
+<p>As with the bisection routine, we set both a maximum number of iterations and a psuedo-forward error test (we don’t have an estimate of the <span class="math notranslate nohighlight">\(C\)</span> above so this test is only roughly proportional to the forward error).</p>
+<p><strong>Example:</strong> Let’s use our Fixed Point Iteration function to find a fixed point of the function <span class="math notranslate nohighlight">\(g(x)=e^{-x}\cos{x}\)</span>.  As with root finding, our first step is always to plot the function to get some idea of regions where we might be able to find a fixed point (note that the scheme does not require any bracketing of the fixed point, but if the conditions of the theorem above are not met, we likely won’t find what we are looking for).  In this case we plot <span class="math notranslate nohighlight">\(y=x\)</span> as well as <span class="math notranslate nohighlight">\(g(x)\)</span> as the fixed points are locations where these two lines cross.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d3848986cf77d533e3230edff381dd0e17aa5434a94786143166366a89a488b6.png" src="../../_images/d3848986cf77d533e3230edff381dd0e17aa5434a94786143166366a89a488b6.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">def</span><span class="w"> </span><span class="nf">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
 </div>
 </div>
-<p>Here we see there are two roots visible in the interval we plotted over, one in <span class="math notranslate nohighlight">\([-2,-1]\)</span> and another in <span class="math notranslate nohighlight">\([1,2]\)</span>.  Now let’s use our bisection function to zero in on the first root:</p>
+</div>
+<p>Here we see there are two fixed point visible in the interval we plotted over, where the line <span class="math notranslate nohighlight">\(y=x\)</span> and the plot of our <span class="math notranslate nohighlight">\(g(x)\)</span> cross, one near <span class="math notranslate nohighlight">\(-1.9\)</span> and another near <span class="math notranslate nohighlight">\(0.5\)</span>.  In the region <span class="math notranslate nohighlight">\([0,1]\)</span> it looks like our <span class="math notranslate nohighlight">\(g(x)\)</span> probably satisfies the requirements of our theorem in that it maps an interval onto itself and it looks like the slope is less than one.  This suggests the fixed point iteration scheme should be able to find the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Let’s see if it works:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p_i                    f(p_i)                         [a_(i+1), b_(i+1)]
-                -0.5       1.4468890365841693     [                -2.0,                -0.5]
-               -1.25       1.1005831869165565     [                -2.0,               -1.25]
-              -1.625     -0.27513419390066923     [              -1.625,               -1.25]
-             -1.4375       0.5595380857937036     [              -1.625,             -1.4375]
-            -1.53125       0.1828127032730359     [              -1.625,            -1.53125]
-           -1.578125     -0.03551341594628521     [           -1.578125,            -1.53125]
-          -1.5546875      0.07624955813068525     [           -1.578125,          -1.5546875]
-         -1.56640625     0.021025789547447247     [           -1.578125,         -1.56640625]
-        -1.572265625    -0.007078415905375183     [        -1.572265625,         -1.56640625]
-       -1.5693359375     0.007014915182200935     [        -1.572265625,       -1.5693359375]
-      -1.57080078125  -2.1428150969791853e-05     [      -1.57080078125,       -1.5693359375]
-     -1.570068359375     0.003499322178225614     [      -1.57080078125,     -1.570068359375]
-Converged in 12 iterations
-Best guess for root is  -1.570068359375
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i+1)                    g( p(i) )
+                 0.5       0.5322807302156708
+  0.5322807302156708        0.506017150823715
+   0.506017150823715       0.5273387574874205
+  0.5273387574874205       0.5099980321976492
+  0.5099980321976492       0.5240808264172857
+  0.5240808264172857       0.5126303136484097
+  0.5126303136484097       0.5219316831931609
+  0.5219316831931609       0.5143701817534934
+  0.5143701817534934       0.5205133906614345
+  0.5205133906614345       0.5155198768147499
+  0.5155198768147499       0.5195771679746161
+  0.5195771679746161       0.5162794483407539
+  0.5162794483407539       0.5189590586183047
+  0.5189590586183047       0.5167812134870264
+  0.5167812134870264       0.5185509283524781
+  0.5185509283524781       0.5171126466905065
+  0.5171126466905065       0.5182814255955307
+  0.5182814255955307       0.5173315575733446
+Converged in 18 iterations
+Best guess for fixed point is  0.5173315575733446
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s try finding the second one, but this time with a tighter tolerance on the forward error.  We will suppress the output to avoid printing a long table:</p>
+<p>As expected, it does converged, although not terribly quickly.  Let’s try finding the second fixed point near <span class="math notranslate nohighlight">\(x=-1.9\)</span> by giving a guess closer to that one:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1e-15</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converged in 50 iterations
-Best guess for root is  1.5707963267948974
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i+1)                    g( p(i) )
+                -1.9       -2.161479918339569
+  -2.161479918339569       -4.836359427829768
+  -4.836359427829768       15.581504473709394
+  15.581504473709394   -1.696511121979884e-07
+-1.696511121979884e-07        1.000000169651112
+   1.000000169651112      0.19876602410835303
+ 0.19876602410835303       0.8036017644473938
+  0.8036017644473938      0.31076619849211157
+ 0.31076619849211157       0.6977796779572575
+  0.6977796779572575       0.3813645670468432
+  0.3813645670468432       0.6338656390190758
+  0.6338656390190758       0.4274770079691997
+  0.4274770079691997       0.5934682131658137
+  0.5934682131658137      0.45794967972580625
+ 0.45794967972580625       0.5673988724136764
+  0.5673988724136764      0.47815072244569323
+ 0.47815072244569323       0.5504021086808643
+  0.5504021086808643      0.49154486576105705
+ 0.49154486576105705       0.5392606113390594
+  0.5392606113390594       0.5004194958147331
+  0.5004194958147331       0.5319355082237575
+  0.5319355082237575        0.506294763315725
+   0.506294763315725       0.5271112602098665
+  0.5271112602098665       0.5101816365573778
+  0.5101816365573778       0.5239307895568277
+  0.5239307895568277       0.5127516892065659
+  0.5127516892065659       0.5218326834490277
+  0.5218326834490277       0.5144503942164397
+  0.5144503942164397        0.520448046597347
+   0.520448046597347       0.5155728746224664
+  0.5155728746224664       0.5195340294216132
+  0.5195340294216132       0.5163144597758489
+  0.5163144597758489       0.5189305758864963
+  0.5189305758864963       0.5168043404670372
+  0.5168043404670372       0.5185321206974918
+  0.5185321206974918       0.5171279223242925
+  0.5171279223242925       0.5182690058741294
+  0.5182690058741294       0.5173416468600801
+Converged in 38 iterations
+Best guess for fixed point is  0.5173416468600801
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="convergence-of-root-finding-methods">
-<h1>Convergence of Root finding methods<a class="headerlink" href="#convergence-of-root-finding-methods" title="Permalink to this heading">#</a></h1>
-<p>A very reasonable question to ask for any root-finding method is: How fast is this method?</p>
-<blockquote>
-<div><p><strong>Definition:</strong> If</p>
-<div class="math notranslate nohighlight">
-\[\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} = C\]</div>
-<p>for some constant <span class="math notranslate nohighlight">\(C\neq 0\)</span>, then we say the method has <em>order of convergence</em> <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
-</div></blockquote>
-<p>For bisection, it should be clear that</p>
-<div class="math notranslate nohighlight">
-\[|p_{i+1}-p| \leq |a_{i+1}-b_{i+1}|=\frac{1}{2}|a_{i}-b_{i}|\]</div>
-<p>and</p>
-<div class="math notranslate nohighlight">
-\[|p_{i}-p| \leq |a_{i}-b_{i}|\]</div>
-<p>so that</p>
-<div class="math notranslate nohighlight">
-\[\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^\alpha} =  \frac{1}{2}.\]</div>
-<p>Thus, bisection has order of convergence <span class="math notranslate nohighlight">\(\alpha = 1\)</span>, or linear convergence.</p>
-<p>It should also be clear that</p>
-<div class="math notranslate nohighlight">
-\[ |p_n - p| \leq \frac{b-a}{2^n}\]</div>
-<p>where <span class="math notranslate nohighlight">\([a,b]\)</span> is the intial bracketing interval.  As such, the convergence of the bisection method is actually independent of the details of <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
-</section>
-<section id="stopping-criteria">
-<h1>Stopping Criteria<a class="headerlink" href="#stopping-criteria" title="Permalink to this heading">#</a></h1>
-<p>In the bisection example we primarily used an absolute forward error test to stop.  There are a number of other possibilities including:</p>
-<ol class="arabic">
-<li><p>Stop before exceedig a maximun number of iterations</p></li>
-<li><p>Absolute backward error test, <span class="math notranslate nohighlight">\(|f(p_{i+1})| \leq \epsilon_b\)</span></p></li>
-<li><p>Forward error test, either relative</p>
-<div class="math notranslate nohighlight">
-\[\frac{|p_{i+1}-p_i|}{|p_{i+1}|} \leq \epsilon_{rf}\]</div>
-<p>if <span class="math notranslate nohighlight">\(p_{i+1}\)</span> is “away” from zero or absolute,</p>
-<div class="math notranslate nohighlight">
-\[|p_{i+1}-p_i| \leq \epsilon_{af}.\]</div>
-</li>
-<li><p>To avoid the issue of the failure of a relative error test when the root is close to zero (which you may not know <em>a priori</em>) one can use a mixed relative/absolute error test of the form</p>
-<div class="math notranslate nohighlight">
-\[|p_{i+1}-p_i| \leq \epsilon_{rf}|p_{i+1}| + \epsilon_{af}.\]</div>
-<p>Note that if <span class="math notranslate nohighlight">\(p_{i+1}\approx 0\)</span> this is dominated by the second term so the test essentially becomes an absolute error test.  In contrast, if <span class="math notranslate nohighlight">\(|p_{i+1}|\)</span> is large the second term is neglible and the test becomes a relative error.</p>
-</li>
-</ol>
+<p>Not surprisingly, this does not coverge to the fixed point we wanted near <span class="math notranslate nohighlight">\(-1.9\)</span> but, after jumping around a bit, it does eventually coverge back to the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Sometimes fixed points are categorized as being “attractive” when there is a neighborhood around them where a fixed point iteration converges, or “repulsive” if the fixed point iteration scheme actually moves away from them.</p>
+<p>Despite the prevalence of fixed point iteraction schemes in many algorithms, it should be clear that they don’t generally converge terribly quickly.  Given that <span class="math notranslate nohighlight">\(|g'(p)|\)</span> seems to determine how quickly we converge, an obvious quesion is whether we can do better than linear convergence if <span class="math notranslate nohighlight">\(g'(p)=0\)</span>?  We answer this question in the next section.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -677,20 +733,20 @@ Best guess for root is  1.5707963267948974
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Root1D_summary.html"
+       href="Bisection.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Root Finding in One Dimension</p>
+        <p class="prev-next-title">Bisection</p>
       </div>
     </a>
     <a class="right-next"
-       href="FixedPoint.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fixed-Point Iteration</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -700,24 +756,6 @@ Best guess for root is  1.5707963267948974
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bisection</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-root-finding-methods">Convergence of Root finding methods</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
