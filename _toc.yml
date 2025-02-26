@@ -7,7 +7,7 @@ parts:
     - file: notes/ErrorsModule/Error_sources
     - file: notes/ErrorsModule/TaylorExample
     - file: notes/ErrorsModule/FinitePrecision
-    - file: notes/ErrorsModule/HornersAlgorithm
+#    - file: notes/ErrorsModule/HornersAlgorithm
     - file: notes/ErrorsModule/RoundoffAmplification
     - file: notes/ErrorsModule/BackwardForwardConditioning
 - caption: Part 2 - Root Finding in 1D
