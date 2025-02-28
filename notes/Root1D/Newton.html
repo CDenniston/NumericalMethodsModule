@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Gaussian Integration &#8212; Numerical Methods</title>
+    <title>Faster Convergence and Newton’s Method &#8212; Numerical Methods</title>
   
   
   
@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/NDiffInt/GaussianInt';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/Root1D/Newton';</script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="On computation and codes" href="../../extras/coding-notes-general.html" />
-    <link rel="prev" title="Higher Order Integration Schemes" href="HigherOrderInt.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="Fixed-Point Iteration" href="FixedPoint.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -236,13 +236,13 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Bisection</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bisection.html">Bisection</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/FixedPoint.html">Fixed-Point Iteration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Root1D/Newton.html">Faster Convergence and Newton’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Faster Convergence and Newton’s Method</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -256,13 +256,13 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Differentiation &amp; Integration</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="NumDiffInt.html">Numerical Differentiation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Int.html">Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Gaussian Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
@@ -335,7 +335,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/NDiffInt/GaussianInt.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/Root1D/Newton.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -384,7 +384,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/NDiffInt/GaussianInt.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/Root1D/Newton.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -466,7 +466,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Gaussian Integration</h1>
+    <h1>Faster Convergence and Newton’s Method</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -480,166 +480,167 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="gaussian-integration">
-<h1>Gaussian Integration<a class="headerlink" href="#gaussian-integration" title="Permalink to this heading">#</a></h1>
-<p>So far, we have focussed on integration schemes where the function is sampled at regular intervals.  These are very useful for data that comes to us in this form, but if we wish to integrate a known function as accurately as possible it is better to take advantage of the freedom we have to choose our nodes, just as we did for interpolation where selecting Chebyshev points was optimal.</p>
-<p>Consider that quadrature formulas are typically of the form</p>
+  <section id="faster-convergence-and-newton-s-method">
+<h1>Faster Convergence and Newton’s Method<a class="headerlink" href="#faster-convergence-and-newton-s-method" title="Permalink to this heading">#</a></h1>
+<p>In the previous section, we found that the magnitude of <span class="math notranslate nohighlight">\(g'(p)\)</span> plays a significant role in how fast a fixed point iteration scheme converges.  In this section we address the quesion of convergence when <span class="math notranslate nohighlight">\(g'(p)=0\)</span>.</p>
+<blockquote>
+<div><p><strong>Theorem:</strong></p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(p\)</span> is a solution to <span class="math notranslate nohighlight">\(x=g(x)\)</span> with <span class="math notranslate nohighlight">\(g'(p)=0\)</span> (assuming <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(g'\)</span> are continuous functions), then there exists <span class="math notranslate nohighlight">\(\delta&gt;0\)</span> such that for all <span class="math notranslate nohighlight">\(p_0\in(p-\delta,p+\delta)\)</span>, fixed point iteration coverges quadratically (or has order of convergence 2).</p></li>
+</ul>
+</div></blockquote>
+<p>For the proof, it is not too hard to show that if <span class="math notranslate nohighlight">\(g'\)</span> is continuous that if <span class="math notranslate nohighlight">\(g'(p)=0\)</span> then there must be some neighborhood of <span class="math notranslate nohighlight">\(p\)</span> where <span class="math notranslate nohighlight">\(|g'(x)| \leq k &lt; 1\)</span> (i.e. there exists <span class="math notranslate nohighlight">\(\delta\)</span> where <span class="math notranslate nohighlight">\(|g'(x)| \leq k &lt; 1\)</span> in <span class="math notranslate nohighlight">\((p-\delta,p+\delta)\)</span>).  You can then use the Mean Value theorem to show that <span class="math notranslate nohighlight">\(g(x)\)</span> maps this neighborhood of <span class="math notranslate nohighlight">\(p\)</span> onto itself.  As a result, we have the conditions required by our fixed point convergence theorem so that choosing our initial guess in this interval will result in convergence to a unique fixed point.  To see that this give quadratic convergence, note that given <span class="math notranslate nohighlight">\(p_i\in (p-\delta,p+\delta)\)</span> we can expand <span class="math notranslate nohighlight">\(g(x)\)</span> in a Taylor series about <span class="math notranslate nohighlight">\(p\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\int_a^b f(x) dx = \sum_{i=0}^{n-1} c_i f(x_i) + error,
+g(p_i)=g(p) + g'(p)(p_i-p) + \frac{g''(\xi)}{2}(p_i-p)^2,
 \]</div>
-<p>which has <span class="math notranslate nohighlight">\(2n\)</span> parameters (note for this section we are stopping the sum at <span class="math notranslate nohighlight">\(n-1\)</span> rather than <span class="math notranslate nohighlight">\(n\)</span> as this is conventional for Gaussian quadrature formulas).  The idea of Gaussian integration is that with these <span class="math notranslate nohighlight">\(2n\)</span> parameters it should be possible to chose them to ensure that we can integrate all polynomials of degree less than or equal to <span class="math notranslate nohighlight">\(2n-1\)</span> <em>exactly</em>.</p>
-<p>Before we do this, it is useful to first transform to a standard interval, namely <span class="math notranslate nohighlight">\(y\)</span> in <span class="math notranslate nohighlight">\([-1,1]\)</span>, from the original <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\([a,b]\)</span>.  Similar to what we did with the Chebyshev interpolation, we use the change of variables</p>
-<div class="math notranslate nohighlight">
-\[ x = \frac{b-a}{2}y+\frac{b+a}{2}. \]</div>
-<p>We must also remember to perform the appropriate change of the integral measure,</p>
-<div class="math notranslate nohighlight">
-\[\int_a^b f(x) dx = \int_{-1}^1 f\left(\frac{b-a}{2}y+\frac{b+a}{2}\right) \frac{dx}{dy} dy,\]</div>
-<p>with <span class="math notranslate nohighlight">\(\frac{dx}{dy}=\frac{b-a}{2}\)</span>.  The <span class="math notranslate nohighlight">\(n-\)</span>point Gaussian quadrature routine will then result in</p>
-<div class="math notranslate nohighlight">
-\[\int_a^b f(x) dx \approx \frac{b-a}{2}\sum_{i=0}^{n-1} c_i f\left(\frac{b-a}{2}y_i+\frac{b+a}{2}\right).\]</div>
-<p>So, we will focus on integration over <span class="math notranslate nohighlight">\([-1,1]\)</span> below.</p>
-<p><strong>Theorem</strong> Suppose <span class="math notranslate nohighlight">\(\{x_0,x_1,\cdots,x_{n-1}\}\)</span> are the roots of the <span class="math notranslate nohighlight">\(n\)</span>th Legendre polynomial <span class="math notranslate nohighlight">\(P_n(x)\)</span> and</p>
-<div class="math notranslate nohighlight">
-\[ c_i=\int_{-1}^1 L_i^{n-1}(x) dx,\quad i=0,1,\cdots,n-1\]</div>
-<p>where <span class="math notranslate nohighlight">\(L_i^{n-1}(x)\)</span> is the Lagrange polynomial (from interpolation).  Then if <span class="math notranslate nohighlight">\(p(x)\)</span> is any polynomial of degree less than or equal to <span class="math notranslate nohighlight">\(2n-1\)</span>, then</p>
-<div class="math notranslate nohighlight">
-\[ \int_{-1}^1 p(x) dx = \sum_{i=0}^{n-1} c_i p(x_i),\]</div>
-<p>exactly.</p>
-<p><strong>Proof:</strong>  First look at the case where the degree of <span class="math notranslate nohighlight">\(p(x)\)</span> is less than <span class="math notranslate nohighlight">\(n\)</span>.  Then</p>
-<div class="math notranslate nohighlight">
-\[ p(x) = \sum_{i=0}^{n-1} L_i^n(x) p(x_i) \]</div>
-<p>is an exact interpolation of <span class="math notranslate nohighlight">\(p(x)\)</span> (the <a class="reference internal" href="../InterpFit/InterpErrors.html"><span class="doc std std-doc">interpolation error</span></a> involves <span class="math notranslate nohighlight">\(\frac{d^n p(x)}{dx^n}\)</span> which is zero for a polynomial of degree less than <span class="math notranslate nohighlight">\(n\)</span>).  Hence,</p>
-<div class="math notranslate nohighlight">
-\[\int_{-1}^1 p(x)dx = \int_{-1}^1 \sum_{i=0}^{n-1} L_i^n(x) p(x_i) = \sum_{i=0}^{n-1} c_i p(x_i),\]</div>
-<p>as claimed in the theorem.  Now suppose that the degree of <span class="math notranslate nohighlight">\(p(x)\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span> but less than or equal to <span class="math notranslate nohighlight">\(2n-1\)</span>.  Then we can write</p>
-<div class="math notranslate nohighlight">
-\[p(x) = q(x)P_n(x) + r(x),\]</div>
-<p>where <span class="math notranslate nohighlight">\(P_n(x)\)</span> is the <span class="math notranslate nohighlight">\(n\)</span>th Legendre polynomial (which has degree <span class="math notranslate nohighlight">\(n\)</span>) and <span class="math notranslate nohighlight">\(q(x)\)</span> and <span class="math notranslate nohighlight">\(r(x)\)</span> are polynomials of degree less than <span class="math notranslate nohighlight">\(n\)</span>.  (To construct <span class="math notranslate nohighlight">\(q(x)\)</span> you pick its coefficients so that <span class="math notranslate nohighlight">\(q(x)P_n(x)\)</span> has coefficients that match coefficients of <span class="math notranslate nohighlight">\(p(x)\)</span> for terms <span class="math notranslate nohighlight">\(x^{2n-1}\)</span> to <span class="math notranslate nohighlight">\(x^n\)</span>.  <span class="math notranslate nohighlight">\(r(x)\)</span> is then whatever is left over).  Now,</p>
-<div class="math notranslate nohighlight">
-\[ p(x_i) = q(x_i)P_n(x_i) + r(x_i) = r(x_i),\]</div>
-<p>where the last step follows from the fact that the <span class="math notranslate nohighlight">\(x_i\)</span> are the roots of <span class="math notranslate nohighlight">\(P_n(x_i)\)</span>.  As a result,</p>
-<div class="math notranslate nohighlight">
-\[\sum_{i=0}^{n-1} c_i p(x_i) = \sum_{i=0}^{n-1} c_i r(x_i).\]</div>
-<p>Also,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-\int_{-1}^1 p(x) dx &amp;= \int_{-1}^1\left(q(x)P_n(x) + r(x)\right)dx,\\
-&amp;= \int_{-1}^1 q(x)P_n(x) dx + \int_{-1}^1  r(x) dx.
-\end{align}
-\end{split}\]</div>
-<p>Now <span class="math notranslate nohighlight">\(q(x)\)</span> has degree less than <span class="math notranslate nohighlight">\(n\)</span> so can be written using the Legendre polynomials as a basis (they are an orthogonal basis set for polynomials), i.e.</p>
+<p>and given that <span class="math notranslate nohighlight">\(g(p_i)=p_{i+1}\)</span>, <span class="math notranslate nohighlight">\(g(p)=p\)</span>, and <span class="math notranslate nohighlight">\(g'(p)=0\)</span>, this gives</p>
 <div class="math notranslate nohighlight">
 \[
-q(x) = \sum_{i=0}^{n-1} a_i P_i(x),
+p_{i+1}-p = \frac{g''(\xi)}{2}(p_i-p)^2,
 \]</div>
-<p>for some constants <span class="math notranslate nohighlight">\(a_i\)</span>.  As a result,</p>
+<p>or</p>
 <div class="math notranslate nohighlight">
 \[
-\int_{-1}^1 q(x)P_n(x) dx = \sum_{i=0}^{n-1} a_i \int_{-1}^1 P_i(x)P_n(x) dx =0,
+\lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^2} = C =\frac{g''(\xi)}{2}.
 \]</div>
-<p>as <span class="math notranslate nohighlight">\(P_n(x)\)</span> is orthogonal to all the <span class="math notranslate nohighlight">\(P_i(x)\)</span> with <span class="math notranslate nohighlight">\(i&lt;n\)</span>.  As a result, we now have</p>
+<p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
+<p><strong>Example:</strong> A <em>really</em> old fixed point scheme for <a class="reference external" href="https://en.wikipedia.org/wiki/Square_root">finding square roots</a> (a description appears in Book 1 of Metrica by Heron of Alexandria from the first century C.E. but it is also clear that it was actually also widely known as several hundred years earlier by ancient Indian and Chinese mathematians and as much as two thousand years earlier by ancient Mesopotanians).  The scheme is based on the idea that if you have a guess <span class="math notranslate nohighlight">\(x_i\)</span> for the square root of a number <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y/x_i\)</span> will be greater/less than the true square root if <span class="math notranslate nohighlight">\(x_i\)</span> is too small/large.  As such, the average of <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y/x_i\)</span> should be closer.  The fixed point scheme thus becomes</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-\int_{-1}^1 p(x) dx&amp;=\int_{-1}^1  r(x) dx,\\
-&amp;= \sum_{i=0}^{n-1} c_i r(x_i),
-\end{align}
-\end{split}\]</div>
-<p>where the last step is exact as <span class="math notranslate nohighlight">\(r(x)\)</span> is of degree less than <span class="math notranslate nohighlight">\(n\)</span> (and we showed this was exact for such polynomials in the first step of the proof above).</p>
-<hr class="docutils" />
-<p>A general formula for the weights and nodes for Gauss-Legendre integration is not available.  However, the first few have all been tabulated and are listed below for reference :</p>
-<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="text-center head"><p>Number of nodes, <span class="math notranslate nohighlight">\(n\)</span></p></th>
-<th class="text-center head"><p>Points, <span class="math notranslate nohighlight">\(x_i\)</span></p></th>
-<th class="text-center head"><p>weights, <span class="math notranslate nohighlight">\(w_i\)</span></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>1</p></td>
-<td class="text-center"><p>0</p></td>
-<td class="text-center"><p>2</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>2</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \frac{1}{\sqrt{3}}\)</span></p></td>
-<td class="text-center"><p>1</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>3</p></td>
-<td class="text-center"><p>0,</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{8}{9},\)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \sqrt{\frac{3}{5}}\)</span></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{5}{9}\)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>4</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \sqrt{\frac{3}{7}-\frac{2}{7}\sqrt{\frac{6}{5}}},\)</span></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{18+\sqrt{30}}{36},\)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \sqrt{\frac{3}{7}+\frac{2}{7}\sqrt{\frac{6}{5}}}\)</span></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{18-\sqrt{30}}{36}\)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>5</p></td>
-<td class="text-center"><p>0,</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{128}{225},\)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \frac{1}{3}\sqrt{5-2\sqrt{\frac{10}{7}}},\)</span></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{322+13\sqrt{70}}{900},\)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm \frac{1}{3}\sqrt{5+2\sqrt{\frac{10}{7}}}\)</span></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\frac{322-13\sqrt{70}}{900}\)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>7</p></td>
-<td class="text-center"><p>0,</p></td>
-<td class="text-center"><p>0.41795 91836 73469,</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm\)</span>0.40584 51513 77397,</p></td>
-<td class="text-center"><p>0.38183 00505 05119,</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm\)</span>0.74153 11855 99394,</p></td>
-<td class="text-center"><p>0.27970 53914 89277,</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p></p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\pm\)</span>0.94910 79123 42759</p></td>
-<td class="text-center"><p>0.12948 49661 68870</p></td>
-</tr>
-</tbody>
-</table>
+\[
+p_{i+1}=\frac{p_i + \frac{y}{p_i}}{2}.
+\]</div>
+<p>If you try this in our <code class="docutils literal notranslate"><span class="pre">FixPointIteration</span></code> function from the previous section, to compute the square <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>, you will get the following</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">FixPointIteration</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># The p0 argument here is our initial guess</span>
+    
+    <span class="c1"># print output table headings</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i)                 p(i+1)=g( p(i) )&quot;</span><span class="p">)</span>  
+
+    <span class="c1"># main loop</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">p1</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">p0</span> <span class="o">=</span> <span class="n">p1</span>
+    
+    <span class="c1"># if we finish the main loop without returning from the FixPointIteration function, we have failed.  :( </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find fixed point to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span>
+</pre></div>
 </div>
-<p>SciPy has an implementation of Gauss-Legendre integration illustrated in the example below:</p>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
-<span class="n">normaldist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=1 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=2 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=3 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=4 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=5 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n=7 result = &quot;</span><span class="p">,</span><span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">7</span><span class="p">))</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    
+<span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n=1 result =  (np.float64(0.4151074974205947), None)
-n=2 result =  (np.float64(0.5187644892255823), None)
-n=3 result =  (np.float64(0.49584623623825125), None)
-n=4 result =  (np.float64(0.49774446622792934), None)
-n=5 result =  (np.float64(0.4976592294419126), None)
-n=7 result =  (np.float64(0.4976611363409024), None)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
+                 1.0                      1.5
+                 1.5       1.4166666666666665
+  1.4166666666666665       1.4142156862745097
+Converged in 3 iterations
 </pre></div>
 </div>
 </div>
 </div>
-<p>We also integrated this same function in our example for <a class="reference internal" href="HigherOrderInt.html"><span class="doc std std-doc">Romberg integration</span></a>.  The accuracy of our result for <span class="math notranslate nohighlight">\(n=7\)</span> here (so 7 function evaluations) was only obtained in the row for 16 steps (17 function evaluations) using Romberg integration!</p>
+<p>Note that the actual error is in the seventh digit here.  The same result in cuniform is on a nearly four thousand year old clay tablet inscribed by an ancient Mespotanian.  They also used base 60 arithmetic so that they were able to obtain the same <span class="math notranslate nohighlight">\(3\times 10^{-6}\)</span> accuracy with three base-sixty digits.  Any time you feel like complaining about modern computers, keep in mind there was some dude sitting on the banks of the Euphrates river doing these calculations in the mud, with a reed, nearly four thousand year before anyone even thought about electronics.</p>
+<p>This example converges <em>much</em> faster than the examples from the previous sections.  Given that</p>
+<div class="math notranslate nohighlight">
+\[
+g'(p) = \frac{1}{2}\left(1-y/p^2 \right) = 0,
+\]</div>
+<p>where the last equality comes from the fact that the fixed point <span class="math notranslate nohighlight">\(p\)</span> is, by construction, <span class="math notranslate nohighlight">\(\sqrt{y}\)</span>.  Convergence to near numerical precision in just a few interations, rather than 10-20+ iterations for just a few digits of accuracy for a general fixed point scheme, is one of the reasons that quadratic convergence can be vitaly important.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">FixPointIteration</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># The p0 argument here is our initial guess</span>
+    
+    <span class="c1"># print output table headings</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i)                 p(i+1)=g( p(i) )&quot;</span><span class="p">)</span> 
+
+    <span class="c1"># main loop</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">p1</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">p0</span> <span class="o">=</span> <span class="n">p1</span>
+    
+    <span class="c1"># if we finish the main loop without returning from the FixPointIteration function, we have failed.  :( </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find fixed point to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we see there are two fixed point visible in the interval we plotted over, where the line <span class="math notranslate nohighlight">\(y=x\)</span> and the plot of our <span class="math notranslate nohighlight">\(g(x)\)</span> cross, one near <span class="math notranslate nohighlight">\(-1.9\)</span> and another near <span class="math notranslate nohighlight">\(0.5\)</span>.  In the region <span class="math notranslate nohighlight">\([0,1]\)</span> it looks like our <span class="math notranslate nohighlight">\(g(x)\)</span> probably satisfies the requirements of our theorem in that it maps an interval onto itself and it looks like the slope is less than one.  This suggests the fixed point iteration scheme should be able to find the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Let’s see if it works:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
+                 0.5                     2.25
+                2.25       1.5694444444444444
+  1.5694444444444444       1.4218903638151426
+  1.4218903638151426       1.4142342859400734
+  1.4142342859400734       1.4142135625249321
+Converged in 5 iterations
+Best guess for fixed point is  1.4142135625249321
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, it does converged, although not terribly quickly.  Let’s try finding the second fixed point near <span class="math notranslate nohighlight">\(x=-1.9\)</span> by giving a guess closer to that one:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
+                -1.9      -1.4763157894736842
+ -1.4763157894736842       -1.415519748569284
+  -1.415519748569284      -1.4142141650218327
+ -1.4142141650218327      -1.4142135623732235
+Converged in 4 iterations
+Best guess for fixed point is  -1.4142135623732235
+</pre></div>
+</div>
+</div>
+</div>
+<p>Not surprisingly, this does not coverge to the fixed point we wanted near <span class="math notranslate nohighlight">\(-1.9\)</span> but, after jumping around a bit, it does eventually coverge back to the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Sometimes fixed points are categorized as being “attractive” when there is a neighborhood around them where a fixed point iteration converges, or “repulsive” if the fixed point iteration scheme actually moves away from them.</p>
+<p>Despite the prevalence of fixed point iteraction schemes in many algorithms, it should be clear that they don’t generally converge terribly quickly.  Given that <span class="math notranslate nohighlight">\(|g'(p)|\)</span> seems to determine how quickly we converge, an obvious quesion is whether we can do better than linear convergence if <span class="math notranslate nohighlight">\(g'(p)=0\)</span>?  We answer this question in the next section.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -655,7 +656,7 @@ n=7 result =  (np.float64(0.4976611363409024), None)
         },
         kernelOptions: {
             name: "python3",
-            path: "./notes/NDiffInt"
+            path: "./notes/Root1D"
         },
         predefinedOutput: true
     }
@@ -673,20 +674,20 @@ n=7 result =  (np.float64(0.4976611363409024), None)
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="HigherOrderInt.html"
+       href="FixedPoint.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Higher Order Integration Schemes</p>
+        <p class="prev-next-title">Fixed-Point Iteration</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../extras/coding-notes-general.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">On computation and codes</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
