@@ -589,14 +589,14 @@ Best guess for root is  -1.570068359375
 <p>Let’s try finding the second one, but this time with a tighter tolerance on the forward error.  We will suppress the output to avoid printing a long table:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1e-15</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">bisection</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converged in 50 iterations
-Best guess for root is  1.5707963267948974
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converged in 30 iterations
+Best guess for root is  1.5707963267341256
 </pre></div>
 </div>
 </div>

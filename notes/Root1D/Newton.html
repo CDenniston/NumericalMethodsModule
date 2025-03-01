@@ -575,78 +575,124 @@ Converged in 3 iterations
 g'(p) = \frac{1}{2}\left(1-\frac{y}{p^2} \right) = 0,
 \]</div>
 <p>where the last equality comes from the fact that the fixed point <span class="math notranslate nohighlight">\(p\)</span> is, by construction, <span class="math notranslate nohighlight">\(\sqrt{y}\)</span>.  Convergence to near numerical precision in just a few interations, rather than 10-20+ iterations for just a few digits of accuracy for a general fixed point scheme, is one of the reasons that quadratic convergence can be vitaly important.</p>
+<p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
+<p>Suppose we want to solve <span class="math notranslate nohighlight">\(f(x)=0\)</span> using a fixed point iteration scheme <span class="math notranslate nohighlight">\(p_{i+1}=g(p_i)\)</span> with <span class="math notranslate nohighlight">\(g(x) = x - \phi(x)f(x)\)</span>.  If we want quadratic convergence, what constraints does this put on our choice for <span class="math notranslate nohighlight">\(\phi(x)\)</span>?</p>
+<p>We need to have <span class="math notranslate nohighlight">\(g'(p)=0\)</span> and <span class="math notranslate nohighlight">\(g'(x)=1-\phi'(x)f(x)-\phi(x)f'(x)\)</span> so this means that we must have <span class="math notranslate nohighlight">\(1-\phi'(p)f(p)-\phi(p)f'(p)=0\)</span>.  However, <span class="math notranslate nohighlight">\(f(p)=0\)</span> so this implies that, assuming <span class="math notranslate nohighlight">\(f'(p)\neq 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\phi(p) = \frac{1}{f'(p)}.
+\]</div>
+<p>This only constrains the value of <span class="math notranslate nohighlight">\(\phi\)</span> at one point <span class="math notranslate nohighlight">\(x=p\)</span>.  However, if we just take <span class="math notranslate nohighlight">\(\phi(x)=\frac{1}{f'(x)}\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> (not just at <span class="math notranslate nohighlight">\(p\)</span>) then this gives us</p>
+<blockquote>
+<div><p><strong>Newton’s Method</strong>: Given <span class="math notranslate nohighlight">\(p_0\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[p_{i+1}=p_i -\frac{f(p_i)}{f'(p_i)},\qquad i=1,2,3,\cdots\]</div>
+</div></blockquote>
+<p>However, note that this is <em>not</em> the only possible choice.</p>
+<p><strong>Example:</strong> Let’s use Newton’s Method to find the roots of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span>.  We did this already using bisection, so let’s compare the relative speed of convergence for the two methods.  We already know the roots are near <span class="math notranslate nohighlight">\(\pm 1.57\)</span>, so let’s try starting at <span class="math notranslate nohighlight">\(\pm 1.5\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">FixPointIteration</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="c1"># The p0 argument here is our initial guess</span>
-    
-    <span class="c1"># print output table headings</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i)                 p(i+1)=g( p(i) )&quot;</span><span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-    <span class="c1"># main loop</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
-        <span class="n">p1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Newt_g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">my_fp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">p1</span>
-        <span class="k">else</span> <span class="p">:</span>
-            <span class="n">p0</span> <span class="o">=</span> <span class="n">p1</span>
-    
-    <span class="c1"># if we finish the main loop without returning from the FixPointIteration function, we have failed.  :( </span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Could not find fixed point to within </span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">maxN</span><span class="si">}</span><span class="s2"> iterations. Returning best guess so far.&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">p1</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Here we see there are two fixed point visible in the interval we plotted over, where the line <span class="math notranslate nohighlight">\(y=x\)</span> and the plot of our <span class="math notranslate nohighlight">\(g(x)\)</span> cross, one near <span class="math notranslate nohighlight">\(-1.9\)</span> and another near <span class="math notranslate nohighlight">\(0.5\)</span>.  In the region <span class="math notranslate nohighlight">\([0,1]\)</span> it looks like our <span class="math notranslate nohighlight">\(g(x)\)</span> probably satisfies the requirements of our theorem in that it maps an interval onto itself and it looks like the slope is less than one.  This suggests the fixed point iteration scheme should be able to find the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Let’s see if it works:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">Newt_g</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best guess for first root is </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">Newt_g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for first root is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
-                 0.5                     2.25
-                2.25       1.5694444444444444
-  1.5694444444444444       1.4218903638151426
-  1.4218903638151426       1.4142342859400734
-  1.4142342859400734       1.4142135625249321
-Converged in 5 iterations
-Best guess for fixed point is  1.4142135625249321
-</pre></div>
-</div>
-</div>
-</div>
-<p>As expected, it does converged, although not terribly quickly.  Let’s try finding the second fixed point near <span class="math notranslate nohighlight">\(x=-1.9\)</span> by giving a guess closer to that one:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">my_g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best guess for fixed point is &quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
-                -1.9      -1.4763157894736842
- -1.4763157894736842       -1.415519748569284
-  -1.415519748569284      -1.4142141650218327
- -1.4142141650218327      -1.4142135623732235
+                 1.5        1.566218938583142
+   1.566218938583142       1.5707755014615041
+  1.5707755014615041       1.5707963263612141
+  1.5707963263612141       1.5707963267948966
 Converged in 4 iterations
-Best guess for fixed point is  -1.4142135623732235
+Best guess for first root is 1.5707963267948966
+
+         p(i)                 p(i+1)=g( p(i) )
+                -1.5      -1.5763276044911358
+ -1.5763276044911358      -1.5708266977374767
+ -1.5708266977374767      -1.5707963277172534
+ -1.5707963277172534      -1.5707963267948966
+Converged in 4 iterations
+Best guess for first root is  -1.5707963267948966
 </pre></div>
 </div>
 </div>
 </div>
-<p>Not surprisingly, this does not coverge to the fixed point we wanted near <span class="math notranslate nohighlight">\(-1.9\)</span> but, after jumping around a bit, it does eventually coverge back to the fixed point near <span class="math notranslate nohighlight">\(0.5\)</span>.  Sometimes fixed points are categorized as being “attractive” when there is a neighborhood around them where a fixed point iteration converges, or “repulsive” if the fixed point iteration scheme actually moves away from them.</p>
-<p>Despite the prevalence of fixed point iteraction schemes in many algorithms, it should be clear that they don’t generally converge terribly quickly.  Given that <span class="math notranslate nohighlight">\(|g'(p)|\)</span> seems to determine how quickly we converge, an obvious quesion is whether we can do better than linear convergence if <span class="math notranslate nohighlight">\(g'(p)=0\)</span>?  We answer this question in the next section.</p>
+<p>We see that Newton’s method finds our roots <em>very</em> quickly.  Recall that Bisection required 30 iterations to obtain a similar level of accuracy and here our actual accuracy is better than the tolerance and is actually the full 15 digits which would have required bisection a total of 50 iterations to achieve.  The rapid convergence, within a few iterations, is typical for Newton’s method.  You might argue that we started quite close to the root so it is not a fair comparison.  If we start further away, we get</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">FixPointIteration</span><span class="p">(</span><span class="n">Newt_g</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best guess for first root is </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         p(i)                 p(i+1)=g( p(i) )
+                 2.0       1.1561465305920122
+  1.1561465305920122        1.461784349729494
+   1.461784349729494       1.5604334703205522
+  1.5604334703205522       1.5706904028378534
+  1.5706904028378534       1.5707963155765963
+  1.5707963155765963       1.5707963267948966
+  1.5707963267948966       1.5707963267948966
+Converged in 7 iterations
+Best guess for first root is 1.5707963267948966
+</pre></div>
+</div>
+</div>
+</div>
+<p>This did require a couple more iterations, but it is still fairly quick.  However, it is important to note that the true quadratic convergence is an asympotic property of the series that is only strictly true once we are very close to the root.  In fact, if we are too far from the root we may not converge at all.  Unfortunatly how “close” is close enough is not generally something we know ahead of time (i.e. determining <span class="math notranslate nohighlight">\(\delta\)</span> in the theorem at the beginning of this section probably requires as much, if not more, work as determining the value for the root).</p>
+<p>In summary we can construct the following table comparing bisection and Newton’s method:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Method</p></th>
+<th class="text-left head"><p>Pros</p></th>
+<th class="text-left head"><p>Cons</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Bisection</p></td>
+<td class="text-left"><p>- good globally</p></td>
+<td class="text-left"><p>- slow, linear convergence</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>- always works</p></td>
+<td class="text-left"><p>- requres root bracketing</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Newton</p></td>
+<td class="text-left"><p>- fast quadratic convergence</p></td>
+<td class="text-left"><p>- initial guess must be “close”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>- needs derivative <span class="math notranslate nohighlight">\(f'(x)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To use Newton’s method, we need to know the derivative <span class="math notranslate nohighlight">\(f'(x)\)</span>.  However, sometimes we don’t know (or don’t want to evaluate) <span class="math notranslate nohighlight">\(f'(x)\)</span>.  In that case, we could try approximating <span class="math notranslate nohighlight">\(f'(x)\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+f'(p_i)\approx \frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}.
+\]</div>
+<p>If we are close enough the to root to get convergence, as <span class="math notranslate nohighlight">\(i\rightarrow \infty\)</span> then <span class="math notranslate nohighlight">\(p_{i-1}\rightarrow p_i\)</span> so that this expression should approach the true derivative at <span class="math notranslate nohighlight">\(f'(p_i)\)</span>.  This gives us</p>
+<blockquote>
+<div><p><strong>Secant Method</strong>: Given <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[ p_{i+1}=p_i -\frac{f(p_i)}{\left[\frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}\right]},\qquad i=1,2,3,\cdots \]</div>
+</div></blockquote>
+<p>There is a cost in doing this in that i) we need two initial guesses and ii) the rate of convergence turns out to be <span class="math notranslate nohighlight">\(\alpha \approx 1.618\)</span> which is less than the quadratic convergence of Newton’s method but still much better than linear convergence.</p>
+<p>It is also reasonable to ask: Can we do better?  This is the subject of the next section.</p>
 </section>
 
     <script type="text/x-thebe-config">
