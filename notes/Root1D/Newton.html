@@ -511,7 +511,12 @@ p_{i+1}-p = \frac{g''(\xi)}{2}(p_i-p)^2,
 p_{i+1}=\frac{p_i + \frac{y}{p_i}}{2}.
 \]</div>
 <p>If you try this in our <code class="docutils literal notranslate"><span class="pre">FixPointIteration</span></code> function from the previous section, to compute the square <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>, you will get the following</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">FixPointIteration</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">maxN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="c1"># The p0 argument here is our initial guess</span>
@@ -539,6 +544,7 @@ p_{i+1}=\frac{p_i + \frac{y}{p_i}}{2}.
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
