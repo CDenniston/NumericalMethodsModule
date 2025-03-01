@@ -505,7 +505,7 @@ p_{i+1}-p = \frac{g''(\xi)}{2}(p_i-p)^2,
 \lim_{i\rightarrow \infty} \frac{|p_{i+1}-p|}{|p_{i}-p|^2} = C =\frac{g''(\xi)}{2}.
 \]</div>
 <p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
-<p><strong>Example:</strong> A <em>really</em> old fixed point scheme for <a class="reference external" href="https://en.wikipedia.org/wiki/Square_root">finding square roots</a> (a description appears in Book 1 of Metrica by Heron of Alexandria from the first century C.E. but it is also clear that it was actually also widely known as several hundred years earlier by ancient Indian and Chinese mathematians and as much as two thousand years earlier by ancient Mesopotanians).  The scheme is based on the idea that if you have a guess <span class="math notranslate nohighlight">\(x_i\)</span> for the square root of a number <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y/x_i\)</span> will be greater/less than the true square root if <span class="math notranslate nohighlight">\(x_i\)</span> is too small/large.  As such, the average of <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y/x_i\)</span> should be closer.  The fixed point scheme thus becomes</p>
+<p><strong>Example:</strong> A <em>really</em> old fixed point scheme for <a class="reference external" href="https://en.wikipedia.org/wiki/Square_root">finding square roots</a> (a description appears in Book 1 of Metrica by Heron of Alexandria from the first century C.E. but it is also clear that it was actually also widely known several hundred years earlier by ancient Indian and Chinese mathematians and as much as two thousand years earlier by ancient Mesopotanians).  The scheme is based on the idea that if you have a guess <span class="math notranslate nohighlight">\(x_i\)</span> for the square root of a number <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y/x_i\)</span> will be greater/less than the true square root if <span class="math notranslate nohighlight">\(x_i\)</span> is too small/large.  As such, the average of <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y/x_i\)</span> should be closer.  The fixed point scheme thus becomes</p>
 <div class="math notranslate nohighlight">
 \[
 p_{i+1}=\frac{p_i + \frac{y}{p_i}}{2}.
@@ -518,14 +518,14 @@ p_{i+1}=\frac{p_i + \frac{y}{p_i}}{2}.
     
     <span class="c1"># print output table headings</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i)                 p(i+1)=g( p(i) )&quot;</span><span class="p">)</span>  
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;         p(i)                 p(i+1)=g( p(i) )&quot;</span><span class="p">)</span>  
 
     <span class="c1"># main loop</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">maxN</span><span class="p">):</span>
         <span class="n">p1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p0</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p1</span><span class="si">:</span><span class="s2">&gt;24</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged in&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
@@ -562,11 +562,11 @@ Converged in 3 iterations
 </div>
 </div>
 </div>
-<p>Note that the actual error is in the seventh digit here.  The same result in cuniform is on a nearly four thousand year old clay tablet inscribed by an ancient Mespotanian.  They also used base 60 arithmetic so that they were able to obtain the same <span class="math notranslate nohighlight">\(3\times 10^{-6}\)</span> accuracy with three base-sixty digits.  Any time you feel like complaining about modern computers, keep in mind there was some dude sitting on the banks of the Euphrates river doing these calculations in the mud, with a reed, nearly four thousand year before anyone even thought about electronics.</p>
-<p>This example converges <em>much</em> faster than the examples from the previous sections.  Given that</p>
+<p>Note that the actual error is in the seventh digit here.  The same result in cuniform can be found on a nearly four thousand year old clay tablet inscribed by an ancient Mespotanian.  They also used base 60 arithmetic so that they were able to obtain the same <span class="math notranslate nohighlight">\(3\times 10^{-6}\)</span> accuracy with three base-sixty digits.  Any time you feel like complaining about modern computers, keep in mind there was some dude sitting on the banks of the Euphrates river doing these calculations in the mud, with a reed, nearly four thousand year before anyone even thought about electronics.</p>
+<p>This example converges <em>much</em> faster than the examples from the previous sections.  This is due to the fact that</p>
 <div class="math notranslate nohighlight">
 \[
-g'(p) = \frac{1}{2}\left(1-y/p^2 \right) = 0,
+g'(p) = \frac{1}{2}\left(1-\frac{y}{p^2} \right) = 0,
 \]</div>
 <p>where the last equality comes from the fact that the fixed point <span class="math notranslate nohighlight">\(p\)</span> is, by construction, <span class="math notranslate nohighlight">\(\sqrt{y}\)</span>.  Convergence to near numerical precision in just a few interations, rather than 10-20+ iterations for just a few digits of accuracy for a general fixed point scheme, is one of the reasons that quadratic convergence can be vitaly important.</p>
 <div class="cell docutils container">
