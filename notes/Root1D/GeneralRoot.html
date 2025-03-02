@@ -503,20 +503,23 @@ f'(p_i)\approx \frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}.
 <p><strong>Brent’s Method</strong></p>
 <code>
 1. Bracket root of f(x) on some interval [a,b]
-2. Try secant method to get p<sub>3</sub>, using a=p<sub>1</sub> and b=p<sub>2</sub>
-   If (|f(p<sub>3</sub>| < |f(a)|) AND (|f(p<sub>3</sub>| < |f(a)|) AND (min(|a-p<sub>3</sub>|,|b-p<sub>3</sub>|) < |b-a|/2)
-   then 
-       accept p<sub>3</sub> and replace a or b with p<sub>3</sub> keeping root bracketed in [a,b]
-   else use bisection to find p<sub>3</sub>
-3. for i=3 to max iteration
-       Try IQI on last 3 iterates to generate p<sub>i+1</sub>
-       If (|f(p<sub>i+1</sub>| < |f(p<sub>i</sub>)|) AND (min(|a-p<sub>i+1</sub>|,|b-p<sub>i+1</sub>|) < |b-a|/2)
-       then 
-           accept p<sub>i+1</sub> and replace a or b with p<sub>i+1</sub> keeping root bracketed in [a,b]
-       else 
-           Try secant method with the same test
-           If test fails, use bisection
-</code><p>SciPy has an implementation of Brent’s method, <code class="docutils literal notranslate"><span class="pre">brentq</span></code>, in its Optimization and Root finding submodule.  You must bracket the root yourself before calling though.</p>
+<ol class="arabic simple" start="2">
+<li><p>Try secant method to get p<sub>3</sub>, using a=p<sub>1</sub> and b=p<sub>2</sub>
+If (|f(p<sub>3</sub>| &lt; |f(a)|) AND (|f(p<sub>3</sub>| &lt; |f(a)|) AND (min(|a-p<sub>3</sub>|,|b-p<sub>3</sub>|) &lt; |b-a|/2)
+then
+accept p<sub>3</sub> and replace a or b with p<sub>3</sub> keeping root bracketed in [a,b]
+else use bisection to find p<sub>3</sub></p></li>
+<li><p>for i=3 to max iteration
+Try IQI on last 3 iterates to generate p<sub>i+1</sub>
+If (|f(p<sub>i+1</sub>| &lt; |f(p<sub>i</sub>)|) AND (min(|a-p<sub>i+1</sub>|,|b-p<sub>i+1</sub>|) &lt; |b-a|/2)
+then
+accept p<sub>i+1</sub> and replace a or b with p<sub>i+1</sub> keeping root bracketed in [a,b]
+else
+Try secant method with the same test
+If test fails, use bisection
+</code></p></li>
+</ol>
+<p>SciPy has an implementation of Brent’s method, <code class="docutils literal notranslate"><span class="pre">brentq</span></code>, in its Optimization and Root finding submodule.  You must bracket the root yourself before calling though.</p>
 <p><strong>Example:</strong> Let’s use Brent’s method to find the root of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span> that we previously bracketed in the interval <span class="math notranslate nohighlight">\([1,2]\)</span> in the Bisection section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
