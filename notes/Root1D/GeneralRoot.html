@@ -501,23 +501,23 @@ f'(p_i)\approx \frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}.
 <p>Our alternative, namely <a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_quadratic_interpolation">Inverse Quadratic Interpolation</a> (IQI), instead constructs a quadratic polynomial <span class="math notranslate nohighlight">\(x=P(y)=a y^2+b y+c\)</span> from the previous three iterates as illustrated in the right panel of the figure above.  This parabola will intersect the x-axis at a single real-numbered point (just plug in <span class="math notranslate nohighlight">\(y=0\)</span>).  It turns out that IQI has rate of convergence <span class="math notranslate nohighlight">\(\alpha\approx 1.8\)</span>, so not quite as good a Newton’s method, but better than the Secant method.</p>
 <p>The secant, or quadratic methods relieve us of the issue of needing to compute a derivative of our function, but they don’t change the requirement that we need to start in a neighborhood of the root in order to converge.  This is compounded by the fact that we don’t actualy know the size of the neighborhood <em>a priori</em>.  There are several hybrid methods that combine different schemes we have discussed to provide the certainty of Bisection with the speed of a superlinear method.  The most popular of these is <strong>Brent’s Method</strong> which follows the following scheme given in pseudocode:</p>
 <p><strong>Brent’s Method</strong></p>
-<code>
-1. Bracket root of f(x) on some interval [a,b]
-<ol class="arabic simple" start="2">
-<li><p>Try secant method to get p<sub>3</sub>, using a=p<sub>1</sub> and b=p<sub>2</sub>
-If (|f(p<sub>3</sub>| &lt; |f(a)|) AND (|f(p<sub>3</sub>| &lt; |f(a)|) AND (min(|a-p<sub>3</sub>|,|b-p<sub>3</sub>|) &lt; |b-a|/2)
-then
-accept p<sub>3</sub> and replace a or b with p<sub>3</sub> keeping root bracketed in [a,b]
-else use bisection to find p<sub>3</sub></p></li>
-<li><p>for i=3 to max iteration
-Try IQI on last 3 iterates to generate p<sub>i+1</sub>
-If (|f(p<sub>i+1</sub>| &lt; |f(p<sub>i</sub>)|) AND (min(|a-p<sub>i+1</sub>|,|b-p<sub>i+1</sub>|) &lt; |b-a|/2)
-then
-accept p<sub>i+1</sub> and replace a or b with p<sub>i+1</sub> keeping root bracketed in [a,b]
-else
-Try secant method with the same test
-If test fails, use bisection
-</code></p></li>
+<ol class="arabic">
+<li><p>Bracket root of <span class="math notranslate nohighlight">\(f(x)\)</span> on some interval <span class="math notranslate nohighlight">\([a,b]\)</span></p></li>
+<li><p>Try secant method to get <span class="math notranslate nohighlight">\(p_3\)</span>, using <span class="math notranslate nohighlight">\(a=p_1\)</span> and <span class="math notranslate nohighlight">\(b=p_2\)</span></p>
+<p>If (<span class="math notranslate nohighlight">\(|f(p_3| &lt; |f(a)|\)</span>) AND (<span class="math notranslate nohighlight">\(|f(p_3| &lt; |f(a)|\)</span>) AND (<span class="math notranslate nohighlight">\(min(|a-p_3|,|b-p_3|) &lt; |b-a|/2\)</span>)</p>
+<p>then</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span> accept <span class="math notranslate nohighlight">\(p_3\)</span> and replace <span class="math notranslate nohighlight">\(a\)</span> or <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(p_3\)</span> keeping root bracketed in <span class="math notranslate nohighlight">\([a,b]\)</span></p>
+<p>else use bisection to find <span class="math notranslate nohighlight">\(p_3\)</span></p>
+</li>
+<li><p>for <span class="math notranslate nohighlight">\(i=3\)</span> to max iteration</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span>Try IQI on last 3 iterates to generate <span class="math notranslate nohighlight">\(p_{i+1}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span>If (<span class="math notranslate nohighlight">\(|f(p_{i+1}| &lt; |f(p_{i})|\)</span>) AND (<span class="math notranslate nohighlight">\(min(|a-p_{i+1}|,|b-p_{i+1}|) &lt; |b-a|/2\)</span>)</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span>then</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> accept <span class="math notranslate nohighlight">\(p_{i+1}\)</span> and replace <span class="math notranslate nohighlight">\(a\)</span> or <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(p_{i+1}\)</span> keeping root bracketed in <span class="math notranslate nohighlight">\([a,b]\)</span></p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span>else</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> Try secant method with the same test</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> If test fails, use bisection</p>
+</li>
 </ol>
 <p>SciPy has an implementation of Brent’s method, <code class="docutils literal notranslate"><span class="pre">brentq</span></code>, in its Optimization and Root finding submodule.  You must bracket the root yourself before calling though.</p>
 <p><strong>Example:</strong> Let’s use Brent’s method to find the root of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span> that we previously bracketed in the interval <span class="math notranslate nohighlight">\([1,2]\)</span> in the Bisection section.</p>
