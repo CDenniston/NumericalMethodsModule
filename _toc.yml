@@ -25,6 +25,9 @@ parts:
     - file: notes/InterpFit/InterpErrors
     - file: notes/InterpFit/Chebyshev
     - file: notes/InterpFit/Splines
+- caption: Part 4 - Numerical Linear Algebra
+  chapters:
+    - file: notes/LinAlg/Lin_Alg_summary
 - caption: Part 4 - Numerical Differentiation & Integration
   chapters:
   - file: notes/NDiffInt/NumDiffInt

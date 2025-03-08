@@ -16,6 +16,7 @@ parts:
     - file: notes/Root1D/Bisection
     - file: notes/Root1D/FixedPoint
     - file: notes/Root1D/Newton
+    - file: notes/Root1D/GeneralRoot
 - caption: Part 3 - Interpolation
   chapters:
     - file: notes/InterpFit/InterpFit_summary
