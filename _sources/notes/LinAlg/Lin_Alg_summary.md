@@ -16,19 +16,17 @@ We first translate our system of equations into an *augmented* matrix
 
 $$
 \begin{align}
-  \left[ {\begin{array}{cccccc}
+  \left[\textcolor{blue}{\begin{array}{cccccc}
     a_{11} & a_{12} &  & \cdots &  & a_{1n}\\
     a_{21} & a_{22} &  & \cdots &  & a_{2n}\\
-     &  &  &  &  & \\
     \vdots & \vdots &  & \ddots &  & \vdots\\
     a_{n1} & a_{n2} &  & \cdots &  & a_{nn}\\
-  \end{array} } \right|
-  \left. {\begin{array}{c}
+  \end{array} } \textcolor{lightgray}{\right|}
+  \left. \textcolor{red}{{\begin{array}{c}
   b_1 \\
   b_2 \\
-   \\
   \vdots \\
   b_n \\
-  \end{array}} \right] 
+  \end{array}}} \right] 
 \end{align}
 $$ 
