@@ -31,4 +31,11 @@ $$
 \end{align}
 $$
 
-where the *coefficient* matrix (elements in blue) is augmented by the right hand side of Eqs. {eq}`eqns` (elements in red).
+where the *coefficient* matrix (elements in blue) is augmented by the right hand side of Eqs. {eq}`eqns` (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the solution:
+
+1. Multiply $E_i$, or row $i$, by a nonzero constant $\lambda$: $(\lambda E_i)\rightarrow(E_i)$
+2. Add a multiple of one equation, or row, to another: $(\lambda E_i+\lambda E_j)\rightarrow(E_i)$
+3. Interchange two equations (rows): $(E_j)\leftrightarrow(E_i)$
+4. Renumber variables (i.e. interchange columns): $x_j\leftrightarrow x_i$
+
+In the simplest cases, only operation 2 is necessary and we will discuss this in the next section.  However, there are other cases where we will need to make use of more, or even all, of these operations.  Those cases will be dicussed later in the chapter.
