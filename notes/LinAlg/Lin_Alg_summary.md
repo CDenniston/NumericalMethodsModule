@@ -18,9 +18,9 @@ $$
 \begin{align}
   \left[ {\begin{array}{cccccc}
     \textcolor{blue}{a_{11}} &  \textcolor{blue}{a_{12}} &  &  \textcolor{blue}{\cdots} &  &  \textcolor{blue}{a_{1n}}\\
-     \textcolor{blue}{a_{21} &  \textcolor{blue}{a_{22}} &  &  \textcolor{blue}{\cdots} &  &  \textcolor{blue}{a_{2n}}\\
-     \textcolor{blue}{\vdots &  \textcolor{blue}{\vdots} &  &  \textcolor{blue}{\ddots} &  &  \textcolor{blue}{\vdots}\\
-     \textcolor{blue}{a_{n1} &  \textcolor{blue}{a_{n2}} &  &  \textcolor{blue}{\cdots} &  &  \textcolor{blue}{a_{nn}}\\
+     \textcolor{blue}{a_{21}} &  \textcolor{blue}{a_{22}} &  &  \textcolor{blue}{\cdots} &  &  \textcolor{blue}{a_{2n}}\\
+     \textcolor{blue}{\vdots} &  \textcolor{blue}{\vdots} &  &  \textcolor{blue}{\ddots} &  &  \textcolor{blue}{\vdots}\\
+     \textcolor{blue}{a_{n1}} &  \textcolor{blue}{a_{n2}} &  &  \textcolor{blue}{\cdots} &  &  \textcolor{blue}{a_{nn}}\\
   \end{array} } \right|
   \left. {{\begin{array}{c}
   \textcolor{red}{b_1} \\
