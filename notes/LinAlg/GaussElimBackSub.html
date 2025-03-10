@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Higher Order Integration Schemes &#8212; Numerical Methods</title>
+    <title>Gaussian Elimination with Back Subsitution &#8212; Numerical Methods</title>
   
   
   
@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/NDiffInt/HigherOrderInt';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/LinAlg/GaussElimBackSub';</script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Gaussian Integration" href="GaussianInt.html" />
-    <link rel="prev" title="Numerical Integration" href="Int.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="Numerical Linear Algebra" href="Lin_Alg_summary.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -246,9 +246,9 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li class="toctree-l1"><a class="reference internal" href="../Root1D/GeneralRoot.html">General Root Finding Algorithms</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Linear Algebra</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Gaussian Elimination with Back Subsitution</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -262,13 +262,13 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Differentiation &amp; Integration</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="NumDiffInt.html">Numerical Differentiation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Int.html">Numerical Integration</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Higher Order Integration Schemes</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="GaussianInt.html">Gaussian Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
 <ul class="nav bd-sidenav">
@@ -341,7 +341,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/NDiffInt/HigherOrderInt.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/LinAlg/GaussElimBackSub.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -390,7 +390,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/NDiffInt/HigherOrderInt.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/LinAlg/GaussElimBackSub.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -461,9 +461,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -474,21 +472,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Higher Order Integration Schemes</h1>
+    <h1>Gaussian Elimination with Back Subsitution</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Higher Order Integration Schemes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#romberg-s-method">Romberg’s Method</a></li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -498,148 +486,213 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="higher-order-integration-schemes">
-<h1>Higher Order Integration Schemes<a class="headerlink" href="#higher-order-integration-schemes" title="Permalink to this heading">#</a></h1>
-<p>The composite trapezoidal rule is functional, but not all that accurate.  At this point, the only method we have to improve accuracy is to divide the interval into smaller segments.  We can, however, use results for different step sizes <span class="math notranslate nohighlight">\(h\)</span> to improve both results by eliminating the lowest order error.  To illustrate, consider the trapezoidal rule for a step <span class="math notranslate nohighlight">\(h_1=(b-a)\)</span> and then <span class="math notranslate nohighlight">\(h_2=(b-a)/2\)</span>,</p>
+  <section id="gaussian-elimination-with-back-subsitution">
+<h1>Gaussian Elimination with Back Subsitution<a class="headerlink" href="#gaussian-elimination-with-back-subsitution" title="Permalink to this heading">#</a></h1>
+<p>We will assume here that you are familiar with concepts from linear algebra and in particular, Gaussian Elimination.  However, students often learn a variety of different techniques involving row reduction, such as reducing all the way to an identity matrix, or reducing until you have one on the diagonal elements.  While those all lead to the same solution mathematically, so involve a larger number of numerical floating point calculations than absolutely necessary.  Numerically this is disadvantages both from the performance (i.e. how long the algorithm takes) aspect as well as the fact that more floating point calculations introduce more possibilities to magnify roundoff error.  Here, we want to solve our system using the smallest number of floating point operations as illustrated in the following example.</p>
+<p><strong>Example:</strong>  Consider the following set of equations we would like to solve:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-I_1 &amp;=\int_a^b f(x) dx = \frac{h_1}{2}\left[f(a)+f(b)\right] - (b-a)\frac{h_1^2}{12} f''(\eta_1),\\
-I_2 &amp;=\int_a^b f(x) dx = \frac{h_2}{2}\left[f(a)+2f(a+h)+f(b)\right] - (b-a)\frac{h_2^2}{12} f''(\eta_2).
+ {\begin{array}{cccc}
+    E_1: &amp; x_1+x_2+x_3+x_4     &amp;=&amp;3\\
+    E_2: &amp; x_1+2x_2+4x_3+8x_4  &amp;=&amp;-2\\
+    E_3: &amp; x_1+3x_2+9x_3+27x_4 &amp;=&amp;-5\\
+    E_4: &amp; x_1+4x_2+16x_3+64x_n&amp;=&amp;0 \\
+  \end{array}}
 \end{align}
 \end{split}\]</div>
-<p>The problem with attempting to use these two equations to eliminate the error term lies in the fact that <span class="math notranslate nohighlight">\(\eta_1\)</span> and <span class="math notranslate nohighlight">\(\eta_2\)</span> are not likely to be the same.  However, it is possible to show that, for a suitably smooth function, the error term can be replaced by a power series om even powers of <span class="math notranslate nohighlight">\(h\)</span>, namely</p>
-<div class="math notranslate nohighlight">
-\[
-E(h) = - (b-a)\frac{h^2}{12} f''(\eta_1) = \sum_{j=1}^n K_j h^{2j} + \mathcal{O}(h^{2n+2}),
-\]</div>
-<p>where the <span class="math notranslate nohighlight">\(K_j\)</span> are constants, independent of the division <span class="math notranslate nohighlight">\(h\)</span>. Using this, and <span class="math notranslate nohighlight">\(h_2=h_1/2\)</span> we can rewrite the two trapezoidal methods above as</p>
+<p>which we can convert into the following augmented matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-I_1 &amp;= \frac{h_1}{2}\left[f(a)+f(b)\right] + K_1 h_1^2 + K_2 h_1^4+ \mathcal{O}(h_1^6),\\
-I_2 &amp;= \frac{h_2}{2}\left[f(a)+2f(a+h_2)+f(b)\right] + K_1 h_2^2 + K_2 h_2^4 + \mathcal{O}(h_2^6),\\
-&amp;= \frac{h_1}{4}\left[f(a)+2f(a+h_2)+f(b)\right] + K_1 \frac{h_1^2}{4} + K_2 h_2^4+\mathcal{O}(h_1^6).
+  \left[ {\begin{array}{cccc}
+     \textcolor{red}{1} &amp;  1 &amp; 1 &amp;  1 \\
+     1 &amp;  2 &amp; 4 &amp;  8 \\
+     1 &amp;  3 &amp; 9 &amp;  27 \\
+     1 &amp;  4 &amp; 16 &amp;  64 \\
+  \end{array} } \right|
+  \left. {{\begin{array}{c}
+   3 \\
+  -2 \\
+  -5 \\
+  0 \\
+  \end{array}}} \right] = A^{(1)} 
 \end{align}
 \end{split}\]</div>
-<p>Now note that</p>
-<div class="math notranslate nohighlight">
-\[
-\int_a^b f(x) dx=\frac{4 I_2 - I_1}{3} = \frac{h_2}{3}\left[f(a) + 4 f(a+h_2) + f(b) \right] - \frac{12}{3} K_2 h_2^4 + \mathcal{O}(h_2^6).
-\]</div>
-<p>The resulting numerical integration scheme is known as <em>Simpson’s Rule</em> and the error is now <span class="math notranslate nohighlight">\(\mathcal{O}(h^4)\)</span> rather than the <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span> for the (composite) trapezoidal rule.</p>
-<p>This technique of eliminating error terms using results from two step sizes is generally referred to as Richardson’s extrapolation.  We can also use this method to get rid of higher order error terms as well which brings us to <em>Romberg’s Method</em>.</p>
-</section>
-<section id="romberg-s-method">
-<h1>Romberg’s Method<a class="headerlink" href="#romberg-s-method" title="Permalink to this heading">#</a></h1>
-<p>We start by using the composite trapezoidal rule for <span class="math notranslate nohighlight">\(m_1=1,\, m_2=2,\, m_3=4,\,\cdots m_n=2^{n-1}\)</span> subintervals with regularly spaced points <span class="math notranslate nohighlight">\(h_k=\frac{b-a}{m_k}\)</span> apart. In particular, when we do this we don’t want to recompute <span class="math notranslate nohighlight">\(f(x)\)</span> any more than necessary so we need to write the trapezoidal rule for the different intervals in such a way that we use our previous work:</p>
+<p>We refer to the element in red as the <em>pivot</em> element.  We will use the ratio of the first element in each row to the pivot element, something we will call a <em>multiplier</em> to determine what multiple of row 1 (or equation 1, <span class="math notranslate nohighlight">\(E_1\)</span>) to add to each row to reduce all the elements below the pivot to zero.  Adding a multiple of one row to another does not change our solution, just moves us towards a more easily solvable system:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-R_{1,1} &amp;= \frac{h_1}{2}\left[f(a)+f(b)\right],\\
-R_{2,1} &amp;= \frac{h_2}{2}\left[f(a)+f(b) + 2 f(a+h_2)\right],\\
-&amp;= \frac{1}{2}\left[ \frac{h_1}{2}\left\{ f(a)+f(b)\right\} + 2h_2 f(a+h_2)\right],\\
-&amp;= \frac{1}{2}\left[ R_{1,1} + h_1 f(a+h_2)\right],\\
-R_{3,1} &amp;= \frac{h_3}{2}\left[f(a)+f(b) + 2\left\{f(a+h_3)+f(a+2 h_3) + f(a+3 h_r)\right\}\right],\\
-&amp;= \frac{1}{2}\left[ R_{2,1} + h_2 \left\{ f(a+h_3)+ f(a+3 h_r)\right\}\right],\\
-&amp;\vdots \\
-R_{k,1} &amp;= \frac{1}{2}\left[ R_{k-1,1}+h_{k-1} \sum_{i=1}^{2^{k-2}} f(a+(2i-1)h_k) \right].
+ {\begin{array}{cc}
+ E_1 &amp;:\\
+ (E_2-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_2 &amp;: \\
+ (E_3-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_3 &amp;: \\
+ (E_4-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_4 &amp;: \\
+ \end{array}}\qquad
+  \left[ {\begin{array}{cccc}
+     1 &amp;  1 &amp; 1 &amp;  1 \\
+     0 &amp;  \textcolor{red}{1} &amp; 3 &amp;  7 \\
+     0 &amp;  2 &amp; 8 &amp;  26 \\
+     0 &amp;  3 &amp; 15 &amp;  63 \\
+  \end{array} } \right|
+  \left. {{\begin{array}{c}
+   3 \\
+  -5 \\
+  -8 \\
+  -3 \\
+  \end{array}}} \right] = A^{(2)} 
 \end{align}
 \end{split}\]</div>
-<p>We now apply the extrapolation technique to refine our results using</p>
-<div class="math notranslate nohighlight">
-\[
-R_{k,2}=\frac{4 R_{k,1}-R_{k-1,1}}{3},
-\]</div>
-<p>on each successive pair of our previous results.</p>
-<p>We then apply the extrapolation technique to successivly higher orders using</p>
-<div class="math notranslate nohighlight">
-\[
-R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
-\]</div>
-<p><strong>Example</strong>  Suppose we want to compute <span class="math notranslate nohighlight">\(\int_0^\pi \sin x\, dx\)</span>  (which in this case we know is <span class="math notranslate nohighlight">\(2\)</span>).  We construct the following tableau:</p>
+<p>We now move on the lower right block that excludes the first row and column and repeat the procedure.  Using the pivot element (again indicated in red above) to determine what multiple of row 2 (<span class="math notranslate nohighlight">\(E_2\)</span>) to add to each subsequent row to reduce all the elements below the pivot to zero:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-{\begin{array}{ccccccc}
-    R_{1,1}    &amp;         &amp;         &amp;         &amp;         &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; R_{2,2} &amp;         &amp;         &amp; &amp;\\
-    R_{2,1}    &amp;         &amp;         &amp; \rangle &amp; R_{3,3} &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; R_{3,2} &amp;         &amp;         &amp; \rangle &amp; R_{4,4}\\
-    R_{3,1}    &amp;         &amp;         &amp; \rangle &amp; R_{4,3} &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; R_{4,2} &amp;         &amp;         &amp; &amp;\\
-    R_{4,1}    &amp;         &amp;         &amp;         &amp;         &amp;\\
-  \end{array} } 
+ {\begin{array}{cc}
+ E_1 &amp; :\\
+ E_2 &amp; :\\
+ (E_3-(\frac{2}{\textcolor{red}{1}})E_2)\rightarrow E_3 &amp;:\\
+ (E_4-(\frac{3}{\textcolor{red}{1}})E_2)\rightarrow E_4 &amp;:\\
+ \end{array}}\qquad
+  \left[ {\begin{array}{cccc}
+     1 &amp;  1 &amp; 1 &amp;  1 \\
+     0 &amp;  1 &amp; 3 &amp;  7 \\
+     0 &amp;  0 &amp; \textcolor{red}{2} &amp;  12 \\
+     0 &amp;  0 &amp; 6 &amp;  42 \\
+  \end{array} } \right|
+  \left. {{\begin{array}{c}
+   3 \\
+  -5 \\
+  2 \\
+  12 \\
+  \end{array}}} \right] = A^{(3)} 
 \end{align}
 \end{split}\]</div>
-<p>With actual numbers, this translates to</p>
+<p>One final row reduction reduces the coefficient matrix to an <em>upper triangular matrix</em>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-{\begin{array}{ccccccc}
-    0    &amp;         &amp;         &amp;         &amp;         &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; 2.094... &amp;         &amp;         &amp; &amp;\\
-    1.57079...    &amp;         &amp;         &amp; \rangle &amp; 1.9985... &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; 2.0045... &amp;         &amp;         &amp; \rangle &amp; 2.0000055...\\
-    1.896...    &amp;         &amp;         &amp; \rangle &amp; 1.999983... &amp; &amp;\\
-    \downarrow &amp; \rangle &amp; 2.00026... &amp;         &amp;         &amp; &amp;\\
-    1.974...    &amp;         &amp;         &amp;         &amp;         &amp;\\
-  \end{array} } 
+ {\begin{array}{cc}
+ E_1 &amp; :\\
+ E_2 &amp; :\\
+ E_3 &amp; :\\
+ (E_4-(\frac{6}{\textcolor{red}{2}})E_3)\rightarrow E_4 &amp;:\\
+ \end{array}}\qquad
+  \left[ {\begin{array}{cccc}
+     1 &amp;  1 &amp; 1 &amp;  1 \\
+     0 &amp;  1 &amp; 3 &amp;  7 \\
+     0 &amp;  0 &amp; 2 &amp;  12 \\
+     0 &amp;  0 &amp; 0 &amp;  6 \\
+  \end{array} } \right|
+  \left. {{\begin{array}{c}
+   3 \\
+  -5 \\
+  2 \\
+  6 \\
+  \end{array}}} \right] = A^{(4)} 
 \end{align}
 \end{split}\]</div>
-<p>We see that even though the underlying composite trapezoidal rule results in the first column are not all that accurate, extrapolation of those results to the fourth column gives  six digits of accuracy.  It should also be clear that we can get an estimate for our (forward) error by comparing the difference between our best two results, in this case <span class="math notranslate nohighlight">\(R_{4,4}\)</span> and <span class="math notranslate nohighlight">\(R_{4,3}\)</span> where <span class="math notranslate nohighlight">\(|R_{4,4}-R_{4,3}|\sim 2\times 10^{-5}\)</span>.  Here, this is the error in <span class="math notranslate nohighlight">\(R_{4,3}\)</span> and so an overestimate of the error for <span class="math notranslate nohighlight">\(R_{4,4}\)</span>.</p>
-<p>While these are fairly easy to code up yourself, there are also scipy versions of all of these integration routines as illustrated below where we use the various schemes to integrate <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{\pi}}e^{-x^2}\)</span> from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(2\)</span>.  We start with the results of the cumulative trapezoidal and cumulative Simpson’s rule with our interval divided into eight segments:</p>
+<p>Note that we do not care if the pivot element is not <span class="math notranslate nohighlight">\(1\)</span>.  It is never worthwhile to divide all the elements in a row to get the pivot to be one.  Doing so only increases the overall number of floating point operations necessary to solve the system.  Now that our system is in upper triangular form we stop, switch strategies and do <strong>back substitution</strong>: We start with the last equation which now involves only <span class="math notranslate nohighlight">\(x_4\)</span> so is easily solved.  <span class="math notranslate nohighlight">\(E_3\)</span> only involves <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(x_4\)</span>, so now knowing <span class="math notranslate nohighlight">\(x_4\)</span> it can be easily rearranged to solve for <span class="math notranslate nohighlight">\(x_3\)</span>.  We continue in this manner until we get up to the first equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_4 &amp;= 6/6 = 1\\
+x_3 &amp;= (2-12x_4)/2 = -5\\
+x_2 &amp;= (-5-7x_4-3x_3)/1 =3\\
+x_1 &amp;= (3-x_4-x_3+x_2)/1 = 4\\
+\end{align}
+\end{split}\]</div>
+<p>The method used in the above example is referred to as <em>Gaussian Elimination with Back Substitution</em>.  To construct the algorithm, let’s first focus on the <em>forward elimination</em> part and consider what we did to go from <span class="math notranslate nohighlight">\(A^{(1)}\)</span> to <span class="math notranslate nohighlight">\(A^{(2)}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ E_i - \frac{a_{i1}}{a_{11}}E_1 \rightarrow E_i,\qquad\qquad i=2,3,\cdots,n \]</div>
+<p>or in pseudo-code form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    &amp;\text{\texttt{\# Loop over rows 2 to }}\,n\\
+    &amp;\text{\texttt{for}}\,\, i=2,\cdots n\\
+    &amp;\qquad\text{\texttt{m}}_{i1} = \text{\texttt{a}}_{i1}/\text{\texttt{a}}_{11}\\
+    &amp;\qquad\text{\texttt{\# Loop over columns of row}}\,i\\
+    &amp;\qquad\text{\texttt{for}}\,\, j=1,\cdots n+1\\
+    &amp;\qquad\qquad  \text{\texttt{a}}_{ij}=\text{\texttt{a}}_{ij}-\text{\texttt{m}}_{i1}*\text{\texttt{a}}_{1j}
+\end{align}
+\end{split}\]</div>
+<p>The full algorithm just requires applying the above to the successively smaller sub-blocks until we have reduced the coefficient matrix into lower triangular form.  Before translating this into a python code we must contend with the fact that while mathematics textbooks will typically label vectors and matrices of length <span class="math notranslate nohighlight">\(n\)</span> with indices from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(n\)</span>, unless you are using a very old language like <span class="math notranslate nohighlight">\(\text{\texttt{FORTRAN}}\)</span>, most modern languages index arrays from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>.  This means that we must shift the matrix/vector indices in an algorithm by one to get the corresponding array index.</p>
+<p>One final point is that any element set to zero is never used again.  As such, we don’t actually need to set it to zero.  In fact, for future reference we <em>could</em> store the multipliers used in the algorithm in the <em>lower triangular</em> part of the matrix that would otherwise be zero.  We will come back to why this is useful when we discuss matrix factorization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-   <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ForwardElimination</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># row k contains our pivot</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># our pivot is element A[k,k]</span>
+        <span class="c1"># Now we loop over i, the rows below the pivot row</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">m</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+            <span class="c1"># Loop over j, the columns of row i</span>
+            <span class="c1"># The line below is equivalent to the following loop,</span>
+            <span class="c1"># for j in range(k,n+1):</span>
+            <span class="c1">#    A[i,j] -= m*A[k,j]</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span> <span class="o">-=</span> <span class="n">m</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span>
+    <span class="k">return</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sample points: &quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
-
-<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
-<span class="n">I1</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">I2</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;trapezoidal = &quot;</span><span class="p">,</span><span class="n">I1</span><span class="p">,</span> <span class="s2">&quot;, Simpsons = &quot;</span><span class="p">,</span><span class="n">I2</span><span class="p">)</span>
+<span class="n">AugmentedArray</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial Augmented Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AugmentedArray</span><span class="p">)</span>
+<span class="n">ForwardElimination</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Row-reduced Augmented Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AugmentedArray</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample points:  [0.   0.25 0.5  0.75 1.   1.25 1.5  1.75 2.  ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initial Augmented Matrix:
+ [[ 1.  1.  1.  1.  3.]
+ [ 1.  2.  4.  8. -2.]
+ [ 1.  3.  9. 27. -5.]
+ [ 1.  4. 16. 64.  0.]]
+Row-reduced Augmented Matrix:
+ [[ 1.  1.  1.  1.  3.]
+ [ 0.  1.  3.  7. -5.]
+ [ 0.  0.  2. 12.  2.]
+ [ 0.  0.  0.  6.  6.]]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trapezoidal =  0.49744809484415425 , Simpsons =  0.4976521729751664
-</pre></div>
 </div>
 </div>
-</div>
-<p>The accuracy of these results is difficult to judge, other than by comparing them which gives us an estimate for the trapezoidal rule.  In contrast, the Romberg integration keeps adding a row to the tableau until the results converge:</p>
+<p>This agrees with our example so let’s move on to the <em>Back Substitution</em> step.  Here we are solving equations like</p>
+<div class="math notranslate nohighlight">
+\[
+a_{kk}x_k+a_{k,k+1}x_{k+1}+\cdots+a_{kn}x_n = a_{k,n+1}
+\]</div>
+<p>Keeping in mind that we already know <span class="math notranslate nohighlight">\(x_{k+1},\cdots,x_n\)</span> at this stage so</p>
+<div class="math notranslate nohighlight">
+\[
+x_k = \left(a_{k,n+1}-\sum_{j=k+1}^n a_{kj}x_j\right)/a_{kk}
+\]</div>
+<p>Putting this together into a python routine, again noting the shift in indices by <span class="math notranslate nohighlight">\(1\)</span> to account for indexing from <span class="math notranslate nohighlight">\(0\)</span>, gives</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">BackSubstitution</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">x</span>
 
-<span class="n">normaldist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">romberg</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">my_x</span> <span class="o">=</span> <span class="n">BackSubstitution</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">normaldist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">romberg</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: module &#39;scipy.integrate&#39; has no attribute &#39;romberg&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 4.  3. -5.  1.]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Our previous results from the trapezoidal and Simpson’s rule correspond to the first two results in the fourth row.</p>
+<p>Which gives us back the solution from our example.  One point that should have given you some concern is that we divide by our pivot <span class="math notranslate nohighlight">\(a_{kk}\)</span> in both Forward Elimination and the Backward Substitution routines.  The concern here is that it is not at all impossible that we may encounter a zero pivot elements (i.e. <span class="math notranslate nohighlight">\(a_{kk}=0\)</span>) which will cause the algorithm to fail as we cannot add a multiple of zero to another nonzero element and expect to reduce it to zero.  It turns out that the pivot does not even have to be zero for this to cause a problem.  A small pivot can also cause problems from roundoff effects.  It turns out this is fairly straighforwardly solved by introducing a <em>pivoting strategy</em>, which we will discuss in the next section.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -655,7 +708,7 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
         },
         kernelOptions: {
             name: "python3",
-            path: "./notes/NDiffInt"
+            path: "./notes/LinAlg"
         },
         predefinedOutput: true
     }
@@ -673,20 +726,20 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Int.html"
+       href="Lin_Alg_summary.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Numerical Integration</p>
+        <p class="prev-next-title">Numerical Linear Algebra</p>
       </div>
     </a>
     <a class="right-next"
-       href="GaussianInt.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Gaussian Integration</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -696,23 +749,6 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Higher Order Integration Schemes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#romberg-s-method">Romberg’s Method</a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>

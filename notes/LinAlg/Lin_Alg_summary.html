@@ -106,7 +106,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="next" title="Gaussian Elimination with Back Subsitution" href="GaussElimBackSub.html" />
     <link rel="prev" title="General Root Finding Algorithms" href="../Root1D/GeneralRoot.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -248,6 +248,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Linear Algebra</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Numerical Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -444,7 +445,7 @@ document.write(`
 E_1:\quad a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&amp;=b_1\\
 E_2:\quad a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&amp;=b_2\\
 \vdots\quad\qquad\qquad\qquad \vdots \qquad\qquad\qquad &amp;\quad\,\, \vdots \\
-E_1:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&amp;=b_n\\
+E_n:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&amp;=b_n\\
 \end{align}
 \end{split}\]</div>
 <p>We first translate our system of equations into an <em>augmented</em> matrix,</p>
@@ -465,14 +466,14 @@ E_1:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&amp;=b_n\\
   \end{array}}} \right] 
 \end{align}
 \end{split}\]</div>
-<p>where the <em>coefficient</em> matrix (elements in blue) is augmented by the right hand side of Eqs. <a class="reference internal" href="#equation-eqns">(1)</a> (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the solution:</p>
+<p>where the <em>coefficient</em> matrix (elements in blue) is augmented by the right hand side of Eqs. <a class="reference internal" href="#equation-eqns">(1)</a> (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the exact solution:</p>
 <ol class="arabic simple">
 <li><p>Multiply <span class="math notranslate nohighlight">\(E_i\)</span>, or row <span class="math notranslate nohighlight">\(i\)</span>, by a nonzero constant <span class="math notranslate nohighlight">\(\lambda\)</span>: <span class="math notranslate nohighlight">\((\lambda E_i)\rightarrow(E_i)\)</span></p></li>
 <li><p>Add a multiple of one equation, or row, to another: <span class="math notranslate nohighlight">\((\lambda E_i+\lambda E_j)\rightarrow(E_i)\)</span></p></li>
 <li><p>Interchange two equations (rows): <span class="math notranslate nohighlight">\((E_j)\leftrightarrow(E_i)\)</span></p></li>
 <li><p>Renumber variables (i.e. interchange columns): <span class="math notranslate nohighlight">\(x_j\leftrightarrow x_i\)</span></p></li>
 </ol>
-<p>In the simplest cases, only operation 2 is necessary and we will discuss this in the next section.  However, there are other cases where we will need to make use of more, or even all, of these operations.  Those cases will be dicussed later in the chapter.</p>
+<p>In the simplest cases only operation 2 is necessary and we will discuss this in the next section.  However, there are other cases where we will need to make use of more, or even all, of these operations.  Those cases will be dicussed later in the chapter.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -515,11 +516,11 @@ E_1:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&amp;=b_n\\
       </div>
     </a>
     <a class="right-next"
-       href="../InterpFit/InterpFit_summary.html"
+       href="GaussElimBackSub.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Interpolation</p>
+        <p class="prev-next-title">Gaussian Elimination with Back Subsitution</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
