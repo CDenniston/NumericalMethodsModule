@@ -8,7 +8,7 @@ $$\begin{align}
 E_1:\quad a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=b_1\\
 E_2:\quad a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=b_2\\
 \vdots\quad\qquad\qquad\qquad \vdots \qquad\qquad\qquad &\quad\,\, \vdots \\
-E_1:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=b_n\\
+E_n:\quad a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=b_n\\
 \end{align}
 $$ (eqns)
 
@@ -31,11 +31,11 @@ $$
 \end{align}
 $$
 
-where the *coefficient* matrix (elements in blue) is augmented by the right hand side of Eqs. {eq}`eqns` (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the solution:
+where the *coefficient* matrix (elements in blue) is augmented by the right hand side of Eqs. {eq}`eqns` (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the exact solution:
 
 1. Multiply $E_i$, or row $i$, by a nonzero constant $\lambda$: $(\lambda E_i)\rightarrow(E_i)$
 2. Add a multiple of one equation, or row, to another: $(\lambda E_i+\lambda E_j)\rightarrow(E_i)$
 3. Interchange two equations (rows): $(E_j)\leftrightarrow(E_i)$
 4. Renumber variables (i.e. interchange columns): $x_j\leftrightarrow x_i$
 
-In the simplest cases, only operation 2 is necessary and we will discuss this in the next section.  However, there are other cases where we will need to make use of more, or even all, of these operations.  Those cases will be dicussed later in the chapter.
+In the simplest cases only operation 2 is necessary and we will discuss this in the next section.  However, there are other cases where we will need to make use of more, or even all, of these operations.  Those cases will be dicussed later in the chapter.

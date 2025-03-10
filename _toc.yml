@@ -20,6 +20,7 @@ parts:
 - caption: Part 4 - Numerical Linear Algebra
   chapters:
     - file: notes/LinAlg/Lin_Alg_summary
+    - file: notes/LinAlg/GaussElimBackSub
 - caption: Part 3 - Interpolation
   chapters:
     - file: notes/InterpFit/InterpFit_summary
