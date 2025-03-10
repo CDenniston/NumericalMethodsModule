@@ -608,15 +608,15 @@ x_1 &amp;= (3-x_4-x_3+x_2)/1 = 4\\
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-    &amp;\text{\texttt{\# Loop over rows 2 to }}\,n\\
-    &amp;\text{\texttt{for}}\,\, i=2,\cdots n\\
-    &amp;\qquad\text{\texttt{m}}_{i1} = \text{\texttt{a}}_{i1}/\text{\texttt{a}}_{11}\\
-    &amp;\qquad\text{\texttt{\# Loop over columns of row}}\,i\\
-    &amp;\qquad\text{\texttt{for}}\,\, j=1,\cdots n+1\\
-    &amp;\qquad\qquad  \text{\texttt{a}}_{ij}=\text{\texttt{a}}_{ij}-\text{\texttt{m}}_{i1}*\text{\texttt{a}}_{1j}
+    &amp;\text{\# Loop over rows 2 to }\,n\\
+    &amp;\text{for}\,\, i=2,\cdots n\\
+    &amp;\qquad\text{m}_{i1} = \text{a}_{i1}/\text{a}_{11}\\
+    &amp;\qquad\text{\# Loop over columns of row}\,i\\
+    &amp;\qquad\text{for}\,\, j=1,\cdots n+1\\
+    &amp;\qquad\qquad  \text{a}_{ij}=\text{a}_{ij}-\text{m}_{i1}*\text{a}_{1j}
 \end{align}
 \end{split}\]</div>
-<p>The full algorithm just requires applying the above to the successively smaller sub-blocks until we have reduced the coefficient matrix into lower triangular form.  Before translating this into a python code we must contend with the fact that while mathematics textbooks will typically label vectors and matrices of length <span class="math notranslate nohighlight">\(n\)</span> with indices from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(n\)</span>, unless you are using a very old language like <span class="math notranslate nohighlight">\(\text{\texttt{FORTRAN}}\)</span>, most modern languages index arrays from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>.  This means that we must shift the matrix/vector indices in an algorithm by one to get the corresponding array index.</p>
+<p>The full algorithm just requires applying the above to the successively smaller sub-blocks until we have reduced the coefficient matrix into lower triangular form.  Before translating this into a python code we must contend with the fact that while mathematics textbooks will typically label vectors and matrices of length <span class="math notranslate nohighlight">\(n\)</span> with indices from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(n\)</span>, unless you are using a very old language like FORTRAN, most modern languages index arrays from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>.  This means that we must shift the matrix/vector indices in an algorithm by one to get the corresponding array index.</p>
 <p>One final point is that any element set to zero is never used again.  As such, we don’t actually need to set it to zero.  In fact, for future reference we <em>could</em> store the multipliers used in the algorithm in the <em>lower triangular</em> part of the matrix that would otherwise be zero.  We will come back to why this is useful when we discuss matrix factorization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
