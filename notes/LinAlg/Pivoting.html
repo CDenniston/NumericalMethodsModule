@@ -531,6 +531,9 @@ document.write(`
                 <span class="n">prow</span> <span class="o">=</span> <span class="n">p</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">prow</span> <span class="o">!=</span> <span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="p">:</span>
             <span class="n">pivot</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">p</span><span class="p">],</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pivot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Singular Matrix Encountered</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">nrows</span>
             <span class="c1"># As rows may have been swapped previously, we need to double index nrows</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
             <span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span><span class="o">=</span><span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">prow</span><span class="p">]]</span>
@@ -593,33 +596,6 @@ solution:
 |a_{ij}-m_{ik}a_{kj}|\leq 2 \max_{k\leq i,j \leq n} |a_{ij}|
 \]</div>
 <p>Total pivoting is an option in LAPACK routines and is only done when absolutely necessary.  Why?  This is related to the cost of doing so, but to discuss that we first need to discuss the cost for the algorithm so far.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">BackSubstitution</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-            <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">x</span>
-
-<span class="n">my_x</span> <span class="o">=</span> <span class="n">BackSubstitution</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">my_x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[       -inf         inf  3.38095238 -0.04761905]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2019/435115881.py:8: RuntimeWarning: divide by zero encountered in scalar divide
-  x[k]=x[k]/A[k,k]
-</pre></div>
-</div>
-</div>
-</div>
 <p>Which gives us back the solution from our example.  One point that should have given you some concern is that we divide by our pivot <span class="math notranslate nohighlight">\(a_{kk}\)</span> in both Forward Elimination and the Backward Substitution routines.  The concern here is that it is not at all impossible that we may encounter a zero pivot elements (i.e. <span class="math notranslate nohighlight">\(a_{kk}=0\)</span>) which will cause the algorithm to fail as we cannot add a multiple of zero to another nonzero element and expect to reduce it to zero.  It turns out that the pivot does not even have to be zero for this to cause a problem.  A small pivot can also cause problems from roundoff effects.  It turns out this is fairly straighforwardly solved by introducing a <em>pivoting strategy</em>, which we will discuss in the next.</p>
 </section>
 <section id="computational-cost">
