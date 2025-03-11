@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Gaussian Elimination with Back Subsitution &#8212; Numerical Methods</title>
+    <title>Pivoting Strategies &#8212; Numerical Methods</title>
   
   
   
@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/LinAlg/GaussElimBackSub';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/LinAlg/Pivoting';</script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Pivoting Strategies" href="Pivoting.html" />
-    <link rel="prev" title="Numerical Linear Algebra" href="Lin_Alg_summary.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="Gaussian Elimination with Back Subsitution" href="GaussElimBackSub.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -248,8 +248,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Linear Algebra</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Gaussian Elimination with Back Subsitution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pivoting.html">Pivoting Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pivoting Strategies</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
@@ -343,7 +343,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/LinAlg/GaussElimBackSub.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/LinAlg/Pivoting.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -392,7 +392,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/LinAlg/GaussElimBackSub.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/LinAlg/Pivoting.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -463,7 +463,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -474,11 +476,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Gaussian Elimination with Back Subsitution</h1>
+    <h1>Pivoting Strategies</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pivoting Strategies</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-cost">Computational Cost</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -488,160 +500,69 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="gaussian-elimination-with-back-subsitution">
-<h1>Gaussian Elimination with Back Subsitution<a class="headerlink" href="#gaussian-elimination-with-back-subsitution" title="Permalink to this heading">#</a></h1>
-<p>We will assume here that you are familiar with concepts from linear algebra and in particular, Gaussian Elimination.  However, students often learn a variety of different techniques involving row reduction, such as reducing all the way to an identity matrix, or reducing until you have one on the diagonal elements.  While those all lead to the same solution mathematically, some involve a larger number of numerical floating point calculations than absolutely necessary.  Numerically this is disadvantages both from the performance (i.e. how long the algorithm takes) aspect as well as the fact that more floating point calculations introduce more possibilities to magnify roundoff error.  Here, we want to solve our system using the smallest number of floating point operations as illustrated in the following example.</p>
-<p><strong>Example:</strong>  Consider the following set of equations we would like to solve:</p>
+  <section id="pivoting-strategies">
+<h1>Pivoting Strategies<a class="headerlink" href="#pivoting-strategies" title="Permalink to this heading">#</a></h1>
+<p>In our quest to solve a linear system of equations, we have not made use of the ability to swap rows so far.  If we encounter a zero pivot, we can swap rows to fix the problem.  If there is no non-zero pivot, then there is no unique solution and we can exit with an appropriate error message.  This suggests adding a <em>choose pivot</em> section to the Forward Elimination routine along the lines of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
- {\begin{array}{cccc}
-    E_1: &amp; x_1+x_2+x_3+x_4     &amp;=&amp;3\\
-    E_2: &amp; x_1+2x_2+4x_3+8x_4  &amp;=&amp;-2\\
-    E_3: &amp; x_1+3x_2+9x_3+27x_4 &amp;=&amp;-5\\
-    E_4: &amp; x_1+4x_2+16x_3+64x_n&amp;=&amp;0 \\
-  \end{array}}
+    &amp;\text{find}\, p,\, k\leq p \leq n,\, \text{such that}\,\text{a}_{pk}\neq 0\\
+    &amp;\text{if this is not possible,}\,A\,\text{is singular, so stop}\\
+    &amp;E_p \leftrightarrow E_k\,\text{if}\,p\neq k\\
 \end{align}
 \end{split}\]</div>
-<p>which we can convert into the following augmented matrix</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-  \left[ {\begin{array}{cccc}
-     \textcolor{red}{1} &amp;  1 &amp; 1 &amp;  1 \\
-     1 &amp;  2 &amp; 4 &amp;  8 \\
-     1 &amp;  3 &amp; 9 &amp;  27 \\
-     1 &amp;  4 &amp; 16 &amp;  64 \\
-  \end{array} } \right|
-  \left. {{\begin{array}{c}
-   3 \\
-  -2 \\
-  -5 \\
-  0 \\
-  \end{array}}} \right] = A^{(1)} 
-\end{align}
-\end{split}\]</div>
-<p>We refer to the element in red as the <em>pivot</em> element.  We will use the ratio of the first element in each row to the pivot element, something we will call a <em>multiplier</em> to determine what multiple of row 1 (or equation 1, <span class="math notranslate nohighlight">\(E_1\)</span>) to add to each row to reduce all the elements below the pivot to zero.  Adding a multiple of one row to another does not change our solution, just moves us towards a more easily solvable system:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
- {\begin{array}{cc}
- E_1 &amp;:\\
- (E_2-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_2 &amp;: \\
- (E_3-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_3 &amp;: \\
- (E_4-(\frac{1}{\textcolor{red}{1}})E_1)\rightarrow E_4 &amp;: \\
- \end{array}}\qquad
-  \left[ {\begin{array}{cccc}
-     1 &amp;  1 &amp; 1 &amp;  1 \\
-     0 &amp;  \textcolor{red}{1} &amp; 3 &amp;  7 \\
-     0 &amp;  2 &amp; 8 &amp;  26 \\
-     0 &amp;  3 &amp; 15 &amp;  63 \\
-  \end{array} } \right|
-  \left. {{\begin{array}{c}
-   3 \\
-  -5 \\
-  -8 \\
-  -3 \\
-  \end{array}}} \right] = A^{(2)} 
-\end{align}
-\end{split}\]</div>
-<p>We now move on the lower right block that excludes the first row and column and repeat the procedure.  Using the pivot element (again indicated in red above) to determine what multiple of row 2 (<span class="math notranslate nohighlight">\(E_2\)</span>) to add to each subsequent row to reduce all the elements below the pivot to zero:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
- {\begin{array}{cc}
- E_1 &amp; :\\
- E_2 &amp; :\\
- (E_3-(\frac{2}{\textcolor{red}{1}})E_2)\rightarrow E_3 &amp;:\\
- (E_4-(\frac{3}{\textcolor{red}{1}})E_2)\rightarrow E_4 &amp;:\\
- \end{array}}\qquad
-  \left[ {\begin{array}{cccc}
-     1 &amp;  1 &amp; 1 &amp;  1 \\
-     0 &amp;  1 &amp; 3 &amp;  7 \\
-     0 &amp;  0 &amp; \textcolor{red}{2} &amp;  12 \\
-     0 &amp;  0 &amp; 6 &amp;  42 \\
-  \end{array} } \right|
-  \left. {{\begin{array}{c}
-   3 \\
-  -5 \\
-  2 \\
-  12 \\
-  \end{array}}} \right] = A^{(3)} 
-\end{align}
-\end{split}\]</div>
-<p>One final row reduction reduces the coefficient matrix to an <em>upper triangular matrix</em>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
- {\begin{array}{cc}
- E_1 &amp; :\\
- E_2 &amp; :\\
- E_3 &amp; :\\
- (E_4-(\frac{6}{\textcolor{red}{2}})E_3)\rightarrow E_4 &amp;:\\
- \end{array}}\qquad
-  \left[ {\begin{array}{cccc}
-     1 &amp;  1 &amp; 1 &amp;  1 \\
-     0 &amp;  1 &amp; 3 &amp;  7 \\
-     0 &amp;  0 &amp; 2 &amp;  12 \\
-     0 &amp;  0 &amp; 0 &amp;  6 \\
-  \end{array} } \right|
-  \left. {{\begin{array}{c}
-   3 \\
-  -5 \\
-  2 \\
-  6 \\
-  \end{array}}} \right] = A^{(4)} 
-\end{align}
-\end{split}\]</div>
-<p>Note that we do <em>not</em> care whether, or not, the pivot element is <span class="math notranslate nohighlight">\(1\)</span>.  It is never worthwhile to divide all the elements in a row to get the pivot to be one.  Doing so only increases the overall number of floating point operations necessary to solve the system.  Now that our system is in upper triangular form we stop, switch strategies and do <strong>back substitution</strong>: We start with the last equation which now involves only <span class="math notranslate nohighlight">\(x_4\)</span> so is easily solved.  <span class="math notranslate nohighlight">\(E_3\)</span> only involves <span class="math notranslate nohighlight">\(x_3\)</span> and <span class="math notranslate nohighlight">\(x_4\)</span>, so now knowing <span class="math notranslate nohighlight">\(x_4\)</span> it can be easily rearranged to solve for <span class="math notranslate nohighlight">\(x_3\)</span>.  We continue in this manner until we get up to the first equation:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-x_4 &amp;= 6/6 = 1\\
-x_3 &amp;= (2-12x_4)/2 = -5\\
-x_2 &amp;= (-5-7x_4-3x_3)/1 =3\\
-x_1 &amp;= (3-x_4-x_3+x_2)/1 = 4\\
-\end{align}
-\end{split}\]</div>
-<p>The method used in the above example is referred to as <em>Gaussian Elimination with Back Substitution</em>.  To construct the algorithm, let’s first focus on the <em>forward elimination</em> part and consider what we did to go from <span class="math notranslate nohighlight">\(A^{(1)}\)</span> to <span class="math notranslate nohighlight">\(A^{(2)}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ E_i - \frac{a_{i1}}{a_{11}}E_1 \rightarrow E_i,\qquad\qquad i=2,3,\cdots,n \]</div>
-<p>or in pseudo-code form</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-    &amp;\text{// Loop over rows 2 to }\,n\\
-    &amp;\text{for}\,\, i=2,\cdots n\\
-    &amp;\qquad\text{m}_{i1} = \text{a}_{i1}/\text{a}_{11}\\
-    &amp;\qquad\text{// Loop over columns of row}\,i\\
-    &amp;\qquad\text{for}\,\, j=1,\cdots n+1\\
-    &amp;\qquad\qquad  \text{a}_{ij}=\text{a}_{ij}-\text{m}_{i1}*\text{a}_{1j}
-\end{align}
-\end{split}\]</div>
-<p>The full algorithm just requires applying the above to the successively smaller sub-blocks until we have reduced the coefficient matrix into lower triangular form.  Before translating this into a python code we must contend with the fact that while mathematics textbooks will typically label vectors and matrices of length <span class="math notranslate nohighlight">\(n\)</span> with indices from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(n\)</span>, unless you are using a very old language like FORTRAN, most modern languages index arrays from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>.  This means that we must shift the matrix/vector indices in an algorithm by one to get the corresponding array index.</p>
-<p>One final point is that any element set to zero is never used again.  As such, we don’t actually need to set it to zero.  In fact, for future reference we <em>could</em> store the multipliers used in the algorithm in the <em>lower triangular</em> part of the matrix that would otherwise be zero.  We will come back to why this is useful when we discuss matrix factorization.</p>
+<p>In reality, it is not actually a good idea to actually interchange rows as this memory swap takes some time and in later applications it will be useful to have a record of the swaps.  In python, a straightforward way to deal with this is to have a row index array that stores which row is which in the augmented matrix.  Then the row swap just consists of swapping the values in the row index and then use the row index array value in place of the row index anywhere else in the code.</p>
+<p>We also haven’t quite tied down the find <span class="math notranslate nohighlight">\(\text{a}_{pk}\neq 0\)</span> step.  There could easily be more than one value of <span class="math notranslate nohighlight">\(p\)</span> for which this would be the case.  Which one should we pick?  We learned in the Errors in Scientific Computing chapter that dividing by a small number can magnify roundoff errors.  Given our multipliers are of the form <span class="math notranslate nohighlight">\(\text{a}_{ik}/\text{a}_{kk}\)</span>, if <span class="math notranslate nohighlight">\(\text{a}_{kk}\)</span> is small we could be agravating roundoff errors.  This suggests selecting the largest possible pivot in column <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<a class="reference internal image-reference" href="notes/LinAlg/img/PartialPivoting.png"><img alt="notes/LinAlg/img/PartialPivoting.png" src="notes/LinAlg/img/PartialPivoting.png" style="width: 250px;" /></a>
+<p>This will also ensure that our multipliers are all less than or equal to 1. This strategy is called <strong>partial pivoting</strong> and is usually the default for most routines.  We can modify our earier Forward Elimination routine to include partial pivoting as shown below, returning our row index array.  We then must modify our Back Substitution routine to use the row index array as well.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">ForwardElimination</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1"># row k contains our pivot</span>
+    <span class="c1"># setup our row index array</span>
+    <span class="n">nrows</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="c1"># our pivot is element A[k,k]</span>
+        <span class="c1"># select pivot element A[k,k]</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">prow</span> <span class="o">=</span> <span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">p</span><span class="p">],</span><span class="n">k</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span> <span class="p">:</span>
+                <span class="n">prow</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">prow</span> <span class="o">!=</span> <span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="p">:</span>
+            <span class="n">pivot</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">p</span><span class="p">],</span><span class="n">k</span><span class="p">]</span>
+            <span class="c1"># As rows may have been swapped previously, we need to double index nrows</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+            <span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span><span class="o">=</span><span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">prow</span><span class="p">]]</span>
+            <span class="n">nrows</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">prow</span><span class="p">]]</span><span class="o">=</span><span class="n">tmp</span>
         <span class="c1"># Now we loop over i, the rows below the pivot row</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-            <span class="n">m</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">m</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">pivot</span>
             <span class="c1"># Loop over j, the columns of row i</span>
             <span class="c1"># The line below is equivalent to the following loop,</span>
             <span class="c1"># for j in range(k,n+1):</span>
             <span class="c1">#    A[i,j] -= m*A[k,j]</span>
-            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span> <span class="o">-=</span> <span class="n">m</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span>
-    <span class="k">return</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">:]</span> <span class="o">-=</span> <span class="n">m</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">k</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">nrows</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">BackSubstitution</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">nrows</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">n</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="n">nrows</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">x</span>
 
 <span class="n">AugmentedArray</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial Augmented Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AugmentedArray</span><span class="p">)</span>
-<span class="n">ForwardElimination</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">rowsindx</span><span class="o">=</span><span class="n">ForwardElimination</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Row-reduced Augmented Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AugmentedArray</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;row index:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">rowsindx</span><span class="p">)</span>
+
+<span class="n">my_x</span> <span class="o">=</span> <span class="n">BackSubstitution</span><span class="p">(</span><span class="n">AugmentedArray</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">rowsindx</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solution:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">my_x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -652,25 +573,26 @@ x_1 &amp;= (3-x_4-x_3+x_2)/1 = 4\\
  [ 1.  3.  9. 27. -5.]
  [ 1.  4. 16. 64.  0.]]
 Row-reduced Augmented Matrix:
- [[ 1.  1.  1.  1.  3.]
- [ 0.  1.  3.  7. -5.]
- [ 0.  0.  2. 12.  2.]
- [ 0.  0.  0.  6.  6.]]
+ [[  1.   1.   1.   1.   3.]
+ [  0.   0.   0.   2.   2.]
+ [  0.   0.  -2. -16.  -6.]
+ [  0.   3.  15.  63.  -3.]]
+row index:
+ [0 3 2 1]
+solution:
+ [ 4.  3. -5.  1.]
 </pre></div>
 </div>
 </div>
 </div>
-<p>This agrees with our example so let’s move on to the <em>Back Substitution</em> step.  Here we are solving equations like</p>
+<p>We see that this gives the same solution as before, but it is evident that the path to get there was different.  Normally, but not always, partial pivoting works well.  To minimize roundoff errors further we could use a strategy called <strong>total</strong> or <strong>complete</strong> pivoting.  In this case, we switch rows <em>and</em> columns, choosing the pivot as the maximum element in the coefficient matrix in rows <span class="math notranslate nohighlight">\(k,\cdots,n\)</span> <em>and</em> columns <span class="math notranslate nohighlight">\(k,\cdots n\)</span>.</p>
+<a class="reference internal image-reference" href="notes/LinAlg/img/TotalPivoting.png"><img alt="notes/LinAlg/img/TotalPivoting.png" src="notes/LinAlg/img/TotalPivoting.png" style="width: 250px;" /></a>
+<p>This restricts the growth in all elements in the coefficient block we are working as it is possible to show that</p>
 <div class="math notranslate nohighlight">
 \[
-a_{kk}x_k+a_{k,k+1}x_{k+1}+\cdots+a_{kn}x_n = a_{k,n+1}
+|a_{ij}-m_{ik}a_{kj}|\leq 2 \max_{k\leq i,j \leq n} |a_{ij}|
 \]</div>
-<p>Keeping in mind that we already know <span class="math notranslate nohighlight">\(x_{k+1},\cdots,x_n\)</span> at this stage so</p>
-<div class="math notranslate nohighlight">
-\[
-x_k = \left(a_{k,n+1}-\sum_{j=k+1}^n a_{kj}x_j\right)/a_{kk}
-\]</div>
-<p>Putting this together into a python routine, again noting the shift in indices by <span class="math notranslate nohighlight">\(1\)</span> to account for indexing from <span class="math notranslate nohighlight">\(0\)</span>, gives</p>
+<p>Total pivoting is an option in LAPACK routines and is only done when absolutely necessary.  Why?  This is related to the cost of doing so, but to discuss that we first need to discuss the cost for the algorithm so far.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">BackSubstitution</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
@@ -689,12 +611,81 @@ x_k = \left(a_{k,n+1}-\sum_{j=k+1}^n a_{kj}x_j\right)/a_{kk}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 4.  3. -5.  1.]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[       -inf         inf  3.38095238 -0.04761905]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2008/435115881.py:8: RuntimeWarning: divide by zero encountered in scalar divide
+  x[k]=x[k]/A[k,k]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Which gives us back the solution from our example.  One point that should have given you some concern is that we divide by our pivot <span class="math notranslate nohighlight">\(a_{kk}\)</span> in both Forward Elimination and the Backward Substitution routines.  The concern here is that it is not at all impossible that we may encounter a zero pivot elements (i.e. <span class="math notranslate nohighlight">\(a_{kk}=0\)</span>) which will cause the algorithm to fail as we cannot add a multiple of zero to another nonzero element and expect to reduce it to zero.  It turns out that the pivot does not even have to be zero for this to cause a problem.  A small pivot can also cause problems from roundoff effects.  It turns out this is fairly straighforwardly solved by introducing a <em>pivoting strategy</em>, which we will discuss in the next section.</p>
+<p>Which gives us back the solution from our example.  One point that should have given you some concern is that we divide by our pivot <span class="math notranslate nohighlight">\(a_{kk}\)</span> in both Forward Elimination and the Backward Substitution routines.  The concern here is that it is not at all impossible that we may encounter a zero pivot elements (i.e. <span class="math notranslate nohighlight">\(a_{kk}=0\)</span>) which will cause the algorithm to fail as we cannot add a multiple of zero to another nonzero element and expect to reduce it to zero.  It turns out that the pivot does not even have to be zero for this to cause a problem.  A small pivot can also cause problems from roundoff effects.  It turns out this is fairly straighforwardly solved by introducing a <em>pivoting strategy</em>, which we will discuss in the next.</p>
+</section>
+<section id="computational-cost">
+<h1>Computational Cost<a class="headerlink" href="#computational-cost" title="Permalink to this heading">#</a></h1>
+<p>To evaluate the cost, we count the number of <em>flops</em>, or floating point operations (one addition plus one multiplication, so computing <span class="math notranslate nohighlight">\(a+bx\)</span> is 1 flop).  Some summation formulas from first year Calculus that will be useful in this computation.  We will focus on the case where <span class="math notranslate nohighlight">\(n\)</span> is very large.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Summation Formulas</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sum_{k=1}^n 1 = n \\
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=1}^n k = \frac{n(n+1)}{2} \approx \frac{n^2}{2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=1}^n k^2= \frac{n(n+1)(2n+1)}{6} \approx \frac{n^3}{3}
+\]</div>
+</div>
+</details><p>The work of forward elimination is mostly the repeated executions of the last line of innermost loop, where each individual operation is 1 flop.  As noted in the comment in the algorithm, that line is effectively part of a loop, and each loop further up results in a repition of this inner loop.  We just need to count each iteration of this operation, with each loop contributing a summation sign.   Which gives us</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\text{N}_{flops} &amp;= \sum_{k=0}^{n-2} \sum_{i=k+1}^n \sum_{j=k}^{n+1} (1) \\
+&amp;\approx \sum_{k=1}^n \sum_{i=k}^n (n-k) \\
+&amp;\approx \sum_{k=1}^n (n-k)^2 =\sum_{k=1}^n (n^2+k^2-2nk)\\
+&amp;\approx n^3+\frac{n^3}{3}-2 n\left(\frac{n^2}{2}\right)\\
+&amp;= \frac{n^3}{3}
+\end{align}
+\end{split}\]</div>
+<p>where the approximation is for large <span class="math notranslate nohighlight">\(n\)</span>.  The number of flops for back substitution is similarly calclulated</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\text{N}_{flops}&amp;= \sum_{k=n-1}^1 \sum_{j=k+1}^n (1) \\
+&amp;\approx \sum_{k=1}^n (n-k)\\
+&amp;\approx n^2-\frac{n^2}{2} = \frac{n^2}{2}
+\end{align}
+\end{split}\]</div>
+<p>We see that the work is dominated by the work of forward elimination (<span class="math notranslate nohighlight">\(\sim n^3\)</span> versus <span class="math notranslate nohighlight">\(\sim n^2\)</span> for back substitution).  You may wonder why we did not bother to include the cost of pivoting in the above calculations.  It is not too hard to show that the cost of partial pivoting scales like <span class="math notranslate nohighlight">\(n^2\)</span>, so is small compared to the overall cost of forward elmination for large <span class="math notranslate nohighlight">\(n\)</span>.  This assumes a comparison of two floating point operations takes a similar amount of time as 1 flop.  Total pivoting, however, scales with <span class="math notranslate nohighlight">\(n^3\)</span> so adds to the cost of forward elimination substantially, which is why it is avoided unless absolutely necessary.</p>
+<p>The <span class="math notranslate nohighlight">\(n^3\)</span> factor is a very daunting increase in cost as we increase the size of the system.  For example, calculated somewhat more precisely we have</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(n\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(N_{flops}\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sim 170\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sim 400\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>50</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sim 44000\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>100</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sim 340000\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The implications are such that if it took <span class="math notranslate nohighlight">\(1\)</span> second to solve a system of size <span class="math notranslate nohighlight">\(n\)</span> it would take close to <span class="math notranslate nohighlight">\(17\)</span> minutes to solve a system <span class="math notranslate nohighlight">\(10\)</span> times larger.  As a result, we will spend some time in the next few sections examining cases where we can lower that cost.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -728,20 +719,20 @@ x_k = \left(a_{k,n+1}-\sum_{j=k+1}^n a_{kj}x_j\right)/a_{kk}
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Lin_Alg_summary.html"
+       href="GaussElimBackSub.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Numerical Linear Algebra</p>
+        <p class="prev-next-title">Gaussian Elimination with Back Subsitution</p>
       </div>
     </a>
     <a class="right-next"
-       href="Pivoting.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pivoting Strategies</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -751,6 +742,23 @@ x_k = \left(a_{k,n+1}-\sum_{j=k+1}^n a_{kj}x_j\right)/a_{kk}
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pivoting Strategies</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-cost">Computational Cost</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
