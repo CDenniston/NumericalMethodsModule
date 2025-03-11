@@ -513,7 +513,7 @@ document.write(`
 \end{split}\]</div>
 <p>In reality, it is not actually a good idea to actually interchange rows as this memory swap takes some time and in later applications it will be useful to have a record of the swaps.  In python, a straightforward way to deal with this is to have a row index array that stores which row is which in the augmented matrix.  Then the row swap just consists of swapping the values in the row index and then use the row index array value in place of the row index anywhere else in the code.</p>
 <p>We also haven’t quite tied down the find <span class="math notranslate nohighlight">\(\text{a}_{pk}\neq 0\)</span> step.  There could easily be more than one value of <span class="math notranslate nohighlight">\(p\)</span> for which this would be the case.  Which one should we pick?  We learned in the Errors in Scientific Computing chapter that dividing by a small number can magnify roundoff errors.  Given our multipliers are of the form <span class="math notranslate nohighlight">\(\text{a}_{ik}/\text{a}_{kk}\)</span>, if <span class="math notranslate nohighlight">\(\text{a}_{kk}\)</span> is small we could be agravating roundoff errors.  This suggests selecting the largest possible pivot in column <span class="math notranslate nohighlight">\(k\)</span>.</p>
-<a class="reference internal image-reference" href="notes/LinAlg/img/PartialPivoting.png"><img alt="notes/LinAlg/img/PartialPivoting.png" src="notes/LinAlg/img/PartialPivoting.png" style="width: 250px;" /></a>
+<a class="reference internal image-reference" href="../../_images/PartialPivoting.png"><img alt="../../_images/PartialPivoting.png" src="../../_images/PartialPivoting.png" style="width: 250px;" /></a>
 <p>This will also ensure that our multipliers are all less than or equal to 1. This strategy is called <strong>partial pivoting</strong> and is usually the default for most routines.  We can modify our earier Forward Elimination routine to include partial pivoting as shown below, returning our row index array.  We then must modify our Back Substitution routine to use the row index array as well.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -586,7 +586,7 @@ solution:
 </div>
 </div>
 <p>We see that this gives the same solution as before, but it is evident that the path to get there was different.  Normally, but not always, partial pivoting works well.  To minimize roundoff errors further we could use a strategy called <strong>total</strong> or <strong>complete</strong> pivoting.  In this case, we switch rows <em>and</em> columns, choosing the pivot as the maximum element in the coefficient matrix in rows <span class="math notranslate nohighlight">\(k,\cdots,n\)</span> <em>and</em> columns <span class="math notranslate nohighlight">\(k,\cdots n\)</span>.</p>
-<a class="reference internal image-reference" href="notes/LinAlg/img/TotalPivoting.png"><img alt="notes/LinAlg/img/TotalPivoting.png" src="notes/LinAlg/img/TotalPivoting.png" style="width: 250px;" /></a>
+<a class="reference internal image-reference" href="../../_images/TotalPivoting.png"><img alt="../../_images/TotalPivoting.png" src="../../_images/TotalPivoting.png" style="width: 250px;" /></a>
 <p>This restricts the growth in all elements in the coefficient block we are working as it is possible to show that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -614,7 +614,7 @@ solution:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[       -inf         inf  3.38095238 -0.04761905]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2008/435115881.py:8: RuntimeWarning: divide by zero encountered in scalar divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2019/435115881.py:8: RuntimeWarning: divide by zero encountered in scalar divide
   x[k]=x[k]/A[k,k]
 </pre></div>
 </div>
