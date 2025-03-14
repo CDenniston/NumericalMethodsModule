@@ -34,7 +34,7 @@ $$
 where the *coefficient* matrix (elements in blue) is augmented by the right hand side of Eqs. {eq}`eqns` (elements in red).  To solve, there are number of operations that we can do so simplify our equations that do not change the exact solution:
 
 1. Multiply $E_i$, or row $i$, by a nonzero constant $\lambda$: $(\lambda E_i)\rightarrow(E_i)$
-2. Add a multiple of one equation, or row, to another: $(\lambda E_i+\lambda E_j)\rightarrow(E_i)$
+2. Add a multiple of one equation, or row, to another: $(E_i+\lambda E_j)\rightarrow(E_i)$
 3. Interchange two equations (rows): $(E_j)\leftrightarrow(E_i)$
 4. Renumber variables (i.e. interchange columns): $x_j\leftrightarrow x_i$
 
