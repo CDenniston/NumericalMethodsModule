@@ -253,6 +253,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="current nav bd-sidenav">
@@ -445,25 +446,25 @@ document.write(`
 <h1>Chebyshev Interpolation<a class="headerlink" href="#chebyshev-interpolation" title="Permalink to this heading">#</a></h1>
 <p>In the last section, we found that a set of nodes with points more densely spaced at the edges of the interval seemed to work much better for polynomial interpolation than equally spaced points.  It turns out, the points we choose were roots of a Chebyshev polynomial.  Chebyshev polynomials are a set of orthogonal polynomials on the interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with respect to the weight function <span class="math notranslate nohighlight">\(1/\sqrt{1-x^2}\)</span>.  They can be defined via trignometric functions as</p>
 <div class="math notranslate nohighlight" id="equation-chebdef">
-<span class="eqno">(3)<a class="headerlink" href="#equation-chebdef" title="Permalink to this equation">#</a></span>\[ T_k(x)=\cos(k \arccos x).\]</div>
+<span class="eqno">(4)<a class="headerlink" href="#equation-chebdef" title="Permalink to this equation">#</a></span>\[ T_k(x)=\cos(k \arccos x).\]</div>
 <p>Note that we will restrict <span class="math notranslate nohighlight">\(x\)</span> to be in <span class="math notranslate nohighlight">\([-1,1]\)</span> here so <span class="math notranslate nohighlight">\(\arccos x\)</span> remains well-defined.  It should be clear from the definition in terms of the cosine function that <span class="math notranslate nohighlight">\(T_k(x)\)</span> satisfies</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-prop1">
-<span class="eqno">(4)<a class="headerlink" href="#equation-prop1" title="Permalink to this equation">#</a></span>\[\begin{equation} -1 \geq T_k(x) \geq 1 \quad \text{for}\quad -1\geq x \geq 1\end{equation}.\]</div>
+<span class="eqno">(5)<a class="headerlink" href="#equation-prop1" title="Permalink to this equation">#</a></span>\[\begin{equation} -1 \geq T_k(x) \geq 1 \quad \text{for}\quad -1\geq x \geq 1\end{equation}.\]</div>
 </div></blockquote>
 <p>and</p>
 <blockquote>
 <div><p><span class="math notranslate nohighlight">\(T_k(x)\)</span> has roots at <span class="math notranslate nohighlight">\(k \arccos x = (odd integer) \frac{\pi}{2}\)</span> or</p>
 <div class="math notranslate nohighlight" id="equation-prop2">
-<span class="eqno">(5)<a class="headerlink" href="#equation-prop2" title="Permalink to this equation">#</a></span>\[\begin{equation} x_j=\cos\left( \frac{(2j+1)\pi}{2k} \right),\qquad j=0,...,k-1 \end{equation},\]</div>
+<span class="eqno">(6)<a class="headerlink" href="#equation-prop2" title="Permalink to this equation">#</a></span>\[\begin{equation} x_j=\cos\left( \frac{(2j+1)\pi}{2k} \right),\qquad j=0,...,k-1 \end{equation},\]</div>
 </div></blockquote>
 <p>and</p>
 <blockquote>
 <div><p><span class="math notranslate nohighlight">\(T_k(x)\)</span> oscillates between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span> a total of <span class="math notranslate nohighlight">\(k+1\)</span> times, hitting these extremes at</p>
 <div class="math notranslate nohighlight" id="equation-prop3">
-<span class="eqno">(6)<a class="headerlink" href="#equation-prop3" title="Permalink to this equation">#</a></span>\[x=\cos 0, \cos(\pi/k), ...,\cos((k-1)\pi/k)\]</div>
+<span class="eqno">(7)<a class="headerlink" href="#equation-prop3" title="Permalink to this equation">#</a></span>\[x=\cos 0, \cos(\pi/k), ...,\cos((k-1)\pi/k)\]</div>
 </div></blockquote>
-<p>Note that these zeros correspond to the projection onto <span class="math notranslate nohighlight">\(x\)</span> of points spaced at equally spaced angles on the unit circle.  What is perhaps less clear is that Eq.(<a class="reference internal" href="#equation-chebdef">(3)</a>) corresponds to a polynomial at all.
+<p>Note that these zeros correspond to the projection onto <span class="math notranslate nohighlight">\(x\)</span> of points spaced at equally spaced angles on the unit circle.  What is perhaps less clear is that Eq.(<a class="reference internal" href="#equation-chebdef">(4)</a>) corresponds to a polynomial at all.
 However, for <span class="math notranslate nohighlight">\(k=0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> it is easy to see that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
@@ -482,7 +483,7 @@ T_{k-1}(x)&amp;=\cos\left( (k-1)y \right)&amp;= \cos(ky)\cos(y)+\sin(ky)\sin(y),
 \[T_{k+1}(x)+T_{k-1}(x)=2\cos(ky)\cos(y)=2T_k(x)T_1(x)=2 x\, T_k(x),\]</div>
 <p>making use of our previous expression that <span class="math notranslate nohighlight">\(T_1(x)=x\)</span>.  This can then be easily rearranged to give the recursion relation</p>
 <div class="math notranslate nohighlight" id="equation-chebrecursion">
-<span class="eqno">(7)<a class="headerlink" href="#equation-chebrecursion" title="Permalink to this equation">#</a></span>\[T_{k+1}(x)=2 x\, T_k(x) - T_{k-1}(x).\]</div>
+<span class="eqno">(8)<a class="headerlink" href="#equation-chebrecursion" title="Permalink to this equation">#</a></span>\[T_{k+1}(x)=2 x\, T_k(x) - T_{k-1}(x).\]</div>
 <p>As implied by the name, we can use this to recursively derive higher order polynomials given the two lower order ones.  Starting with the known <span class="math notranslate nohighlight">\(T_0(x)\)</span> and <span class="math notranslate nohighlight">\(T_1(x)\)</span> given above this gives the next few polynomials as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
@@ -490,17 +491,17 @@ T_2(x)&amp;= 2x^2-1,\\
 T_3(x)&amp;= 4x^3-3x,\\
 T_4(x)&amp;= 8x^4-8x^2+1.
 \end{align}\end{split}\]</div>
-<p>From the pattern of these first few polynomials, and the multiplication by <span class="math notranslate nohighlight">\(2\)</span> in the recursion it should also be clear that the leading coefficient (coefficient of the highest power of <span class="math notranslate nohighlight">\(x\)</span>) for <span class="math notranslate nohighlight">\(T_k(x)\)</span> is <span class="math notranslate nohighlight">\(2^{k-1}\)</span>.  This, and the fact that we know the roots (in <a class="reference internal" href="#equation-prop2">(5)</a>) implies that</p>
+<p>From the pattern of these first few polynomials, and the multiplication by <span class="math notranslate nohighlight">\(2\)</span> in the recursion it should also be clear that the leading coefficient (coefficient of the highest power of <span class="math notranslate nohighlight">\(x\)</span>) for <span class="math notranslate nohighlight">\(T_k(x)\)</span> is <span class="math notranslate nohighlight">\(2^{k-1}\)</span>.  This, and the fact that we know the roots (in <a class="reference internal" href="#equation-prop2">(6)</a>) implies that</p>
 <div class="math notranslate nohighlight" id="equation-tnplus1">
-<span class="eqno">(8)<a class="headerlink" href="#equation-tnplus1" title="Permalink to this equation">#</a></span>\[ \frac{T_{n+1}(x)}{2^n}=(x-x_0)(x-x_1)...(x-x_n)=\prod_{j=0}^n (x-x_j),\]</div>
-<p>where the <span class="math notranslate nohighlight">\(x_j\)</span> are the roots of <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> from Equation <a class="reference internal" href="#equation-prop2">(5)</a>.</p>
+<span class="eqno">(9)<a class="headerlink" href="#equation-tnplus1" title="Permalink to this equation">#</a></span>\[ \frac{T_{n+1}(x)}{2^n}=(x-x_0)(x-x_1)...(x-x_n)=\prod_{j=0}^n (x-x_j),\]</div>
+<p>where the <span class="math notranslate nohighlight">\(x_j\)</span> are the roots of <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> from Equation <a class="reference internal" href="#equation-prop2">(6)</a>.</p>
 <p>This now brings us back to the Error formula for polynomial interpolation that we derived in the previous section:</p>
 <div class="math notranslate nohighlight">
 \[\begin{equation} f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j). \end{equation}\]</div>
 <p><em>If</em> we select our interpolation nodes as the roots of <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span>, namely</p>
 <div class="math notranslate nohighlight">
 \[ x_i=\cos\left( \frac{(2i+1)\pi}{2n+2} \right), \qquad\qquad i=0, 1, ..., n. \]</div>
-<p>then we see that we can substitute <a class="reference internal" href="#equation-tnplus1">(8)</a> into the error formula to get</p>
+<p>then we see that we can substitute <a class="reference internal" href="#equation-tnplus1">(9)</a> into the error formula to get</p>
 <div class="math notranslate nohighlight">
 \[\begin{equation} f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\frac{T_{n+1}}{2^n},\end{equation}\]</div>
 <p>so that</p>
@@ -510,7 +511,7 @@ T_4(x)&amp;= 8x^4-8x^2+1.
 <p>Again, we show this by first assuming the contrary and then showing that this leads to a contradiction.  In order for this to be the best choice, we must have <span class="math notranslate nohighlight">\(T_{n+1}(x)/2^n\)</span> to be the monic polynomial (a polynomial with leading coefficient 1) with the smallest absolute maximum.  Suppose this is nto the case.  Then there must be another monic polynomial, say <span class="math notranslate nohighlight">\(Q_{n+1}(x)\)</span> of degree <span class="math notranslate nohighlight">\(n\)</span> with an even smaller absolute max on <span class="math notranslate nohighlight">\([-1,1]\)</span>.  i.e.</p>
 <div class="math notranslate nohighlight">
 \[ |Q_{n+1}(x)| &lt; \frac{1}{2^n}\quad \text{for}\quad x\in [-1,1].\]</div>
-<p>Since <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> alternates between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span> a total of <span class="math notranslate nohighlight">\(n+2\)</span> times (as noted in <a class="reference internal" href="#equation-prop3">(6)</a>), at these <span class="math notranslate nohighlight">\(n+2\)</span> points the polynomial</p>
+<p>Since <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span> alternates between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span> a total of <span class="math notranslate nohighlight">\(n+2\)</span> times (as noted in <a class="reference internal" href="#equation-prop3">(7)</a>), at these <span class="math notranslate nohighlight">\(n+2\)</span> points the polynomial</p>
 <div class="math notranslate nohighlight">
 \[Q_{n+1}(x)-\frac{T_{n+1}(x)}{2^n}\]</div>
 <p>is alternatively positive and negative (because <span class="math notranslate nohighlight">\(Q_{n+1}\)</span> is always less than <span class="math notranslate nohighlight">\(1/2^n\)</span>) at these extreme points for <span class="math notranslate nohighlight">\(T_{n+1}(x)\)</span>.  The intermediate value theorem then implies that <span class="math notranslate nohighlight">\(Q_{n+1}-\frac{T_{n+1}}{2^n}\)</span> must cross zero at least <span class="math notranslate nohighlight">\(n+1\)</span> times so it has <span class="math notranslate nohighlight">\(n+1\)</span> roots.  This is a contradition as both <span class="math notranslate nohighlight">\(Q_{n+1}\)</span> and <span class="math notranslate nohighlight">\(\frac{T_{n+1}}{2^n}(x)\)</span> are monic so the leading term cancels in subtraction and therefore <span class="math notranslate nohighlight">\(Q_{n+1}-\frac{T_{n+1}}{2^n}\)</span> has degree less than or equal to <span class="math notranslate nohighlight">\(n\)</span> and so has at most <span class="math notranslate nohighlight">\(n\)</span> zeros.</p>

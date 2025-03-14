@@ -253,6 +253,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -508,17 +509,17 @@ document.write(`
 <p>We need to <span class="math notranslate nohighlight">\(\epsilon'(x)\)</span> and \epsilon’’(x) to determine the errors in the formulas we derived.</p>
 <p>First recall <a class="reference internal" href="../InterpFit/InterpErrors.html"><span class="doc std std-doc">the polynomial interpolation error</span></a> is</p>
 <div class="math notranslate nohighlight" id="equation-inter-err">
-<span class="eqno">(25)<a class="headerlink" href="#equation-inter-err" title="Permalink to this equation">#</a></span>\[\begin{equation} \epsilon(x)= f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j). \end{equation}\]</div>
+<span class="eqno">(26)<a class="headerlink" href="#equation-inter-err" title="Permalink to this equation">#</a></span>\[\begin{equation} \epsilon(x)= f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j). \end{equation}\]</div>
 <p>Taking the derivative of this using the product rule yields</p>
 <div class="math notranslate nohighlight" id="equation-errprime">
-<span class="eqno">(26)<a class="headerlink" href="#equation-errprime" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(27)<a class="headerlink" href="#equation-errprime" title="Permalink to this equation">#</a></span>\[
 \begin{equation} \epsilon'(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\left[\sum_{k=0}^n \prod_{j=0,j\neq k}^n (x-x_j)\right] + \frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0}^n (x-x_j), \end{equation}\]</div>
 <p>where the second term arises from the fact that <span class="math notranslate nohighlight">\(\xi\)</span> may depend on <span class="math notranslate nohighlight">\(x\)</span>.  Evaluating this at one of the gridpoints, say <span class="math notranslate nohighlight">\(x_i\)</span>, simplifies the expression considerably as all but one of the terms contain the factor <span class="math notranslate nohighlight">\((x_i-x_i)\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-pprimeerr">
-<span class="eqno">(27)<a class="headerlink" href="#equation-pprimeerr" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(28)<a class="headerlink" href="#equation-pprimeerr" title="Permalink to this equation">#</a></span>\[
 \begin{equation} \epsilon'(x_i) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j). \end{equation}\]</div>
 <p>We can now use this expression for the errors in our first derivative finite difference formulas.  Before we do, let’s derive the error formula for the second derivatives.</p>
-<p>Taking the derivative <a class="reference internal" href="#equation-errprime">(26)</a> yields</p>
+<p>Taking the derivative <a class="reference internal" href="#equation-errprime">(27)</a> yields</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align} \epsilon''(x) = &amp; \frac{f^{n+1}(\xi)}{(n+1)!}\left[ \sum_{k=0}^n \sum_{m=0, m\neq k}^n \prod_{j=0,j\neq k,m}^n (x-x_j)\right]\\
@@ -526,18 +527,18 @@ document.write(`
 &amp;+ \frac{f^{n+2}(\xi)\xi'}{(n+1)!}\left[\sum_{k=0}^n \prod_{j=0,j\neq k}^n (x-x_j)\right],\end{align}\end{split}\]</div>
 <p>Evaluating this at one of the gridpoints, say <span class="math notranslate nohighlight">\(x_i\)</span>, simplifies the expression to,</p>
 <div class="math notranslate nohighlight" id="equation-ppperr">
-<span class="eqno">(28)<a class="headerlink" href="#equation-ppperr" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(29)<a class="headerlink" href="#equation-ppperr" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
 \epsilon''(x_i) &amp;=\frac{f^{n+1}(\xi)}{(n+1)!}\left[\sum_{m=0,m\neq i}^n \prod_{j=0, j\neq i,m} (x_i-x_j) + \sum_{k=0,k\neq i}^n \prod_{j=0, j\neq i,k} (x_i-x_j) \right] +\frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j),\\
 &amp;=\frac{2f^{n+1}(\xi)}{(n+1)!}\left[\sum_{k=0,k\neq i}^n \prod_{j=0, j\neq i,k} (x_i-x_j) \right] +\frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j).
 \end{align}\end{split}\]</div>
-<p>This is a bit messier than the error for the first derivative <a class="reference internal" href="#equation-pprimeerr">(27)</a>.  In most cases one can argue that the second term is small compared to the first as it contains one additional factor of the difference of grid points and one expects <span class="math notranslate nohighlight">\(\xi'\)</span> to be small.</p>
-<p><strong>Example: Error in the two point formulas</strong>  In the previous section, for two points <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1=x_0+h\)</span> we derived the forward/backwards difference formulae and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(27)</a> with <span class="math notranslate nohighlight">\(n=1\)</span> we straightforwardly get</p>
+<p>This is a bit messier than the error for the first derivative <a class="reference internal" href="#equation-pprimeerr">(28)</a>.  In most cases one can argue that the second term is small compared to the first as it contains one additional factor of the difference of grid points and one expects <span class="math notranslate nohighlight">\(\xi'\)</span> to be small.</p>
+<p><strong>Example: Error in the two point formulas</strong>  In the previous section, for two points <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1=x_0+h\)</span> we derived the forward/backwards difference formulae and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(28)</a> with <span class="math notranslate nohighlight">\(n=1\)</span> we straightforwardly get</p>
 <div class="math notranslate nohighlight">
 \[ \epsilon'(x_0) = \frac{f''(\xi)}{2}(-h),\quad \text{and}\quad  \epsilon'(x_1) = \frac{f''(\xi)}{2}(h),\]</div>
 <p>noting that <span class="math notranslate nohighlight">\(\xi\)</span> is not likely to be the same number in the two cases.  So, in summary, we now have</p>
 <div class="math notranslate nohighlight" id="equation-twopoint">
-<span class="eqno">(29)<a class="headerlink" href="#equation-twopoint" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(30)<a class="headerlink" href="#equation-twopoint" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{equation}
 \left[{\begin{array}{c}
 f'(x_0) \\
@@ -553,7 +554,7 @@ f'(x_1) \\
 \end{array}} \right].
 \end{equation}
 \end{split}\]</div>
-<p><strong>Example: Error in the three point formulae</strong>  In the previous section, for three points <span class="math notranslate nohighlight">\(x_0,\,x_1=x_0+h,\)</span> and <span class="math notranslate nohighlight">\(x_2=x_0+2h,\)</span> <span class="math notranslate nohighlight">\(x_0\)</span> we derived finite difference formulae for first and second derivatives and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(27)</a> with <span class="math notranslate nohighlight">\(n=2\)</span> we straightforwardly get the result for the first derivatives:</p>
+<p><strong>Example: Error in the three point formulae</strong>  In the previous section, for three points <span class="math notranslate nohighlight">\(x_0,\,x_1=x_0+h,\)</span> and <span class="math notranslate nohighlight">\(x_2=x_0+2h,\)</span> <span class="math notranslate nohighlight">\(x_0\)</span> we derived finite difference formulae for first and second derivatives and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(28)</a> with <span class="math notranslate nohighlight">\(n=2\)</span> we straightforwardly get the result for the first derivatives:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{equation}
@@ -574,8 +575,8 @@ f'(x_2)
 \end{array}} \right].
 \end{equation}
 \end{split}\]</div>
-<p>First note that the errors here are <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span> compared to <a class="reference internal" href="#equation-twopoint">(29)</a> for the two-point formulae which are <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.  So, assuming <span class="math notranslate nohighlight">\(h\)</span> is small, these do indeed have a higher order accuracy.  Further, the error in the <em>central</em> difference formula is <em>half</em> that of the backward/forward differences.  As a result, the central difference formula is the one most widely used.</p>
-<p>We now turn to the second derivative errors.  At <span class="math notranslate nohighlight">\(x_0\)</span> <a class="reference internal" href="#equation-ppperr">(28)</a> gives</p>
+<p>First note that the errors here are <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span> compared to <a class="reference internal" href="#equation-twopoint">(30)</a> for the two-point formulae which are <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.  So, assuming <span class="math notranslate nohighlight">\(h\)</span> is small, these do indeed have a higher order accuracy.  Further, the error in the <em>central</em> difference formula is <em>half</em> that of the backward/forward differences.  As a result, the central difference formula is the one most widely used.</p>
+<p>We now turn to the second derivative errors.  At <span class="math notranslate nohighlight">\(x_0\)</span> <a class="reference internal" href="#equation-ppperr">(29)</a> gives</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
@@ -653,11 +654,11 @@ h_{op}=  \sqrt[3]{\frac{3 \beta}{|f^{(3)}(\xi)|}}.
 \]</div>
 <p>If <span class="math notranslate nohighlight">\(f(x)\sim 1\)</span> we would expect the roundoff to be of order of the machine epsilon <span class="math notranslate nohighlight">\(\epsilon_r\)</span>.  For <span class="math notranslate nohighlight">\(f(x)\)</span> not of order unity, we would expect <span class="math notranslate nohighlight">\(\beta \approx \epsilon_r |f(x)|\)</span>. So around a given <span class="math notranslate nohighlight">\(x\)</span> we expect roughly</p>
 <div class="math notranslate nohighlight" id="equation-hop">
-<span class="eqno">(30)<a class="headerlink" href="#equation-hop" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(31)<a class="headerlink" href="#equation-hop" title="Permalink to this equation">#</a></span>\[
 h_{op}\approx  \sqrt[3]{\frac{3 \epsilon_r |f(x)|}{|f^{(3)}(x)|}}.
 \]</div>
 <p><strong>Example</strong> Suppose we use the central difference formula to evaluate the derivative of <span class="math notranslate nohighlight">\(f(x)=e^x\)</span>.  What is the error and what is the optimal <span class="math notranslate nohighlight">\(h_{op}\)</span>?</p>
-<p>First note that we can work out the analytic derivative (<span class="math notranslate nohighlight">\(f'(x)=e^x\)</span>) and the third derivative here (<span class="math notranslate nohighlight">\(f^{(3)}(x)=e^x\)</span>).  In this case, <a class="reference internal" href="#equation-hop">(30)</a> then gives,</p>
+<p>First note that we can work out the analytic derivative (<span class="math notranslate nohighlight">\(f'(x)=e^x\)</span>) and the third derivative here (<span class="math notranslate nohighlight">\(f^{(3)}(x)=e^x\)</span>).  In this case, <a class="reference internal" href="#equation-hop">(31)</a> then gives,</p>
 <div class="math notranslate nohighlight">
 \[
 h_{op}=6.7\times 10^{-6}.
