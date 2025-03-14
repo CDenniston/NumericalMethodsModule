@@ -106,7 +106,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="next" title="Special Matrices" href="SpecialMatrices.html" />
     <link rel="prev" title="Pivoting Strategies" href="Pivoting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -254,6 +254,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">LU Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpecialMatrices.html">Special Matrices</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
 <ul class="nav bd-sidenav">
@@ -920,6 +922,7 @@ Inverse of My Matrix:
 </div>
 </div>
 <p>You can easily check by direct multiplication that the result is correct.  It should be clear from this example though why we do NOT solve <span class="math notranslate nohighlight">\(Ax=b\)</span> by finding <span class="math notranslate nohighlight">\(A^{-1}\)</span> and then forming <span class="math notranslate nohighlight">\(x=A^{-1}b\)</span>.  Finding <span class="math notranslate nohighlight">\(A^{-1}\)</span> requires factorization (<span class="math notranslate nohighlight">\(\sim n^3/3\)</span> flops) and then solving <span class="math notranslate nohighlight">\(n\)</span> linear systems using the factorization (each on cost <span class="math notranslate nohighlight">\(n^2\)</span> flops and there are <span class="math notranslate nohighlight">\(n\)</span> of them, so <span class="math notranslate nohighlight">\(n^3\)</span> flops).  That is significantly more work than just solving <span class="math notranslate nohighlight">\(Ax=b\)</span> directly and even if we want to solve for multiple <span class="math notranslate nohighlight">\(b\)</span>’s the matrix multiplication to form <span class="math notranslate nohighlight">\(x=A^{-1}b\)</span> cost just as much as solving for <span class="math notranslate nohighlight">\(x\)</span> using the <span class="math notranslate nohighlight">\(LU\)</span> factorization of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Note that our algorithm choice of having <span class="math notranslate nohighlight">\(1\)</span>’s on the diagonal of <span class="math notranslate nohighlight">\(L\)</span> is not unique.  That particular choice is referred to as <em>Doolittle</em> factorization.  The observant reader would have noticed that the initial example of an <span class="math notranslate nohighlight">\(LU\)</span> factorized matrix that we gave at the top of this page actually had <span class="math notranslate nohighlight">\(1\)</span>’s on the diagonal of <span class="math notranslate nohighlight">\(U\)</span> while the diagonal of <span class="math notranslate nohighlight">\(L\)</span> had nonunit entries, a choice known as <em>Crout</em>’s factorization.  Another choice, <em>Cholesky</em>’s factorization, has diagonal entries of <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(u_{kk}\)</span>, and diagonal elements of <span class="math notranslate nohighlight">\(L\)</span>, <span class="math notranslate nohighlight">\(l_{kk}\)</span> that are equal, i.e. <span class="math notranslate nohighlight">\(l_{kk}=u_{kk}\)</span>.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -962,11 +965,11 @@ Inverse of My Matrix:
       </div>
     </a>
     <a class="right-next"
-       href="../InterpFit/InterpFit_summary.html"
+       href="SpecialMatrices.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Interpolation</p>
+        <p class="prev-next-title">Special Matrices</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

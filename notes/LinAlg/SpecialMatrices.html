@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>General Root Finding Algorithms &#8212; Numerical Methods</title>
+    <title>Special Matrices &#8212; Numerical Methods</title>
   
   
   
@@ -101,13 +101,13 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/Root1D/GeneralRoot';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/LinAlg/SpecialMatrices';</script>
     <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
     <script src="../../_static/save_state.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Numerical Linear Algebra" href="../LinAlg/Lin_Alg_summary.html" />
-    <link rel="prev" title="Faster Convergence and Newton’s Method" href="Newton.html" />
+    <link rel="next" title="Interpolation" href="../InterpFit/InterpFit_summary.html" />
+    <link rel="prev" title="LU Factorization" href="LUFactorization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -236,25 +236,25 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Root1D_summary.html">Root Finding in One Dimension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Bisection.html">Bisection</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Bisection</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="FixedPoint.html">Fixed-Point Iteration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Newton.html">Faster Convergence and Newton’s Method</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">General Root Finding Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Newton.html">Faster Convergence and Newton’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/GeneralRoot.html">General Root Finding Algorithms</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Numerical Linear Algebra</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Pivoting.html">Pivoting Strategies</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pivoting.html">Pivoting Strategies</a></li>
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../LinAlg/SpecialMatrices.html">Special Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LUFactorization.html">LU Factorization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Special Matrices</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Interpolation</span></p>
@@ -348,7 +348,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/Root1D/GeneralRoot.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/LinAlg/SpecialMatrices.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -397,7 +397,7 @@ commentsRunWhenDOMLoaded(addUtterances);
       
       
       
-      <li><a href="../../_sources/notes/Root1D/GeneralRoot.ipynb" target="_blank"
+      <li><a href="../../_sources/notes/LinAlg/SpecialMatrices.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -468,7 +468,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -479,11 +481,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>General Root Finding Algorithms</h1>
+    <h1>Special Matrices</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Special Matrices</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#banded-matrices">Banded Matrices</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -493,97 +505,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="general-root-finding-algorithms">
-<h1>General Root Finding Algorithms<a class="headerlink" href="#general-root-finding-algorithms" title="Permalink to this heading">#</a></h1>
-<p>To use Newton’s method, we need to know the derivative <span class="math notranslate nohighlight">\(f'(x)\)</span>.  However, sometimes we don’t know (or don’t want to evaluate) <span class="math notranslate nohighlight">\(f'(x)\)</span>.  In that case, we could try approximating <span class="math notranslate nohighlight">\(f'(x)\)</span> by</p>
+  <section id="special-matrices">
+<h1>Special Matrices<a class="headerlink" href="#special-matrices" title="Permalink to this heading">#</a></h1>
+<p>In many applications, we encounter matrices with special structure.  Making use of this structure can often allow lower memory use, faster algorithms, or both.</p>
+<p><strong>Definition</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is <em>symmetric</em> if <span class="math notranslate nohighlight">\(A=A^t\)</span></p>
+<p><strong>Definition</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is <em>diagonally dominant</em> if it has <span class="math notranslate nohighlight">\(|a_{ii}|\geq \sum_{j=1,j\neq i}^n |a_{ij}|,\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p><strong>Definition</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is <em>strictly diagonally dominant</em> if it has <span class="math notranslate nohighlight">\(|a_{ii}|&gt; \sum_{j=1,j\neq i}^n |a_{ij}|,\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p><strong>Theorem:</strong> If <span class="math notranslate nohighlight">\(A\)</span> is strictly diagonally dominant then <span class="math notranslate nohighlight">\(A\)</span> is nonsingular and Gaussian elmiination without pivoting doesn’t break down (no zero pivot) and is stable with respect to roundoff error growth.</p>
+<p><strong>Definition</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite if it is symmetric and for any <span class="math notranslate nohighlight">\(x\neq 0\)</span> (<span class="math notranslate nohighlight">\(x\)</span> real, not complex) <span class="math notranslate nohighlight">\(x^t A x&gt;0\)</span>.  Equivalently, <span class="math notranslate nohighlight">\(A\)</span> is symmetric and has all positive eigenvalues.</p>
+<p><strong>Example</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A=\left[ {\begin{array}{ccc}
+    2 &amp;  -1 &amp; 0 \\
+    -1 &amp;  2 &amp; -1 \\
+     0 &amp;  -1 &amp; 2 \\
+  \end{array} } \right]
+\end{split}\]</div>
+<p>as for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x=\left[ {\begin{array}{c}
+x_1\\
+x_2\\
+x_3\\
+\end{array}} \right]
+\end{split}\]</div>
+<p>we can write</p>
 <div class="math notranslate nohighlight">
 \[
-f'(p_i)\approx \frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}.
+x^t A x = x_1^2 + (x_1-x_2)^2+(x_2-x_3)^2+x_3^2 &gt; 0
 \]</div>
-<p>If we are close enough the to root to get convergence, as <span class="math notranslate nohighlight">\(i\rightarrow \infty\)</span> then <span class="math notranslate nohighlight">\(p_{i-1}\rightarrow p_i\)</span> so that this expression should approach the true derivative at <span class="math notranslate nohighlight">\(f'(p_i)\)</span>.  This gives us</p>
-<blockquote>
-<div><p><strong>Secant Method</strong>: Given <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span> then</p>
+<p>if <span class="math notranslate nohighlight">\(x\neq 0\)</span>, implying that <span class="math notranslate nohighlight">\(A\)</span> is positive definite</p>
+<p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
+<p><strong>Theorem:</strong> If <span class="math notranslate nohighlight">\(A\)</span> is positive definite then <span class="math notranslate nohighlight">\(A\)</span> is nonsingular and Gaussian elimination without pivoting does not break down and is stable.</p>
+<p><strong>Theorem:</strong> If <span class="math notranslate nohighlight">\(A\)</span> is a symmetric positive definite matrix then there exists a factorization of the form <span class="math notranslate nohighlight">\(A=LL^t\)</span> with <span class="math notranslate nohighlight">\(L\)</span> lower triangular.</p>
+<p>Note: This <em>must</em> be a Cholesky factorization.  For a positive definite matrix this is the preferred form of the factorization and is sometimes referred to as “taking the matrix square root”.  Numpy has a routine for computing this <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.cholesky.html"><code class="docutils literal notranslate"><span class="pre">numpy.linalg.cholesky</span></code></a>.</p>
+</section>
+<section id="banded-matrices">
+<h1>Banded Matrices<a class="headerlink" href="#banded-matrices" title="Permalink to this heading">#</a></h1>
+<p>In many algorithms, linear systems with banded coefficient matrices naturally occur.  Such a matrix looks something like</p>
 <div class="math notranslate nohighlight">
-\[ p_{i+1}=p_i -\frac{f(p_i)}{\left[\frac{f(p_i)-f(p_{i-1})}{p_i-p_{i-1}}\right]},\qquad i=1,2,3,\cdots \]</div>
-</div></blockquote>
-<p>There is a cost in doing this in that i) we need two initial guesses and ii) the rate of convergence turns out to be <span class="math notranslate nohighlight">\(\alpha \approx 1.618\)</span> which is less than the quadratic convergence of Newton’s method but still much better than linear convergence.</p>
-<p>It is also reasonable to ask: Can we do better?  The secant method can also be derived from fitting a line to the points <span class="math notranslate nohighlight">\((p_{i-1},f(p_{i-1}))\)</span> and <span class="math notranslate nohighlight">\((p_{i},f(p_{i}))\)</span> and finding where that line crosses zero.  Once we have three guesses, we could fit a quadratic polynomial through the three points.  There are actually two choices here, as illustrated in the following sketch:</p>
-<a class="reference internal image-reference" href="../../_images/QuadraticRoot.png"><img alt="../../_images/QuadraticRoot.png" src="../../_images/QuadraticRoot.png" style="width: 750px;" /></a>
-<p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Muller%27s_method">Müller’s method</a>, illustrated in the left panel above, one uses the previous three points to construct the quadratic polynomial <span class="math notranslate nohighlight">\(P(x)=a(x-p_{i})^2+b(x-p_{i})+c\)</span> (we will discuss how to find an interpolating polynomial going through three points in a later chapter).  One then uses the quadratic formula to find the roots of <span class="math notranslate nohighlight">\(P(x)\)</span> and then picks one of those, usually the closest to <span class="math notranslate nohighlight">\(p_{i}\)</span> as the next guess <span class="math notranslate nohighlight">\(p_{i+1}\)</span>.  In addition to the issue that we need to select one of two roots, there is also the possibility that both roots could be complex.  If we are looking for complex roots this is not a problem, but otherwise we are stuck unless we continue the iterations using complex number arithmetic.  As a result, Müller’s method’s is primarily used only in the context of finding complex roots.</p>
-<p>Our alternative, namely <a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_quadratic_interpolation">Inverse Quadratic Interpolation</a> (IQI), instead constructs a quadratic polynomial <span class="math notranslate nohighlight">\(x=P(y)=a y^2+b y+c\)</span> from the previous three iterates as illustrated in the right panel of the figure above.  This parabola will intersect the x-axis at a single real-numbered point (just plug in <span class="math notranslate nohighlight">\(y=0\)</span>).  It turns out that IQI has rate of convergence <span class="math notranslate nohighlight">\(\alpha\approx 1.8\)</span>, so not quite as good a Newton’s method, but better than the Secant method.</p>
-<p>The secant, or quadratic methods relieve us of the issue of needing to compute a derivative of our function, but they don’t change the requirement that we need to start in a neighborhood of the root in order to converge.  This is compounded by the fact that we don’t actualy know the size of the neighborhood <em>a priori</em>.  There are several hybrid methods that combine different schemes we have discussed to provide the certainty of Bisection with the speed of a superlinear method.  The most popular of these is <strong>Brent’s Method</strong> which follows the following scheme given in pseudocode:</p>
-<p><strong>Brent’s Method</strong></p>
-<ol class="arabic">
-<li><p>Bracket root of <span class="math notranslate nohighlight">\(f(x)\)</span> on some interval <span class="math notranslate nohighlight">\([a,b]\)</span></p></li>
-<li><p>Try secant method to get <span class="math notranslate nohighlight">\(p_3\)</span>, using <span class="math notranslate nohighlight">\(a=p_1\)</span> and <span class="math notranslate nohighlight">\(b=p_2\)</span></p>
-<p>If (<span class="math notranslate nohighlight">\(|f(p_3| &lt; |f(a)|\)</span>) AND (<span class="math notranslate nohighlight">\(|f(p_3| &lt; |f(a)|\)</span>) AND (<span class="math notranslate nohighlight">\(min(|a-p_3|,|b-p_3|) &lt; |b-a|/2\)</span>)</p>
-<p>then</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span> accept <span class="math notranslate nohighlight">\(p_3\)</span> and replace <span class="math notranslate nohighlight">\(a\)</span> or <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(p_3\)</span> keeping root bracketed in <span class="math notranslate nohighlight">\([a,b]\)</span></p>
-<p>else use bisection to find <span class="math notranslate nohighlight">\(p_3\)</span></p>
-</li>
-<li><p>for <span class="math notranslate nohighlight">\(i=3\)</span> to max iteration</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span>Try IQI on last 3 iterates to generate <span class="math notranslate nohighlight">\(p_{i+1}\)</span></p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span>If (<span class="math notranslate nohighlight">\(|f(p_{i+1}| &lt; |f(p_{i})|\)</span>) AND (<span class="math notranslate nohighlight">\(min(|a-p_{i+1}|,|b-p_{i+1}|) &lt; |b-a|/2\)</span>)</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span>then</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> accept <span class="math notranslate nohighlight">\(p_{i+1}\)</span> and replace <span class="math notranslate nohighlight">\(a\)</span> or <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(p_{i+1}\)</span> keeping root bracketed in <span class="math notranslate nohighlight">\([a,b]\)</span></p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span>else</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> Try secant method with the same test</p>
-<p><span class="math notranslate nohighlight">\(\qquad\)</span><span class="math notranslate nohighlight">\(\qquad\)</span> If test fails, use bisection</p>
-</li>
-</ol>
-<p>SciPy has an implementation of Brent’s method, <code class="docutils literal notranslate"><span class="pre">brentq</span></code>, in its Optimization and Root finding submodule.  You must bracket the root yourself before calling though.</p>
-<p><strong>Example:</strong> Let’s use Brent’s method to find the root of the function <span class="math notranslate nohighlight">\(f(x)=e^{-x}\cos{x}\)</span> that we previously bracketed in the interval <span class="math notranslate nohighlight">\([1,2]\)</span> in the Bisection section.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">my_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimize</span>
-
-<span class="n">root</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best guess for root is </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Again with full output:&quot;</span><span class="p">)</span>
-<span class="n">optimize</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best guess for root is 1.57079632679499
-
-Again with full output:
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.57079632679499,
-       converged: True
-            flag: converged
-  function_calls: 10
-      iterations: 9
-            root: 1.57079632679499
-          method: brentq)
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can also specify an absolute error test with optional parameter <code class="docutils literal notranslate"><span class="pre">xtol</span></code> or a relative error test with optional parameter <code class="docutils literal notranslate"><span class="pre">rtol</span></code>, or a mixed test by specifying both, as well as a maximum number of iterations as with our previous examples</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">my_f</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">2e-12</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">8.9e-16</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best guess for root is </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best guess for root is 1.57079632679499
-</pre></div>
-</div>
-</div>
-</div>
-<p>In practise, Newton and Brent’s method are the main root finding methods used.</p>
-<p>An exception occurs when you have a root of <a class="reference external" href="https://en.wikipedia.org/wiki/Multiplicity_(mathematics)#Multiplicity_of_a_root_of_a_polynomial">multiplicity</a> greater than one where Newton’s method converges only linearly.  You can either accept the slower convergence or fix this by <a class="reference external" href="https://en.wikipedia.org/wiki/Newton's_method#Slow_convergence_for_roots_of_multiplicity_greater_than_1">modifying Newton’s method</a> however if you don’t know the multiplicity of the root you will have the added cost of supplying not only the first but also the second derivative.</p>
-<p>Another exception is when you wish to find the roots of a polynomial.  In this case, you can take advantage of the special structure of the polynomial to construct an algorithm for finding not just one, but all of the polynomials roots.  An example of such an algorithm is <a class="reference external" href="https://en.wikipedia.org/wiki/Laguerre%27s_method">Laguerre’s Method</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Polynomial_root-finding">others</a>.</p>
-<p>All the methods in this chapter have focused on one-dimensional problems.  In many cases we need to find the solution to equations containing more than one variable.  To solve these, we need to first review solving linear systems of equations, which is the subject of the next chapter.</p>
+\[\begin{split}
+\begin{align}
+\left[ {\begin{array}{ccccccc}
+\text{x} &amp; \text{x} &amp; \text{x} &amp; 0 &amp; 0 &amp;\cdots &amp; 0\\
+\text{x} &amp; \text{x} &amp; \text{x} &amp; \text{x} &amp; 0 &amp; \ddots &amp; 0\\
+0        &amp; \text{x} &amp; \text{x} &amp; \text{x} &amp; \text{x} &amp; \ddots &amp; \vdots\\
+\vdots   &amp; \ddots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \ddots &amp; 0\\
+0        &amp;  \cdots &amp;0 &amp; \text{x} &amp; \text{x} &amp; \text{x} &amp; \text{x} \\
+0        &amp;  0 &amp;\cdots &amp; 0 &amp; \text{x} &amp; \text{x} &amp; \text{x} \\
+0        &amp;  0 &amp;\cdots &amp; \cdots &amp; 0 &amp; \text{x} &amp; \text{x} \\
+\end{array}} \right]
+\end{align}
+\end{split}\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\text{x}\)</span> is a nonzero entry.</p>
+<p><strong>Definition:</strong> A <em>banded</em> matrix <span class="math notranslate nohighlight">\(A=[a_{ij}]\)</span> has <span class="math notranslate nohighlight">\(a_{ij}=0\)</span> for <span class="math notranslate nohighlight">\(i-j \geq q\)</span> and for <span class="math notranslate nohighlight">\(j-i \geq p\)</span> and has a <em>bandwidth</em> of <span class="math notranslate nohighlight">\(p+1-1\)</span>.</p>
+<p>The matrix above has <span class="math notranslate nohighlight">\(p=3\)</span> and <span class="math notranslate nohighlight">\(q=2\)</span> and had bandwidth <span class="math notranslate nohighlight">\(4\)</span>.  If we take advantage of all the zeros in these sparse matrices we can often reduce the cost of solving the system down to something that is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> rather than <span class="math notranslate nohighlight">\(n^3/3\)</span>, a <em>huge</em> saving.  There is also the potential to save storage.</p>
+<p><strong>Theorem:</strong> If a banded matrix can be <span class="math notranslate nohighlight">\(LU\)</span> factorized <em>without</em> row interchanges then <span class="math notranslate nohighlight">\(L\)</span> has bandwidth <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(U\)</span> has bandwidth <span class="math notranslate nohighlight">\(\leq p+q-1\)</span>.</p>
+<p>A common banded matrix is a <strong>tridiagonal</strong> matrix which has <span class="math notranslate nohighlight">\(p=q=2\)</span>, so has a bandwidth of <span class="math notranslate nohighlight">\(3\)</span>.</p>
+<p><strong>Theorem:</strong> If <span class="math notranslate nohighlight">\(A=[a_{ij}]\)</span> is a triadiagonal, diagonally dominant, and has <span class="math notranslate nohighlight">\(|a_{11}|&gt;|a_{12}|\)</span> and <span class="math notranslate nohighlight">\(|a_{nn}|\geq |a_{n,n-1}\)</span> then <span class="math notranslate nohighlight">\(A\)</span> is nonsingular and LU factorization will work without pivoting.</p>
+<p>This theorem seems minor, but is actually a key factor in a huge number of numerical algorithms that have triadiagonal solvers at their heart.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -599,7 +581,7 @@ Again with full output:
         },
         kernelOptions: {
             name: "python3",
-            path: "./notes/Root1D"
+            path: "./notes/LinAlg"
         },
         predefinedOutput: true
     }
@@ -617,20 +599,20 @@ Again with full output:
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Newton.html"
+       href="LUFactorization.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Faster Convergence and Newton’s Method</p>
+        <p class="prev-next-title">LU Factorization</p>
       </div>
     </a>
     <a class="right-next"
-       href="../LinAlg/Lin_Alg_summary.html"
+       href="../InterpFit/InterpFit_summary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Numerical Linear Algebra</p>
+        <p class="prev-next-title">Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -640,6 +622,23 @@ Again with full output:
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Special Matrices</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#banded-matrices">Banded Matrices</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
