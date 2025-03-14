@@ -17,14 +17,14 @@ parts:
     - file: notes/Root1D/FixedPoint
     - file: notes/Root1D/Newton
     - file: notes/Root1D/GeneralRoot
-- caption: Part 4 - Numerical Linear Algebra
+- caption: Part 3 - Numerical Linear Algebra
   chapters:
     - file: notes/LinAlg/Lin_Alg_summary
     - file: notes/LinAlg/GaussElimBackSub
     - file: notes/LinAlg/Pivoting
     - file: notes/LinAlg/LUFactorization
     - file: notes/LinAlg/SpecialMatrices
-- caption: Part 3 - Interpolation
+- caption: Part 4 - Interpolation
   chapters:
     - file: notes/InterpFit/InterpFit_summary
     - file: notes/InterpFit/LagrangeForm
@@ -32,7 +32,7 @@ parts:
     - file: notes/InterpFit/InterpErrors
     - file: notes/InterpFit/Chebyshev
     - file: notes/InterpFit/Splines
-- caption: Part 4 - Numerical Differentiation & Integration
+- caption: Part 5 - Numerical Differentiation & Integration
   chapters:
   - file: notes/NDiffInt/NumDiffInt
   - file: notes/NDiffInt/NumDiffInt_Errors
