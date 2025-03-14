@@ -23,6 +23,7 @@ parts:
     - file: notes/LinAlg/GaussElimBackSub
     - file: notes/LinAlg/Pivoting
     - file: notes/LinAlg/LUFactorization
+    - file: notes/LinAlg/SpecialMatrices
 - caption: Part 3 - Interpolation
   chapters:
     - file: notes/InterpFit/InterpFit_summary
