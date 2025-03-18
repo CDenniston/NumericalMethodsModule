@@ -27,6 +27,8 @@ $$
 
 If we have 4 points $n=3$ and if the points are equally spaced the Lagrange basis polynomials look like the following:  
 
+<img src="./img/lagrangebasis.svg" width="500">
+
 [plot of $L_n^j(x)$](./img/lagrangebasis.svg)  
 
 Examining $L_2^3(x)$, for example, we see it is indeed 0 at $x_0,\,x_1,$ and $x_3$ but is 1 at $x_2$.  Also note that all of these are cubic polynomials (degree 3 when we have 4 interpolation points).
