@@ -50,7 +50,7 @@ Any important question to ask is whether **our interpolating polynomial $p_n(x)$
 
 ````{dropdown} **Proof of uniqueness**  
 
-How?  Suppose not, then there is another polynomial, which we will call $q_n(x)$ of degree $\leq n$ with $q_n(x_i)=f(x_i)$ for all $i$ and where for general $x$ we have $p_n(x)\neq q_n(x)$.  Now consider  
+Suppose not, then there is another polynomial, which we will call $q_n(x)$ of degree $\leq n$ with $q_n(x_i)=f(x_i)$ for all $i$ and where for general $x$ we have $p_n(x)\neq q_n(x)$.  Now consider  
 
 $$d_n(x)=p_n(x)-q_n(x),$$
 
