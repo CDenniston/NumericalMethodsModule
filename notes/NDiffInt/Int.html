@@ -466,7 +466,7 @@ document.write(`
 \[ \int_a^b f(x) dx= \int_a^b p(x) dx + \int_a^b \epsilon(x) dx.\]</div>
 <p>Applying this to Lagrange interpolation we get</p>
 <div class="math notranslate nohighlight" id="equation-lagrangeint">
-<span class="eqno">(32)<a class="headerlink" href="#equation-lagrangeint" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(31)<a class="headerlink" href="#equation-lagrangeint" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
 \int_a^b f(x) dx &amp;\approx \int_a^b \sum_{k=0}^n f(x_k) L_k(x) dx,\\
 &amp; = \sum_{k=0}^n f(x_k)  \int_a^b L_k(x) dx,\\
@@ -497,7 +497,7 @@ a_0 &amp;= \int_a^b L_0(x) dx,\\
 \[
 a_1 =\int_a^b L_0(x) dx = \frac{b-a}{2}.
 \]</div>
-<p>Putting this into Eq. <a class="reference internal" href="#equation-lagrangeint">(32)</a> yields</p>
+<p>Putting this into Eq. <a class="reference internal" href="#equation-lagrangeint">(31)</a> yields</p>
 <div class="math notranslate nohighlight">
 \[
 \int_a^b f(x) dx \approx \frac{b-a}{2}\left(f(a)+f(b)\right).
