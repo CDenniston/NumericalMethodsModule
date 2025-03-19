@@ -29,8 +29,6 @@ If we have 4 points $n=3$ and if the points are equally spaced the Lagrange basi
 
 <img src="./img/lagrangebasis.svg" width="500">
 
-[plot of $L_n^j(x)$](./img/lagrangebasis.svg)  
-
 Examining $L_2^3(x)$, for example, we see it is indeed 0 at $x_0,\,x_1,$ and $x_3$ but is 1 at $x_2$.  Also note that all of these are cubic polynomials (degree 3 when we have 4 interpolation points).
 
 The *Lagrange form of the interpoloating polynomial* given data values $(x_0,f(x_0)), (x_1,f(x_1)), (x_2,f(x_2)),..., (x_n,f(x_n))$ is now
@@ -50,6 +48,8 @@ So $p_n(x)$ is an interpolating polynomial of degree $\leq n$ through the specif
 
 Any important question to ask is whether **our interpolating polynomial $p_n(x)$ is unique**.  If not, we would need to decide which one was "best" and perhaps this answer would depend on the circumstance.  Fortunately we can show that our interpolating polynomial *is* unique.
 
+````{dropdown} **Proof of uniqueness**  
+
 How?  Suppose not, then there is another polynomial, which we will call $q_n(x)$ of degree $\leq n$ with $q_n(x_i)=f(x_i)$ for all $i$ and where for general $x$ we have $p_n(x)\neq q_n(x)$.  Now consider  
 
 $$d_n(x)=p_n(x)-q_n(x),$$
@@ -59,6 +59,8 @@ which is another polynomial of degree $\leq n$.  Now if both $p_n(x)$ and $q_n(x
 $$d_n(x_i) = p_n(x_i) - q_n(x_i) = f(x_i)- f(x_i) = 0, \qquad\qquad i=0,1,...,n$$
 
 which means $d_n(x_i)$ has $n+1$ roots (or zeros).  However, the fundamental theorm of algebra tells us that a $n-$degree polynomial has at most $n$ roots.  The only way to resolve this contradiction is if $d_n(x)\equiv 0$ implying that $q_n(x)\equiv p_n(x)$ so that the polynomial is unique.
+
+````
 
 Note that while the polynomial is unique, we are free to rearrange it algebraically to construct a different form of the same polynomial. Why would you want to do this?
 
