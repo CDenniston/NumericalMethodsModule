@@ -610,7 +610,7 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
 <span class="n">I1</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
 <span class="n">I2</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;trapezoidal = &quot;</span><span class="p">,</span><span class="n">I1</span><span class="p">,</span> <span class="s2">&quot;, Simpsons = &quot;</span><span class="p">,</span><span class="n">I2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;trapezoidal = </span><span class="si">{</span><span class="n">I1</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">, Simpsons = </span><span class="si">{</span><span class="n">I2</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -618,7 +618,7 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sample points:  [0.   0.25 0.5  0.75 1.   1.25 1.5  1.75 2.  ]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trapezoidal =  0.49744809484415425 , Simpsons =  0.4976521729751664
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trapezoidal =  0.49744809484415425, Simpsons =   0.4976521729751664
 </pre></div>
 </div>
 </div>
@@ -631,7 +631,7 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
 
 <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">normaldist</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">integrate</span><span class="o">.</span><span class="n">romb</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Romberg result=</span><span class="si">{</span><span class="n">integrate</span><span class="o">.</span><span class="n">romb</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="o">=</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -644,9 +644,7 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
  0.49745  0.49765  0.49766  0.49763 
  0.49761  0.49766  0.49766  0.49766  0.49766 
 ======================================================
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.4976612323323783)
+Romberg result=  0.4976612323323783
 </pre></div>
 </div>
 </div>
