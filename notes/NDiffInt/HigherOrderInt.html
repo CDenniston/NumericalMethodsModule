@@ -507,7 +507,7 @@ document.write(`
                   
   <section id="higher-order-integration-schemes">
 <h1>Higher Order Integration Schemes<a class="headerlink" href="#higher-order-integration-schemes" title="Permalink to this heading">#</a></h1>
-<p>The composite trapezoidal rule is functional, but not all that accurate.  At this point, the only method we have to improve accuracy is to divide the interval into smaller segments.  We can, however, use results for different step sizes <span class="math notranslate nohighlight">\(h\)</span> to improve both results by eliminating the lowest order error.  To illustrate, consider the trapezoidal rule for a step <span class="math notranslate nohighlight">\(h_1=(b-a)\)</span> and then <span class="math notranslate nohighlight">\(h_2=(b-a)/2\)</span>,</p>
+<p>The composite trapezoidal rule is functional, but not all that accurate.  At this point, the only method we have to improve accuracy is to divide the interval into smaller segments.  We can, however, use results for different step sizes <span class="math notranslate nohighlight">\(h\)</span> to improve both results by eliminating the lowest order error.  To illustrate, consider the composite trapezoidal rule for a step <span class="math notranslate nohighlight">\(h_1=(b-a)\)</span> and then <span class="math notranslate nohighlight">\(h_2=(b-a)/2\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
@@ -515,7 +515,7 @@ I_1 &amp;=\int_a^b f(x) dx = \frac{h_1}{2}\left[f(a)+f(b)\right] - (b-a)\frac{h_
 I_2 &amp;=\int_a^b f(x) dx = \frac{h_2}{2}\left[f(a)+2f(a+h)+f(b)\right] - (b-a)\frac{h_2^2}{12} f''(\eta_2).
 \end{align}
 \end{split}\]</div>
-<p>The problem with attempting to use these two equations to eliminate the error term lies in the fact that <span class="math notranslate nohighlight">\(\eta_1\)</span> and <span class="math notranslate nohighlight">\(\eta_2\)</span> are not likely to be the same.  However, it is possible to show that, for a suitably smooth function, the error term can be replaced by a power series om even powers of <span class="math notranslate nohighlight">\(h\)</span>, namely</p>
+<p>The problem with attempting to use these two equations to eliminate the error term lies in the fact that <span class="math notranslate nohighlight">\(\eta_1\)</span> and <span class="math notranslate nohighlight">\(\eta_2\)</span> are not likely to be the same.  However, it is possible to show that, for a suitably smooth function, the error term can be replaced by a power series in even powers of <span class="math notranslate nohighlight">\(h\)</span>, namely</p>
 <div class="math notranslate nohighlight">
 \[
 E(h) = - (b-a)\frac{h^2}{12} f''(\eta_1) = \sum_{j=1}^n K_j h^{2j} + \mathcal{O}(h^{2n+2}),
@@ -608,8 +608,8 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
-<span class="n">I1</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">I2</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">I1</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+<span class="n">I2</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;trapezoidal = &quot;</span><span class="p">,</span><span class="n">I1</span><span class="p">,</span> <span class="s2">&quot;, Simpsons = &quot;</span><span class="p">,</span><span class="n">I2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -627,26 +627,31 @@ R_{i,j} = \frac{4^{j-1}R_{i,j-1}-R_{i-1,j-1}}{4^{j-1}-1},\qquad j=2,3,\cdots,n.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">normaldist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">romberg</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">normaldist</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">integrate</span><span class="o">.</span><span class="n">romb</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">normaldist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">romberg</span><span class="p">(</span><span class="n">normaldist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: module &#39;scipy.integrate&#39; has no attribute &#39;romberg&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Richardson Extrapolation Table for Romberg Integration
+======================================================
+ 0.57452 
+ 0.49482  0.46825 
+ 0.49684  0.49751  0.49946 
+ 0.49745  0.49765  0.49766  0.49763 
+ 0.49761  0.49766  0.49766  0.49766  0.49766 
+======================================================
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.4976612323323783)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Our previous results from the trapezoidal and Simpson’s rule correspond to the first two results in the fourth row.</p>
+<p>Our previous results from the trapezoidal and Simpson’s rule correspond to the first two results in the fourth row. Note that for efficiency their should be <span class="math notranslate nohighlight">\(2^n+1\)</span> points, including both endpoints, for Romberg integration.</p>
 </section>
 
     <script type="text/x-thebe-config">

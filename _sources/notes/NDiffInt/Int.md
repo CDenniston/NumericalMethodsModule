@@ -56,7 +56,7 @@ $$
 \int_a^b f(x) dx \approx \frac{b-a}{2}\left(f(a)+f(b)\right).
 $$
 
-This is called the *trapezoidal* rule as the shape under the line we are integration over is a trapezoid.  To find the error,
+This is called the *trapezoidal* rule as the shape under the line we are integrating over is a trapezoid.  To find the error,
 
 $$
 E =  \int_{x_0}^{x_1}  \frac{f''(\xi)}{2}(x-x_0)(x-x_1) dx.
