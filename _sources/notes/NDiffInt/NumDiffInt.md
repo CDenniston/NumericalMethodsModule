@@ -10,7 +10,7 @@ where $p(x)$ is our interpolation and $\epsilon(x)$ is the error in the interpol
 
 $$ f'(x) = p'(x) + \epsilon'(x),\qquad f''(x) = p''(x) + \epsilon''(x)$$
 
-Our estimate for the derivative $f'(x) \approx p'(x)$ and $\epsilon'(x)$ is the error in this estimate.  Similarly $f''(x) \approx p''(x)$ and $\epsilon''(x)$ is the error in that estimate. 
+Our estimate for the derivative $f'(x) \approx p'(x)$ and $\epsilon'(x)$ is the error in this estimate.  Similarly $f''(x) \approx p''(x)$ and $\epsilon''(x)$ is the error in that estimate. This then breaks down our problem of finding an approximation to the derivatives of $f$ into the problem of efficiently computing the derivatives of the interpolating polynomial.
 
 In the Lagrange form for the interpolating polynomial, writen in [barycentric form](../InterpFit/BarycentricInterp)  
 
@@ -18,15 +18,18 @@ $$ p_n(x) = \sum_{i=0}^n L_i(x) f(x_i) = \frac{\sum_{i=0}^n \frac{w_i}{x-x_i} f(
 
 To simplify the notation, we have dropped the $n$ from $L_i^n(x)$ as the appropriate $n$ should be clear from most contexts.  We can see from {eq}`pnformula` that 
 
-$$ p_n'(x) =  \sum_{i=0}^n L_i'(x) f(x_i), \qquad p_n''(x) =  \sum_{i=0}^n L_i''(x) f(x_i)$$
+$$ p_n'(x) =  \sum_{i=0}^n L_i'(x) f(x_i), \qquad p_n''(x) =  \sum_{i=0}^n L_i''(x) f(x_i)$$ (pderiv)
 
-and
+In almost all cases, we are looking for the derivative at a node point, say $x_j$. In this case, these $L_i^{(n)}(x_j)$ derivatives can be thought of as entries $D_{ji}^{(n)}$ in *differentiation* matrices $\mathbf{D}^{(n)}$.  If we write our known function values $f(x_i)$ in a column vector $\mathbf{F}$ then  $\mathbf{D}^{(m)} F$ provides a column vector of derivatives at the interpolating nodes $x_i$. 
+
+
+To work out the derivatives of the $L_i(x)$, we note from Eq. {eq}`pnformula` that we can write
 
 $$ L_i(x) =  \frac{\frac{w_i}{x-x_i}}{\sum_{k=0}^n \frac{w_k}{x-x_k}}.$$ (Lieqn)
 
 So to work out the derivative estimates we need to compute $L_i'(x)$ and $L_i''(x)$ for all $i$ (note that these still depend on $n$, but $n$ is the same for all $L_i$ in a given application).
 
-In almost all cases, we are looking for the derivative at a node point, say $x_j$.  To ensure various terms remain differentiable, it is helpful to multiply both sides by $x-x_j$ and rearrange Eq. {eq}`Lieqn` to get
+Usually, we are looking for the derivative at a node point, say $x_j$.  To ensure various terms remain differentiable, it is helpful to multiply both sides by $x-x_j$ and rearrange Eq. {eq}`Lieqn` to get
 
 $$ L_i(x)\sum_{k=0}^n w_k \frac{x-x_j}{x-x_k} = w_i\frac{x-x_j}{x-x_i},  $$(Lisetup)
 
@@ -84,7 +87,7 @@ L_i''(x_i) &= -\sum_{k\neq i} L_k''(x_i).
 \end{align}
 $$ (DLii)
 
-These $L_i^{(m)}(x_j)$ derivatives can be thought of as entries $D_{ji}^{(m)}$ in *differentiation* matrices $\mathbf{D}^{(m)}$.  If we write our known function values $f(x_i)$ in a column vector $\mathbf{F}$ then  $\mathbf{D}^{(m)} F$ provides a column vector of derivatives at the interpolating nodes $x_i$.  Let's illustrate this with a few examples.
+These $L_i^{(m)}(x_j)$ derivatives can now be used to construct the differentiation matrices $\mathbf{D}^{(m)}$.    Let's illustrate this with a few examples.
 
 **Example: Two point formulas.**  Suppose we have two points $x_0$ and $x_1=x_0+h$ along with the function values at those points $f(x_0)$ and $f(x_1)$.   The [formula for the weights](../InterpFit/BarycentricInterp) gives  $w_0= -1/h$ and $w_1=1/h$.  Eq.{eq}`DLij` then gives
 
@@ -118,7 +121,7 @@ f(x_1) \\
 \end{align}
 $$ (forbackD)
 
-When used for $x_0$ (upper element) this is typically called the *forward* difference formula and when used at $x_1$ (lower element) this is called a *backward* difference.  Not surprisingly as this is based on linear interpolation, the approximation to the derivative is the same at both points here and were we to work out approximations for the second (or higher) derivatives, using just these two points, they would be zero.
+When used for $x_0$ (upper element) this is typically called the *forward* difference formula and when used at $x_1$ (lower element) this is called a *backward* difference.  Not surprisingly as this is based on linear interpolation, the approximation to the derivative is the same at both points here and where we to work out approximations for the second (or higher) derivatives, using just these two points, they would be zero.
 
 **Example: Three point formulas.**  Suppose we have three equally spaced points $x_0,\,x_1=x_0+h,$ and $x_2=x_0+2h,$ along with the function values at those points $f(x_0),\,f(x_1)$ and $f(x_2)$.   The [formula for the weights](../InterpFit/BarycentricInterp) gives  $w_0= 1/2h^2,\,w_1=-1/h^2$ and $w_2=1/2h^2$.  Using  Eq.{eq}`DLij` and {eq}`DLii` to fill the entries of $\mathbf{D}'$ gives  
 
@@ -211,7 +214,7 @@ f(x_2)
 \end{align}
 $$  
 
-Not surprisingly as this is based on a single quadratic interpolation, the approximation to the second derivative is the same at all points here and were we to work out approximations for the higher derivatives based on just three points they would all be zero.
+Not surprisingly as this is based on a single quadratic interpolation, the approximation to the second derivative is the same at all points here and where we to work out approximations for the higher derivatives based on just three points they would all be zero.
 
 
 
