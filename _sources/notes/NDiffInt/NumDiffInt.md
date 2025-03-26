@@ -20,16 +20,14 @@ To simplify the notation, we have dropped the $n$ from $L_i^n(x)$ as the appropr
 
 $$ p_n'(x) =  \sum_{i=0}^n L_i'(x) f(x_i), \qquad p_n''(x) =  \sum_{i=0}^n L_i''(x) f(x_i)$$ (pderiv)
 
-In almost all cases, we are looking for the derivative at a node point, say $x_j$. In this case, these $L_i^{(n)}(x_j)$ derivatives can be thought of as entries $D_{ji}^{(n)}$ in *differentiation* matrices $\mathbf{D}^{(n)}$.  If we write our known function values $f(x_i)$ in a column vector $\mathbf{F}$ then  $\mathbf{D}^{(m)} F$ provides a column vector of derivatives at the interpolating nodes $x_i$. 
+In almost all cases, we are looking for the derivative at a node point, say $x_j$. In this case, the derivatives of these $L_i^{(n)}(x_j)$ can be thought of as entries $D_{ji}^{(n)}$ in *differentiation* matrices $\mathbf{D}^{(n)}$.  If we write our known function values $f(x_i)$ in a column vector $\mathbf{F}$ then  $\mathbf{D}^{(m)} F$ provides a column vector of derivatives at the interpolating nodes $x_i$. 
 
 
 To work out the derivatives of the $L_i(x)$, we note from Eq. {eq}`pnformula` that we can write
 
 $$ L_i(x) =  \frac{\frac{w_i}{x-x_i}}{\sum_{k=0}^n \frac{w_k}{x-x_k}}.$$ (Lieqn)
 
-So to work out the derivative estimates we need to compute $L_i'(x)$ and $L_i''(x)$ for all $i$ (note that these still depend on $n$, but $n$ is the same for all $L_i$ in a given application).
-
-Usually, we are looking for the derivative at a node point, say $x_j$.  To ensure various terms remain differentiable, it is helpful to multiply both sides by $x-x_j$ and rearrange Eq. {eq}`Lieqn` to get
+So to work out the derivative estimates we need to compute $L_i'(x)$ and $L_i''(x)$ for all $i$ (note that these still depend on $n$, but $n$ is the same for all $L_i$ in a given application). Usually, we are looking for the derivative at a node point, say $x_j$.  To ensure various terms remain differentiable, it is helpful to multiply both sides by $x-x_j$ and rearrange Eq. {eq}`Lieqn` to get
 
 $$ L_i(x)\sum_{k=0}^n w_k \frac{x-x_j}{x-x_k} = w_i\frac{x-x_j}{x-x_i},  $$(Lisetup)
 
