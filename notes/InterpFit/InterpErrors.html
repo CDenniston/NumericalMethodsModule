@@ -564,7 +564,7 @@ for any <span class="math notranslate nohighlight">\(x\in[a,b]\)</span>  there e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/93cc3383ae942d453758d6bccb3b848d9ef440bd0ff639ff54ecd50bc236dfeb.png" src="../../_images/93cc3383ae942d453758d6bccb3b848d9ef440bd0ff639ff54ecd50bc236dfeb.png" />
+<img alt="../../_images/f34468d989bf31bca00dd30ddcb9cc1793e5c0bc21aa0aead93bd91aeb0a5890.png" src="../../_images/f34468d989bf31bca00dd30ddcb9cc1793e5c0bc21aa0aead93bd91aeb0a5890.png" />
 </div>
 </div>
 <p>It would appear that our interpolating function does a <em>terrible</em> job of approximating <span class="math notranslate nohighlight">\(f(x)\)</span>, <em>especially</em> near the ends of the interval.  Unfortunately, this is a rather typical result and is referred to as the <strong>Runge phenomena</strong>, named after <a class="reference external" href="https://en.wikipedia.org/wiki/Carl_Runge">Carl Runge</a> who noticed the effect in 1901.  The understand the origin of this effect we examine the error formula <a class="reference internal" href="#equation-inter-err">(3)</a> .  From Equation <a class="reference internal" href="#equation-inter-err">(3)</a> it is clear that possible sources are</p>
@@ -594,7 +594,7 @@ for any <span class="math notranslate nohighlight">\(x\in[a,b]\)</span>  there e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4006df855e4dd93f86b5ab9b2cf4c068b0e58fb93442b2c4b9201ab34ce420bc.png" src="../../_images/4006df855e4dd93f86b5ab9b2cf4c068b0e58fb93442b2c4b9201ab34ce420bc.png" />
+<img alt="../../_images/a449420f5b56d0b945b3978e458719e37868864598f5477868433537e75f6cd9.png" src="../../_images/a449420f5b56d0b945b3978e458719e37868864598f5477868433537e75f6cd9.png" />
 </div>
 </div>
 <p>Doubling the number of points has increased the (maximum) error at the edges of the interval by about a factor of eight.  The conclusion you should come to here is that <strong>high order polynomial interpolation with equally spaced points is poorly conditioned.</strong></p>
@@ -623,7 +623,7 @@ for any <span class="math notranslate nohighlight">\(x\in[a,b]\)</span>  there e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/bc73830ee01bde98ebef42b431158e959819a4e06990ea2576963f3f0a18a4ae.png" src="../../_images/bc73830ee01bde98ebef42b431158e959819a4e06990ea2576963f3f0a18a4ae.png" />
+<img alt="../../_images/2a34b67457078a9428638c33391e6867126e98cb69b7cb1f2aaff2c9b397b37e.png" src="../../_images/2a34b67457078a9428638c33391e6867126e98cb69b7cb1f2aaff2c9b397b37e.png" />
 </div>
 </div>
 <p>While the result here is not outstanding in that there are clearly visible errors, these errors are now fairly uniform over the whole interval and no longer concentrated at the edges.  If we now again double the number of points we get:</p>
@@ -648,7 +648,7 @@ for any <span class="math notranslate nohighlight">\(x\in[a,b]\)</span>  there e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/9def33abf6008441f6a4e9f994fe739d7bf2f2cc905ad0aab817ffe2b99a3964.png" src="../../_images/9def33abf6008441f6a4e9f994fe739d7bf2f2cc905ad0aab817ffe2b99a3964.png" />
+<img alt="../../_images/a584dbc9a862cee7e6f50405099bf24e296315e2ca1514d79ce0bf8290757508.png" src="../../_images/a584dbc9a862cee7e6f50405099bf24e296315e2ca1514d79ce0bf8290757508.png" />
 </div>
 </div>
 <p>In dramatic contrast to what happened with equally spaced points, increasing the number of nodes now has resulted in the interpolating polynomial being nearly indistiguishable from the underlying function <span class="math notranslate nohighlight">\(f(x)\)</span>.  Why this particular choice of nodes is better is the subject of the next section.</p>
