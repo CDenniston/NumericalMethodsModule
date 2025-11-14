@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Barycentric Lagrange Interpolation &#8212; Numerical Methods</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link media="all" rel="stylesheet" type="text/css" href="https://dokie.li/media/css/dokieli.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pdf_print.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script async="async" kind="dokieli" src="https://dokie.li/scripts/dokieli.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "CDenniston/NumericalMethodsModule");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/InterpFit/BarycentricInterp';</script>
+    <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <script src="../../_static/save_state.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Interpolation Errors" href="InterpErrors.html" />
+    <link rel="prev" title="Lagrange Form of the Interpolation Polynomial" href="LagrangeForm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../about/syllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Numerical Methods - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Numerical Methods - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about/syllabus.html">
+                    Numerical Methods : Physics 9610 Module
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Bisection</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Newton.html">Faster Convergence and Newton’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/GeneralRoot.html">General Root Finding Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Linear Algebra</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Pivoting.html">Pivoting Strategies</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/SpecialMatrices.html">Special Matrices</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Interpolation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 5 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/InterpFit/BarycentricInterp.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notes/InterpFit/BarycentricInterp.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Barycentric Lagrange Interpolation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="barycentric-lagrange-interpolation">
+<h1>Barycentric Lagrange Interpolation<a class="headerlink" href="#barycentric-lagrange-interpolation" title="Permalink to this heading">#</a></h1>
+<p>This rewriting of the Lagrange interpolation goes back at least seventy-five years but was popularized by <a class="reference external" href="https://epubs.siam.org/doi/pdf/10.1137/S0036144502417715">Berrut and Trefethen</a> in the early 21st century.  The idea here is basically to rewrite the Lagrange form to avoid the problems mentioned above.</p>
+<p>First define</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{l}(x)\equiv \prod_{i=0}^n (x-x_i).\]</div>
+<p>Then note that</p>
+<div class="math notranslate nohighlight">
+\[L_j^n(x) = \frac{\mathcal{l}(x)}{(x-x_j)} w_j,\]</div>
+<p>where the baricentric weight <span class="math notranslate nohighlight">\(w_j\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[ w_j \equiv \frac{1}{\prod_{i=0,i\neq j}^n (x_j-x_i)}.\]</div>
+<p>Our interpolating polynomial now becomes</p>
+<div class="math notranslate nohighlight">
+\[p_n(x) = \sum_{i=0}^n L_i^n(x) f(x_i) =  \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i).\]</div>
+<p>This is called the <em>first form of barycentric interpolation</em>.  Once we have computed the weights <span class="math notranslate nohighlight">\(w_j\)</span>, evaluation of <span class="math notranslate nohighlight">\(p_n(x)\)</span> now requires <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> flops thus removing the first objection to the Lagrange form of the interpolating polynomial.</p>
+<p>If we add a new node <span class="math notranslate nohighlight">\(x_{n+1}\)</span>, we can construct new weights <span class="math notranslate nohighlight">\(w_j\)</span> by dividing the old weights by <span class="math notranslate nohighlight">\((x_j-x_{n+1})\)</span> to get the new <span class="math notranslate nohighlight">\(w_j\)</span> (plus computing <span class="math notranslate nohighlight">\(w_{n+1}\)</span> using the original formula).  This effectively eliminates the second objection to the Lagrange form of the intepolating polynomial.</p>
+<p>There is another simplification we can use before constructing an algorithm for interpolation.  Note that for the function <span class="math notranslate nohighlight">\(g(x)\equiv 1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+g(x) &amp;=  \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} g(x_i),\\
+ &amp;= \mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i}.
+\end{align}
+\end{split}\]</div>
+<p>As we shall see when we discuss interpolation errors, this formula is actually exact.  As a result,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p_n(x) &amp;= \frac{p_n(x)}{1} = \frac{p_n(x)}{g(x)},\\
+ &amp;=\frac{\mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i)}{\mathcal{l}(x)\sum_{i=0}^n \frac{w_i}{x-x_i}},
+\end{align}
+\end{split}\]</div>
+<p>which simiplifies to the second, or <em>true form of barycentric interpolation</em></p>
+<div class="math notranslate nohighlight">
+\[p_n(x)=\frac{\sum_{i=0}^n \frac{w_i}{x-x_i} f(x_i)}{\sum_{i=0}^n \frac{w_i}{x-x_i}}.\]</div>
+<p>In this form, we avoid evaluating <span class="math notranslate nohighlight">\(\mathcal{l}(x)\)</span> entirely and the sum in the numerator and denominator can easily be constructed simultaneously.</p>
+<p>Note that there are two stages to implementation of barycentric Lagrange interpolation: i) computing the weights and ii) computing the interpolation at the desired points.  The first should be done <em>only once</em> whereas the second needs to be done at each point where the interpolation is computed.  A python code to do this is below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">baryweight</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># build the weights recursively by effectively adding new points one at a time</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="c1"># in iteration i we compute w[i] from scratch while</span>
+        <span class="c1"># including the contribution of x[i] to the other weights</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># do the divisions at the end to minimize the total number of divisions</span>
+    <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">w</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">baryinterp</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xp</span><span class="p">):</span>
+    <span class="c1"># Compute the barycentric interpolation at xp given the observed data in lists</span>
+    <span class="c1"># x and y and the precomputed weights in a list w</span>
+    <span class="n">numer</span><span class="o">=</span><span class="mf">0.</span>
+    <span class="n">denom</span><span class="o">=</span><span class="mf">0.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">xdiff</span><span class="o">=</span><span class="n">xp</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># We first check to ensure we are not actually evaluated at a given data point.</span>
+        <span class="c1"># (This would lead to division by zero which would cause problems).</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xdiff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">xdiff</span>
+            <span class="n">numer</span> <span class="o">+=</span> <span class="n">tmp</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">denom</span> <span class="o">+=</span> <span class="n">tmp</span>
+    <span class="k">return</span> <span class="n">numer</span><span class="o">/</span><span class="n">denom</span>
+
+<span class="c1"># Main program showing functions defined above used to interpolate data taken from</span>
+<span class="c1"># a simple sine function</span>
+
+<span class="c1"># This creates a list of x values for our observed data</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.5</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+
+<span class="c1"># Compute the weights for the interpolating polynomial.  </span>
+<span class="n">weights</span><span class="o">=</span><span class="n">baryweight</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+
+<span class="c1"># Create a list of y values for our observed data and plot</span>
+<span class="c1"># our observations</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+
+<span class="c1"># Now we want to fill in between our observed data points using</span>
+<span class="c1"># a barycentric Lagrange interpolation and plot the result</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">x_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">6.5</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="n">dx</span><span class="p">)</span>
+<span class="n">y_all</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">x_all</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_all</span><span class="p">)):</span>
+    <span class="n">y_all</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">baryinterp</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">,</span><span class="n">x_all</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;barycentric interpolation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/af9c829ce4a214bbbc302b7333e9120568aac0e635ead323611d503f8c492d12.png" src="../../_images/af9c829ce4a214bbbc302b7333e9120568aac0e635ead323611d503f8c492d12.png" />
+</div>
+</div>
+<p>There are a few things to note here:</p>
+<ul class="simple">
+<li><p>the weights depend only on the <span class="math notranslate nohighlight">\(x_i\)</span> and not on <span class="math notranslate nohighlight">\(f(x_i)\)</span>.  As such, the same weights could be used in the interpolation of any function whose values are known at the same set of <span class="math notranslate nohighlight">\(x_i\)</span>  (i.e. we can resuse the weights for other functions).</p></li>
+<li><p>the order of the nodes does not matter.  This means that if we want to add a new data point, it can just be appended to the end of the list, it does not need to be inserted in order.</p></li>
+<li><p>if you want to add a new data point, you could easily write another function (say “addpoint”) to update the weights.  It would essentially consist of the “extra” iteration of the loop in the above <code class="docutils literal notranslate"><span class="pre">baryweight</span></code> function, accounting for the fact that we have already done the <code class="docutils literal notranslate"><span class="pre">1/x</span></code> operation.  It should be clear that the update is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> operation as only the inner loop is computed.</p></li>
+<li><p>you may have noticed that the <code class="docutils literal notranslate"><span class="pre">baryinterp</span></code> function dealt with the case where <span class="math notranslate nohighlight">\(x=x_i\)</span> as a special case to avoid division by zero.  You might be concerned about overflow in the situation where <span class="math notranslate nohighlight">\(x\)</span> is close to <span class="math notranslate nohighlight">\(x_i\)</span> but not exactly the same.  There are ways of dealing with this when it arises, but it turns out it is not a serious concern for most practical applications of interpolation.</p></li>
+<li><p>as with any algorithm, one should ask if this is numerically stable.  As we emphasized when we discussed errors in scientific computing, it is only reasonable to ask if the algorithm is stable when applied to a well-conditioned problem.  As we will discuss shortly, polynomial interpolation for large numbers of points is only stable if these points are chosen appropriately.  In this case, <a class="reference external" href="https://www.maths.manchester.ac.uk/~higham/narep/narep440.pdf">Higham</a> has shown that barycentric Lagrange interpolation is unconditionally stable (the first form is slightly better than the “true” form in this regards, but the difference for practical purposes is not usually significant).</p></li>
+<li><p>for some node spacings, it is possible to give an explicit formula for the barycentric weights <span class="math notranslate nohighlight">\(w_j\)</span>.  As these weights appear in the true form of the barycentric interpolation in both the numerator and denominator, any common factor in all the weights can be cancelled without affecting the result.</p></li>
+</ul>
+<p>There are also built in versions of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.barycentric_interpolate.html#scipy.interpolate.barycentric_interpolate">barycentric interpolation in SciPy</a>. The SciPy version also has functions to add new nodes and new, or different, values of the function to be interpolated (making use of the previously computed weights in both cases).</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "CDenniston/NumericalMethodsModule",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes/InterpFit"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="LagrangeForm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lagrange Form of the Interpolation Polynomial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="InterpErrors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interpolation Errors</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Colin Denniston
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

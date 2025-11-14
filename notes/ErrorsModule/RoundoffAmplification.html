@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Roundoff Error Amplification &#8212; Numerical Methods</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link media="all" rel="stylesheet" type="text/css" href="https://dokie.li/media/css/dokieli.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pdf_print.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script async="async" kind="dokieli" src="https://dokie.li/scripts/dokieli.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "CDenniston/NumericalMethodsModule");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/ErrorsModule/RoundoffAmplification';</script>
+    <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <script src="../../_static/save_state.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Forward and Backwards Errors" href="BackwardForwardConditioning.html" />
+    <link rel="prev" title="Finite Precision" href="FinitePrecision.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../about/syllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Numerical Methods - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Numerical Methods - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about/syllabus.html">
+                    Numerical Methods : Physics 9610 Module
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Bisection</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Newton.html">Faster Convergence and Newton’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/GeneralRoot.html">General Root Finding Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Linear Algebra</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Pivoting.html">Pivoting Strategies</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/SpecialMatrices.html">Special Matrices</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Interpolation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 5 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/NumDiffInt_Errors.html">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../NDiffInt/GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notes/ErrorsModule/RoundoffAmplification.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Roundoff Error Amplification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="roundoff-error-amplification">
+<h1>Roundoff Error Amplification<a class="headerlink" href="#roundoff-error-amplification" title="Permalink to this heading">#</a></h1>
+<p>In addition to accumulation with each floating point operation, roundoff errors can be magnified by</p>
+<ol class="arabic simple">
+<li><p>Multiplication by a large number or division by a small number.</p></li>
+<li><p>Adding numbers of very different magnitude.</p></li>
+<li><p>Subtractive cancellation (subtraction of numbers of similar magnitude).</p></li>
+</ol>
+<p>If we can possibly do something to avoid these magnification events or mitigate their effects it is usually worthwhile.  The issue with how multiplication by a large number or division by a small number can turn a small error into a large one should be fairly clear.  To illustrate the other ideas, we will look at a number of examples.</p>
+<p><em>Example 1.  Adding numbers of very different magnitude.</em></p>
+<p>Suppose you want to do a simulation of ocean waves.  Before you start, you have a couple of very basic decisions to make: (1) what units should you use and (2) where to place the origin (the zero).  Possible units could be miles, feet, kilometers, meters, or millimeters.  Hopefully you have enough science background to realize you should avoid miles and feet (NASA’s <a class="reference external" href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter">Mars climate orbiter</a> is a clear example of why to avoid imperial units).  The remaining choices may seem to be arbitrary.  However, let’s assume you plan on storing the height of the ocean surface using 32-bit floating point numbers.  Conceptually, suppose you decide it makes sense for these “heights” to always be positive so the origin should be at the bottom of the ocean, which at its deepest point is about 11 km below sea level.  If you decide to use units of meters, then most of your numbers of ocean height will then be around 11 000 m.  Suppose, in your simulation, wind starts a wave of initial height 1 mm (you have to start somewhere) which is easily measured in reality.  However, 1 mm = 0.001 m and if your code then has to execute <span class="math notranslate nohighlight">\( 11 000.000 + 0.001\)</span> you will get back <span class="math notranslate nohighlight">\(11 000.00\)</span> (i.e. there will be no change) because there are only about 6 digits of precision with 32-bit floating point numbers and this calculation would require at least 8 to be peformed without roundoff.  If instead, you accepted both positive and negative heights for your ocean surface and measured the ocean surface height from sea level, then most of your heights will be around 0 m.  A  change of 1 mm is now easily accomodated without being affected by roundoff errors as <span class="math notranslate nohighlight">\(0.000+0.001\)</span> will now give <span class="math notranslate nohighlight">\(0.001\)</span> with no loss in precision from roundoff at the seventh digit.  Here, you will note I have chosen the unit meters rather than mm or km.  Why is this the better choice?  In this case, waves are typically of the order of meters so this choice makes our heights of order 1 in magnitude.  As indicated, the real world measurements would typically have a resolution of 1 mm = 0.001 m so mm would not be a terrible choice here either.  However, km would not be a good choice as our heights would then be of order 0.001 and our resolution would be 0.000001.  Typing numbers in your code with a bunch of zeros or requiring explicitly filled in exponents is introducing a lot of opertunities for typos that may be very difficult to debug later.  In summary, pick units and an origin so that floating point numbers are, on average, of order one as much as possible.  This reduces both possibilities of roundoff errors and typos that might be hard to find.</p>
+<p><em>Example 2.  Adding numbers of very different magnitude.</em></p>
+<p>Suppose you want to sum the series</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=1}^\infty \frac{1}{n^2}\]</div>
+<p>to as high an accuracy as possible.  The exact answer here is <span class="math notranslate nohighlight">\(\pi^2/6 \approx 1.64493\)</span>.  Again, let’s assume we are storing intermediate results of our sum using 32-bit floating point arithmetic so again have only 6 decimal digits or precision.  Obviously you cannot sum an infinite number of terms so you decide to cut it off at 1 million terms, i.e. evaluate</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=1}^{10^6} \frac{1}{n^2}.\]</div>
+<p>The conventional way to evaluate this would be in order (so <span class="math notranslate nohighlight">\(1+1/2^2+1/3^2+...+1/(10^6)^2\)</span>).  If you do this you will get the result <span class="math notranslate nohighlight">\(1.64393\)</span>, so an absolute error of <span class="math notranslate nohighlight">\(0.001\)</span>.  This is much more than the roundoff error in a single computation and you might think there is nothing much you can do about this.   However, if you evaluate the sum in <em>reverse</em> order (i.e. <span class="math notranslate nohighlight">\(1/(10^6)^2 + ...+ 1/3^3 + 1/2^2 +1\)</span>) you will get an answer close to the machine epsilon from the “exact” answer of <span class="math notranslate nohighlight">\(1.64493\)</span>.  Why does this occur?  It turns out that if you sum the terms in order, roundoff errors mean that every term past about <span class="math notranslate nohighlight">\(n=1000\)</span> will end up contributing nothing to the sum.  This is again because the term we want to add, <span class="math notranslate nohighlight">\(1/1000^2 = 0.000001\)</span>, is being added to a number <span class="math notranslate nohighlight">\(1.64393\)</span> and the difference in magnitude of these numbers cannot be accomodated with the 6 digits of decimal precision we have with 32-bit floats.  However, when we sum the terms in reverse we only ever add terms of similar magnitude and this gives the very small terms (large <span class="math notranslate nohighlight">\(n\)</span>) a chance to add together to build a larger number as we get to the point where we are adding the larger terms (small <span class="math notranslate nohighlight">\(n\)</span>).</p>
+<p><em>Example 3. Subtractive cancellation.</em></p>
+<p>Subtractive cancellation is the converse problem to adding numbers of very different magnitude.  For example, suppose in Example 1 above we  had decided to use the bottom of the ocean as our origin so that our ocean height numbers were typically around 11 000.  Now imagine we are interested in computing the slope of the ocean surface at neighboring points where the actual difference in height is zero.  However, perhaps due to previous roundoff errors, one measurement is 11 000.02 m and the other is 10999.99 m.  The difference between these two values is 0.03 m = 3cm, much bigger than our desired resolution of mm, and even large if we assumed a resolution of 1 cm.  The solution in this case is again to use a sensible origin such as the average sea level so that the roundoff errors will be of the order of <span class="math notranslate nohighlight">\(10^{-6} m\)</span> so that any differences due to roundoff will be below our 1 mm resolution.</p>
+<p><em>Example 4. Division by a small number and Subtractive cancellation.</em></p>
+<p>Suppose you want to compute</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1-\cos x}{\sin x}.\]</div>
+<p>and we will assume <span class="math notranslate nohighlight">\(x\in [0,2\pi]\)</span>.  When <span class="math notranslate nohighlight">\(x\)</span> is small this formula suffers from two issues that can magnify roundoff errors: division by a small number (<span class="math notranslate nohighlight">\(\sin x \approx 0\)</span> when <span class="math notranslate nohighlight">\(x\)</span> is small) and subtractive cancellation (<span class="math notranslate nohighlight">\(\cos x \approx 1\)</span> when <span class="math notranslate nohighlight">\(x\)</span> is small).  A simple mathematical transformation that often allows you to eliminate subtractive cancellation is to multiply by the sum of the two terms in question in both a numerator and denominator of a fraction (so effectively multipying by one) and then rearranging the terms to eliminate the subtraction:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+f(x) &amp; = \frac{1-\cos x}{\sin x} \times \frac{1+\cos x}{1+\cos x}&amp;\\
+&amp; = \frac{1-\cos^2 x}{(1+\cos x)\sin x}&amp;\\
+&amp; = \frac{\sin x}{1+\cos x},
+\end{align}\end{split}\]</div>
+<p>where we have used the trig identity <span class="math notranslate nohighlight">\(1-\cos^2 x = \sin^2 x\)</span> to get the final result.  The resulting formula is mathematically equivalent to the original but no longer has either the division by a small number of the subtractive cancellation near <span class="math notranslate nohighlight">\(x=0\)</span>.  However, this formula <em>will</em> have issues near <span class="math notranslate nohighlight">\(x=\pi\)</span> as <span class="math notranslate nohighlight">\(\cos x \approx -1\)</span> near <span class="math notranslate nohighlight">\(x=\pi\)</span> which will again lead to subtractive cancellation and division by the resulting small number.  To solve both these issues one should first test <span class="math notranslate nohighlight">\(x\)</span> to decide if it is closer to <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(\pi\)</span> and then pick either the modified formula (when <span class="math notranslate nohighlight">\(x\)</span> is closer to zero) or the original (when <span class="math notranslate nohighlight">\(x\)</span> is closer to <span class="math notranslate nohighlight">\(\pi\)</span>).</p>
+<p><em>Example 5. Subtractive cancellation.</em></p>
+<p>Recall that the roots of <span class="math notranslate nohighlight">\(ax^2 + bx + c=0\)</span> are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_1 &amp;= \frac{-b + \sqrt{b^2-4ac}}{2a},&amp;\\
+x_2 &amp;= \frac{-b - \sqrt{b^2-4ac}}{2a}.
+\end{align}
+\end{split}\]</div>
+<p>Note that if <span class="math notranslate nohighlight">\(b^2 \gg 4ac\)</span> then <span class="math notranslate nohighlight">\(\sqrt{b^2-4ac} \approx |b|\)</span> so</p>
+<ul class="simple">
+<li><p>if <span class="math notranslate nohighlight">\(b&gt;0\)</span> then <span class="math notranslate nohighlight">\(x_1\)</span> involves subtraction of similar numbers (<span class="math notranslate nohighlight">\(x_2\)</span> is fine though),</p></li>
+<li><p>if <span class="math notranslate nohighlight">\(b&lt;0\)</span> then <span class="math notranslate nohighlight">\(x_2\)</span> involves subtraction of similar numbers (<span class="math notranslate nohighlight">\(x_1\)</span> is fine though).</p></li>
+</ul>
+<p>If we again apply the trick of multiplying by a fraction where denominator and numberator are both the sum of the terms in question we get for the <span class="math notranslate nohighlight">\(b&gt;0\)</span> case where we need to rewrite <span class="math notranslate nohighlight">\(x_1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_1 &amp;= \frac{-b + \sqrt{b^2-4ac}}{2a} \frac{-b - \sqrt{b^2-4ac}}{-b - \sqrt{b^2-4ac}},&amp;\\
+&amp;= \frac{-2c}{b + \sqrt{b^2-4ac}}.
+\end{align}
+\end{split}\]</div>
+<p>where a small amount of algebra is used to similify the final expression which no longer has the problem of subtracting similar numbers.  Note that you should only use this formula for <span class="math notranslate nohighlight">\(x_1\)</span> when <span class="math notranslate nohighlight">\(b&gt;0\)</span>.  When <span class="math notranslate nohighlight">\(b&lt;0\)</span> you should use the original formula for <span class="math notranslate nohighlight">\(x_1\)</span> and apply a similar transformation for <span class="math notranslate nohighlight">\(x_2\)</span> instead.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "CDenniston/NumericalMethodsModule",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes/ErrorsModule"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="FinitePrecision.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Finite Precision</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="BackwardForwardConditioning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Forward and Backwards Errors</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Colin Denniston
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

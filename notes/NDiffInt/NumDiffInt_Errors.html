@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Errors in Numerical Differentiation &#8212; Numerical Methods</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link media="all" rel="stylesheet" type="text/css" href="https://dokie.li/media/css/dokieli.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pdf_print.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom_layouts.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/extra.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script async="async" kind="dokieli" src="https://dokie.li/scripts/dokieli.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "CDenniston/NumericalMethodsModule");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/NDiffInt/NumDiffInt_Errors';</script>
+    <script src="../../_static/plausible_jupyterbookcoursetemplate.js"></script>
+    <script src="../../_static/save_state.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Numerical Integration" href="Int.html" />
+    <link rel="prev" title="Numerical Differentiation" href="NumDiffInt.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../about/syllabus.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Numerical Methods - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Numerical Methods - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about/syllabus.html">
+                    Numerical Methods : Physics 9610 Module
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 - Errors in Scientific Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Errors_summary.html">Numerical Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/Error_sources.html">Sources of Errors in Scientific Computing</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/TaylorExample.html">Truncation Error in Taylor’s series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/FinitePrecision.html">Finite Precision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/RoundoffAmplification.html">Roundoff Error Amplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ErrorsModule/BackwardForwardConditioning.html">Forward and Backwards Errors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 - Root Finding in 1D</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Root1D_summary.html">Root Finding in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Bisection.html">Bisection</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/FixedPoint.html">Fixed-Point Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/Newton.html">Faster Convergence and Newton’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Root1D/GeneralRoot.html">General Root Finding Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 3 - Numerical Linear Algebra</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Lin_Alg_summary.html">Numerical Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/GaussElimBackSub.html">Gaussian Elimination with Back Subsitution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/Pivoting.html">Pivoting Strategies</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/LUFactorization.html">LU Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinAlg/SpecialMatrices.html">Special Matrices</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4 - Interpolation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpFit_summary.html">Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/LagrangeForm.html">Lagrange Form of the Interpolation Polynomial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/BarycentricInterp.html">Barycentric Lagrange Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/InterpErrors.html">Interpolation Errors</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Chebyshev.html">Chebyshev Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpFit/Splines.html">Splines</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 5 - Numerical Differentiation &amp; Integration</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="NumDiffInt.html">Numerical Differentiation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Errors in Numerical Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Int.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HigherOrderInt.html">Higher Order Integration Schemes</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="GaussianInt.html">Gaussian Integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/coding-notes-general.html">Python &amp; programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-intro.html">Brief introduction to Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/python-virtual-environment.html">Python virtual environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/Linux-basics.html">Linux Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/install-wsl.html">Installation of tools: WSL2/Linux etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/linux-basic-commands-2.html">Linux: Some basic &amp; useful commands</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extras/editing-ascii.html">Other software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/vi-editor.html">The <code class="docutils literal notranslate"><span class="pre">vi</span></code> editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extras/helpful-software.html">Helpful software</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/CDenniston/NumericalMethodsModule/main?urlpath=lab/tree/notes/NDiffInt/NumDiffInt_Errors.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notes/NDiffInt/NumDiffInt_Errors.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Errors in Numerical Differentiation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="errors-in-numerical-differentiation">
+<span id="page-topic1"></span><h1>Errors in Numerical Differentiation<a class="headerlink" href="#errors-in-numerical-differentiation" title="Permalink to this heading">#</a></h1>
+<p>In order for the finite difference formulas derived in the previous section to be useful, we need to have some idea of the errors involved in using these formulas.  As mentioned, we are replacing <span class="math notranslate nohighlight">\(f(x)\)</span> with its polynomial interpolant <span class="math notranslate nohighlight">\(p_n(x)\)</span> and then taking the derivatives, so that</p>
+<div class="math notranslate nohighlight">
+\[ f'(x) = p_n'(x) + \epsilon'(x),\qquad f''(x) = p_n''(x) + \epsilon''(x).\]</div>
+<p>We need to <span class="math notranslate nohighlight">\(\epsilon'(x)\)</span> and <span class="math notranslate nohighlight">\(\epsilon''(x)\)</span> to determine the errors in the formulas we derived.</p>
+<p>First recall <a class="reference internal" href="../InterpFit/InterpErrors.html"><span class="doc std std-doc">the polynomial interpolation error</span></a> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation} \epsilon(x)= f(x)-p_n(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0}^n (x-x_j). \end{equation}\]</div>
+<p>Taking the derivative of this using the product rule yields</p>
+<div class="math notranslate nohighlight" id="equation-errprime">
+<span class="eqno">(27)<a class="headerlink" href="#equation-errprime" title="Permalink to this equation">#</a></span>\[
+\begin{equation} \epsilon'(x) = \frac{f^{n+1}(\xi)}{(n+1)!}\left[\sum_{k=0}^n \prod_{j=0,j\neq k}^n (x-x_j)\right] + \frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0}^n (x-x_j), \end{equation}\]</div>
+<p>where the second term arises from the fact that <span class="math notranslate nohighlight">\(\xi\)</span> may depend on <span class="math notranslate nohighlight">\(x\)</span>.  Evaluating this at one of the gridpoints, say <span class="math notranslate nohighlight">\(x_i\)</span>, simplifies the expression considerably as all but one of the terms contain the factor <span class="math notranslate nohighlight">\((x_i-x_i)\)</span>,</p>
+<div class="math notranslate nohighlight" id="equation-pprimeerr">
+<span class="eqno">(28)<a class="headerlink" href="#equation-pprimeerr" title="Permalink to this equation">#</a></span>\[
+\begin{equation} \epsilon'(x_i) = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j). \end{equation}\]</div>
+<p>We can now use this expression for the errors in our first derivative finite difference formulas.  Before we do, let’s derive the error formula for the second derivatives.</p>
+<p>Taking the derivative <a class="reference internal" href="#equation-errprime">(27)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align} \epsilon''(x) = &amp; \frac{f^{n+1}(\xi)}{(n+1)!}\left[ \sum_{k=0}^n \sum_{m=0, m\neq k}^n \prod_{j=0,j\neq k,m}^n (x-x_j)\right]\\
+&amp; + \frac{f^{n+2}(\xi)\xi''+f^{n+3}(\xi)\xi'}{(n+1)!}\prod_{j=0}^n (x-x_j) \\
+&amp;+ \frac{f^{n+2}(\xi)\xi'}{(n+1)!}\left[\sum_{k=0}^n \prod_{j=0,j\neq k}^n (x-x_j)\right],\end{align}\end{split}\]</div>
+<p>Evaluating this at one of the gridpoints, say <span class="math notranslate nohighlight">\(x_i\)</span>, simplifies the expression to,</p>
+<div class="math notranslate nohighlight" id="equation-ppperr">
+<span class="eqno">(29)<a class="headerlink" href="#equation-ppperr" title="Permalink to this equation">#</a></span>\[\begin{split}
+\begin{align}
+\epsilon''(x_i) &amp;=\frac{f^{n+1}(\xi)}{(n+1)!}\left[\sum_{m=0,m\neq i}^n \prod_{j=0, j\neq i,m} (x_i-x_j) + \sum_{k=0,k\neq i}^n \prod_{j=0, j\neq i,k} (x_i-x_j) \right] +\frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j),\\
+&amp;=\frac{2f^{n+1}(\xi)}{(n+1)!}\left[\sum_{k=0,k\neq i}^n \prod_{j=0, j\neq i,k} (x_i-x_j) \right] +\frac{f^{n+2}(\xi)\xi'}{(n+1)!}\prod_{j=0,j\neq i}^n (x_i-x_j).
+\end{align}\end{split}\]</div>
+<p>This is a bit messier than the error for the first derivative <a class="reference internal" href="#equation-pprimeerr">(28)</a>.  In most cases one can argue that the second term is small compared to the first as it contains one additional factor of the difference of grid points and one expects <span class="math notranslate nohighlight">\(\xi'\)</span> to be small.</p>
+<p><strong>Example: Error in the two point formulas</strong>  In the previous section, for two points <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1=x_0+h\)</span> we derived the forward/backwards difference formulae and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(28)</a> with <span class="math notranslate nohighlight">\(n=1\)</span> we straightforwardly get</p>
+<div class="math notranslate nohighlight">
+\[ \epsilon'(x_0) = \frac{f''(\xi)}{2}(-h),\quad \text{and}\quad  \epsilon'(x_1) = \frac{f''(\xi)}{2}(h),\]</div>
+<p>noting that <span class="math notranslate nohighlight">\(\xi\)</span> is not likely to be the same number in the two cases.  So, in summary, we now have</p>
+<div class="math notranslate nohighlight" id="equation-twopoint">
+<span class="eqno">(30)<a class="headerlink" href="#equation-twopoint" title="Permalink to this equation">#</a></span>\[\begin{split}
+\begin{equation}
+\left[{\begin{array}{c}
+f'(x_0) \\
+f'(x_1) \\
+\end{array}} \right] =
+\left[{\begin{array}{c}
+\frac{f(x_1)-f(x_0)}{h} \\
+\frac{f(x_1)-f(x_0)}{h} \\
+\end{array}} \right] +
+\left[{\begin{array}{c}
+  -\frac{h}{2}f''(\xi) \\
+   \frac{h}{2}f''(\xi) \\
+\end{array}} \right].
+\end{equation}
+\end{split}\]</div>
+<p><strong>Example: Error in the three point formulae</strong>  In the previous section, for three points <span class="math notranslate nohighlight">\(x_0,\,x_1=x_0+h,\)</span> and <span class="math notranslate nohighlight">\(x_2=x_0+2h,\)</span> <span class="math notranslate nohighlight">\(x_0\)</span> we derived finite difference formulae for first and second derivatives and we would now like to know the error in using these formulae.  Using <a class="reference internal" href="#equation-pprimeerr">(28)</a> with <span class="math notranslate nohighlight">\(n=2\)</span> we straightforwardly get the result for the first derivatives:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\left[{\begin{array}{c}
+f'(x_0) \\
+f'(x_1) \\
+f'(x_2)
+\end{array}} \right] =
+\left[{\begin{array}{c}
+\frac{-3f(x_0)+4f(x_1)-f(x_2)}{2h} \\
+\frac{f(x_2)-f(x_0)}{2h} \\
+\frac{3f(x_2)-4f(x_1)+f(x_0)}{2h}
+\end{array}} \right] +
+\left[{\begin{array}{c}
+  \frac{h^2}{3}f^{(3)}(\xi) \\
+  -\frac{h^2}{6}f^{(3)}(\xi) \\\
+  \frac{h^2}{3}f^{(3)}(\xi) \\
+\end{array}} \right].
+\end{equation}
+\end{split}\]</div>
+<p>First note that the errors here are <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span> compared to <a class="reference internal" href="#equation-twopoint">(30)</a> for the two-point formulae which are <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.  So, assuming <span class="math notranslate nohighlight">\(h\)</span> is small, these do indeed have a higher order accuracy.  Further, the error in the <em>central</em> difference formula is <em>half</em> that of the backward/forward differences.  As a result, the central difference formula is the one most widely used.</p>
+<p>We now turn to the second derivative errors.  At <span class="math notranslate nohighlight">\(x_0\)</span> <a class="reference internal" href="#equation-ppperr">(29)</a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\epsilon''(x_0) &amp;= 2\frac{f^{(3)}(\xi)}{3!}\left[(x_0-x_1)+(x_0-x_2)\right]+\frac{f^{(4)}(\xi)\xi'}{3!}(x_0-x_1)(x_0-x_2)\\
+&amp;= -f^{(3)}(\xi) h + \frac{f^{(4)}(\xi)\xi'}{3}h^2.
+\end{align}
+\end{split}\]</div>
+<p>At <span class="math notranslate nohighlight">\(x_1\)</span> we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\epsilon''(x_1) &amp;= 2\frac{f^{(3)}(\xi)}{3!}\left[(x_1-x_0)+(x_1-x_2)\right]+\frac{f^{(4)}(\xi)\xi'}{3!}(x_1-x_0)(x_1-x_2)\\
+&amp;= -\frac{f^{(4)}(\xi)\xi'}{6} h^2.
+\end{align}
+\end{split}\]</div>
+<p>These, together with the result at <span class="math notranslate nohighlight">\(x_2\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\left[{\begin{array}{c}
+f''(x_0) \\
+f''(x_1) \\
+f''(x_2)
+\end{array}} \right] =
+\left[{\begin{array}{c}
+\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2} \\
+\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2} \\
+\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}
+\end{array}} \right] +
+\left[{\begin{array}{c}
+  -h f^{(3)}(\xi) \\
+  -\frac{h^2}{6}f^{(4)}(\xi)\xi' \\\
+  h f^{(3)}(\xi) \\
+\end{array}} \right],
+\end{equation}
+\end{split}\]</div>
+<p>where we have dropped the higher order error terms.  Note that even through the approximation formula is the same for all 3 points, the error in this formula is much worse at the endpoints (<span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span> versus <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>).  In homework you will see that you can also derive the central difference formula using a Taylor series expansion (including errors) about <span class="math notranslate nohighlight">\(x_1\)</span> and then using the mean value theorem to combine the errors at the points <span class="math notranslate nohighlight">\(x_1\pm h\)</span> at a new, also unknown, point <span class="math notranslate nohighlight">\(\eta\)</span> to get</p>
+<div class="math notranslate nohighlight">
+\[ f''(x_1) \approx \frac{f(x_0)-2f(x_1)+f(x_2)}{h^2} -\frac{h^2}{12}f^{(4)}(\eta). \]</div>
+<section id="stability">
+<h2>Stability<a class="headerlink" href="#stability" title="Permalink to this heading">#</a></h2>
+<p>The central difference formula we derived</p>
+<div class="math notranslate nohighlight">
+\[
+f'(x_1)=\frac{f(x_2)-f(x_0)}{2h}-\frac{h^2}{6}f^{(3)}(\xi),
+\]</div>
+<p>involves two things we warned about when we talked about <a class="reference internal" href="../ErrorsModule/RoundoffAmplification.html"><span class="doc std std-doc">roundoff errors</span></a>.  Namely, subtraction of two similar numbers, the <span class="math notranslate nohighlight">\(f(x_2)-f(x_0)\)</span>, and division by a small number <span class="math notranslate nohighlight">\(h\)</span>.  As a result, attempting to obtain the “exact” value of <span class="math notranslate nohighlight">\(f'(x_1)\)</span> by taking ever smaller <span class="math notranslate nohighlight">\(h\)</span> is <strong>not</strong> a numerically stable operation as we will now demonstrate.</p>
+<p>As in our discussion of <a class="reference internal" href="#../ErrorsModule/HornersAlgorithm"><span class="xref myst">roundoff errors</span></a> let <span class="math notranslate nohighlight">\(\mathcal{fl}(.)\)</span> denote the finite precision arithmetic on the computer, i.e.</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{fl}(f(x))=f(x) + e_r(x)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(e_r\)</span> is the roundoff error.  The error in evaluation of the central difference formula on a computer is then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+E(h) &amp;= \left|f'(x_1)-\mathcal{fl}\left(\frac{f(x_2)-f(x_0)}{2h} \right)\right|, \\
+&amp;= \left|-\frac{h^2}{6}f^{(3)}(\xi) + \frac{e_r(x_2)-e_r(x_0)}{2h}\right|,
+\end{align}
+\end{split}\]</div>
+<p>where the second term comes from the fact that we cannot evaluate the central difference exactly using finite precision arithemetic.  The roundoff errors here are unlikely to be correlated and, in particular, are as likely to be positive as negative.  We do expect it to be bounded so let’s assume <span class="math notranslate nohighlight">\(|e_r(x)|&lt;\beta\)</span>.  Putting this together, along with use of the triangle inequality gives</p>
+<div class="math notranslate nohighlight">
+\[
+E(h) \leq \frac{\beta}{h} + \frac{h^2}{6}|f^{(3)}(\xi)|.
+\]</div>
+<p>Note that while the truncation error (the second term) decreases as <span class="math notranslate nohighlight">\(h\)</span> gets smaller, the roundoff error <em>increases</em> as <span class="math notranslate nohighlight">\(h\)</span> gets smaller.  As a result, there is actually an <em>optimal</em> <span class="math notranslate nohighlight">\(h\)</span> to minimize the error.  To find this we take the derivative of <span class="math notranslate nohighlight">\(E(h)\)</span> and set it to zero to get</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dE}{dh}\approx -\frac{\beta}{h^2}+\frac{h}{3}|f^{(3)}(\xi)| = 0.
+\]</div>
+<p>Solving this for the optimal <span class="math notranslate nohighlight">\(h_{op}\)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[
+h_{op}=  \sqrt[3]{\frac{3 \beta}{|f^{(3)}(\xi)|}}.
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(f(x)\sim 1\)</span> we would expect the roundoff to be of order of the machine epsilon <span class="math notranslate nohighlight">\(\epsilon_r\)</span>.  For <span class="math notranslate nohighlight">\(f(x)\)</span> not of order unity, we would expect <span class="math notranslate nohighlight">\(\beta \approx \epsilon_r |f(x)|\)</span>. So around a given <span class="math notranslate nohighlight">\(x\)</span> we expect roughly</p>
+<div class="math notranslate nohighlight" id="equation-hop">
+<span class="eqno">(31)<a class="headerlink" href="#equation-hop" title="Permalink to this equation">#</a></span>\[
+h_{op}\approx  \sqrt[3]{\frac{3 \epsilon_r |f(x)|}{|f^{(3)}(x)|}}.
+\]</div>
+<p><strong>Example</strong> Suppose we use the central difference formula to evaluate the derivative of <span class="math notranslate nohighlight">\(f(x)=e^x\)</span>.  What is the error and what is the optimal <span class="math notranslate nohighlight">\(h_{op}\)</span>?</p>
+<p>First note that we can work out the analytic derivative (<span class="math notranslate nohighlight">\(f'(x)=e^x\)</span>) and the third derivative here (<span class="math notranslate nohighlight">\(f^{(3)}(x)=e^x\)</span>).  In this case, <a class="reference internal" href="#equation-hop">(31)</a> then gives,</p>
+<div class="math notranslate nohighlight">
+\[
+h_{op}=6.7\times 10^{-6}.
+\]</div>
+<p>We can test this assertion with a short python script:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="n">err</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">h</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">h</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">h</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">err</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$h$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;absolute error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/09e3ba6742d6a59f91c58f0162f083caf69188656d4c082b901fe26d6ff01205.png" src="../../_images/09e3ba6742d6a59f91c58f0162f083caf69188656d4c082b901fe26d6ff01205.png" />
+</div>
+</div>
+<p>Indeed, we do see the minimum in the error plot is around our calculated <span class="math notranslate nohighlight">\(h_{op}\)</span>.  Interestingly, the error using <span class="math notranslate nohighlight">\(h=10^{-12}\)</span> is comparable to the error using <span class="math notranslate nohighlight">\(h=10^{-2}\)</span>.  Also, the part of the curve dominated by roundoff errors (<span class="math notranslate nohighlight">\(h&lt;h_{op}\)</span>) is quite noisy.  This is simply a refection of the somewhat unpreditable nature or roundoff errors.  Importantly, our arguments correctly predict the trends here.  In practise, though, one should keep in mind that roundoff errors may fluctuate an order or magnitude around these trends.</p>
+<p>Note that similar problems arise when attempting to apply numerical differentiation to noisy data (data with stochastic noise).  A similar construction, with the errors being from stochastic noise rather than roundoff, limits how small <span class="math notranslate nohighlight">\(h\)</span> can be before the results for the derivative become less accurate.  In this case, a presmoothing operation to reduce the noise amplitude should be applied before attempting to construct a finite difference for the derivative.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "CDenniston/NumericalMethodsModule",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes/NDiffInt"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NumDiffInt.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Numerical Differentiation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Int.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Numerical Integration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Colin Denniston
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+    All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
