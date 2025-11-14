@@ -20,7 +20,7 @@ The last three sources of error will be something we will cover in detail in thi
 
 ## Quantifying Error
 
-To quantify error we need to first define what we mean.
+To quantify error we first need to define what we mean.
 If $p^*$ is an approximation to $p$, then:
 
 -the *absolute* error is $|p-p^*|$,
